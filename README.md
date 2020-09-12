@@ -3,15 +3,15 @@ game
 
 This project implements the game of Breakout.
 
-Name: 
+Name: Alex Chao
 
 ### Timeline
 
-Start Date: 
+Start Date: 9/12/2020
 
 Finish Date: 
 
-Hours Spent:
+Hours Spent (Alex): 2.5 hours
 
 ### Resources Used
 

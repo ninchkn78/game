@@ -9,9 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -44,7 +42,7 @@ public class Main extends Application {
     private Scene myScene;
     private Rectangle myMover;
     private Rectangle myGrower;
-    private Circle myRacer;
+    private Paddle myPaddle;
 
 
     /**
@@ -71,9 +69,11 @@ public class Main extends Application {
         Group root = new Group();
         // make some shapes and set their properties
         LevelConfig config = new LevelConfig();
-        config.addBlocksToRoot(root,"level1.txt");
+        config.setUpLevel(1,root);
+        myPaddle = config.myPaddle;
         Scene scene = new Scene(root, width, height, background);
         // respond to input
+        scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         return scene;
     }
 
@@ -83,6 +83,16 @@ public class Main extends Application {
     // - goals, did the game or level end?
     void step (double elapsedTime) {
 
+    }
+
+    private void handleKeyInput (KeyCode code) {
+
+        // NEW syntax with Java 13 that some prefer over IF statements
+        switch (code) {
+            case LEFT, RIGHT -> myPaddle.movePaddle(code);
+            case UP -> myMover.setY(myMover.getY() - MOVER_SPEED);
+            case DOWN -> myMover.setY(myMover.getY() + MOVER_SPEED);
+        }
     }
 
 

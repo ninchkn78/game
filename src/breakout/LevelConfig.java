@@ -6,24 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 
 public class LevelConfig {
   private final static int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
+  public Paddle myPaddle;
   private List<String[]> readBlockFile(String dataSource){
     List<String[]> blocks = new ArrayList<>();
     InputStream textFile = null;
@@ -41,7 +30,7 @@ public class LevelConfig {
     }
     return blocks;
   }
-  void addBlocksToRoot(Group root, String dataSource){
+  void setUpBlocks(Group root, String dataSource){
     int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
     for(String[] row : blockFile){
@@ -58,6 +47,19 @@ public class LevelConfig {
       return new ExampleBlock(rowNum,colNum,BLOCK_WIDTH, BLOCK_HEIGHT);
     }
     return null;
+  }
+
+  public void setUpPaddle(Group root){
+    myPaddle = new Paddle(200,300,75,10);
+    root.getChildren().add(myPaddle);
+  }
+
+  public void setUpLevel(int level, Group root){
+    if(level == 1){
+      //change later to just be one statement
+      setUpBlocks(root,"level1.txt");
+      setUpPaddle(root);
+    }
   }
   public static void main(String args[]){
     LevelConfig level = new LevelConfig();
