@@ -20,7 +20,10 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 public class LevelConfig {
+  private final static int BLOCK_WIDTH = 50;
+  private final static int BLOCK_HEIGHT = 10;
   private List<String[]> readBlockFile(String dataSource){
     List<String[]> blocks = new ArrayList<>();
     InputStream textFile = null;
@@ -39,20 +42,20 @@ public class LevelConfig {
     return blocks;
   }
   void addBlocksToRoot(Group root, String dataSource){
-    int rowNum = 0, colNum;
+    int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
     for(String[] row : blockFile){
-      colNum = 0;
+      rowNum = 0;
       for(String blockType : row){
         root.getChildren().add(getBlock(blockType,rowNum,colNum));
-        colNum++;
+        rowNum++;
       }
-      rowNum++;
+      colNum++;
     }
   }
   private Block getBlock(String blockType, int rowNum, int colNum){
     if(blockType.equals("0")){
-      return new ExampleBlock(rowNum,colNum);
+      return new ExampleBlock(rowNum,colNum,BLOCK_WIDTH, BLOCK_HEIGHT);
     }
     return null;
   }

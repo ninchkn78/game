@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public abstract class Block extends Rectangle {
+  public Block(int row, int col, int width, int height){
+    super(row,col,width,height);
+  }
   public abstract void handleHit();
   }
 
