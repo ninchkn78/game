@@ -1,5 +1,5 @@
 # Game Plan
-## NAMEs
+## Alex Chao
 
 
 ### Breakout Variation Ideas
@@ -13,74 +13,84 @@
 
 #### Block Ideas
 
- * Block 1
+ * Normal Block, breaks on one hit 
 
- * Block 2
+ * Buff block, takes multiple hits to break
 
- * Block 3
+ * Bomb block, breaks blocks near it 
+ 
+ * 
 
 
 #### Power Up Ideas
 
- * Power Up 1
+ * Speed up paddle 
 
- * Power Up 2
+ * Makes ball do more damage 
 
- * Power Up 3
+ * Wider paddle 
+ 
+ * Extra life/immunity 
 
 
 #### Cheat Key Ideas
 
- * Cheat Key 1
+ * "R" - resets ball and paddle 
+ 
+ * " " - pause/unpause game 
 
- * Cheat Key 2
+ * "Tab" -go to next level
 
- * Cheat Key 3
+ * "$" - no death (ball bounces up from bottom)
 
- * Cheat Key 4
+ * "+/-" speed up or slow down ball 
 
 
 #### Level Descriptions
 
  * Level 1
-   * Block Configuration
+   * Grid of blocks 
 
-   * Variation features
+   * all blocks take one hit to break, normal speed of paddle, normal speed of ball, no powerups,
+   paddle is at the bottom, 5 lives  
 
  * Level 2
-   * Block Configuration
+   * shell, middle is open, powerups are protected by other blocks,
 
-   * Variation features
+   * paddle is at the top, introduce powerups, some rise up randomly and some come from blocks, time 
+   limit, 3 lives
 
  * Level 3
-   * Block Configuration
+   * Blocks surround the paddle from the top and bottom 
 
-   * Variation features
+   * power downs (slow down paddle, speed up ball), two balls, paddle in middle, 1 life
 
 
 ### Possible Classes
 
- * Class 1
+ * Block
+   * represents a block 
+
+   * handleHit method that determines what happens when the ball hits the block
+
+ * Paddle
+   * represents the player controlled paddle 
+
+   * movePaddle method 
+
+ * LevelConfig
+   * sets up the scene for the current level that the player is on 
+
+   * 
+
+ * Ball 
    * Purpose
 
    * Method
 
- * Class 2
+ * Powerup 
    * Purpose
 
    * Method
-
- * Class 3
-   * Purpose
-
-   * Method
-
- * Class 4
-   * Purpose
-
-   * Method
-
- * Class 5
-   * Purpose
-
-   * Method
+   
+ * Styles
