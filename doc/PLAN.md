@@ -13,69 +13,75 @@
 
 #### Block Ideas
 
- * Block 1
+ * Normal Block, breaks on one hit 
 
- * Block 2
+ * Buff block, takes multiple hits to break
 
- * Block 3
+ * Bomb block, breaks blocks near it 
+ 
+ * 
 
 
 #### Power Up Ideas
 
- * Power Up 1
+ * Speed up paddle 
 
- * Power Up 2
+ * Makes ball do more damage 
 
- * Power Up 3
+ * Wider paddle 
+ 
+ * Extra life/immunity 
 
 
 #### Cheat Key Ideas
 
- * "R" -resets ball and paddle 
+ * "R" - resets ball and paddle 
  
  * " " - pause/unpause game 
 
  * "Tab" -go to next level
 
- * 
+ * "$" - no death (ball bounces up from bottom)
 
- * Cheat Key 4
+ * "+/-" speed up or slow down ball 
 
 
 #### Level Descriptions
 
  * Level 1
-   * Block Configuration
+   * Grid of blocks 
 
-   * Variation features
+   * all blocks take one hit to break, normal speed of paddle, normal speed of ball, no powerups,
+   paddle is at the bottom, 5 lives  
 
  * Level 2
-   * Block Configuration
+   * shell, middle is open, powerups are protected by other blocks,
 
-   * Variation features
+   * paddle is at the top, introduce powerups, some rise up randomly and some come from blocks, time 
+   limit, 3 lives
 
  * Level 3
-   * Block Configuration
+   * Blocks surround the paddle from the top and bottom 
 
-   * Variation features
+   * power downs (slow down paddle, speed up ball), two balls, paddle in middle, 1 life
 
 
 ### Possible Classes
 
  * Block
-   * Purpose
+   * represents a block 
 
-   * Method
+   * handleHit method that determines what happens when the ball hits the block
 
  * Paddle
-   * Purpose
+   * represents the player controlled paddle 
 
-   * Method
+   * movePaddle method 
 
- * DataReader
-   * Purpose
+ * LevelConfig
+   * sets up the scene for the current level that the player is on 
 
-   * Method
+   * 
 
  * Ball 
    * Purpose
