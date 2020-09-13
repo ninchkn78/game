@@ -10,7 +10,8 @@ import javafx.scene.Group;
 
 
 public class LevelConfig {
-  private final static int BLOCK_WIDTH = 50;
+  private final
+  static int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   public Paddle myPaddle;
   private List<String[]> readBlockFile(String dataSource){
@@ -49,7 +50,7 @@ public class LevelConfig {
     return null;
   }
 
-  public void setUpPaddle(Group root){
+  private void setUpPaddle(Group root){
     myPaddle = new Paddle(200,300,75,10);
     root.getChildren().add(myPaddle);
   }
