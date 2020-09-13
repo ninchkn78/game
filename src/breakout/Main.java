@@ -27,7 +27,7 @@ public class Main extends Application {
     // some things needed to remember during game
     private Scene myScene;
     private Paddle myPaddle;
-//comment
+//testing branch
     /**
      * Initialize what will be displayed and how it will be updated.
      */
