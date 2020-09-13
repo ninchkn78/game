@@ -14,36 +14,19 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-/**
- * A simple "game" of racers moving across the screen (like those carnival games with squirt guns).
- *
- * @author Robert C. Duvall
- */
 public class Main extends Application {
-    public static final String TITLE = "Racer JavaFX";
+    public static final String TITLE = "Breakout";
     public static final int SIZE = 400;
     public static final int FRAMES_PER_SECOND = 60;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     public static final Paint BACKGROUND = Color.AZURE;
     public static final Paint HIGHLIGHT = Color.OLIVEDRAB;
     public static final Paint RACER_COLOR = Color.HOTPINK;
-    public static final int RACER_SIZE = 30;
-    public static final int RACER_SPEED = 40;
-    public static final Paint MOVER_COLOR = Color.PLUM;
-    public static final int MOVER_SIZE = 50;
-    public static final int MOVER_ROUNDING = 15;
-    public static final int MOVER_SPEED = 5;
-    public static final Paint GROWER_COLOR = Color.BISQUE;
-    public static final double GROWER_RATE = 1.1;
-    public static final int GROWER_SIZE = 50;
-    public static final int VERTICAL_OFFSET = 80;
+
 
     // some things needed to remember during game
     private Scene myScene;
-    private Rectangle myMover;
-    private Rectangle myGrower;
     private Paddle myPaddle;
-
 
     /**
      * Initialize what will be displayed and how it will be updated.
