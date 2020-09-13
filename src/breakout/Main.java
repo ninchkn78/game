@@ -71,14 +71,9 @@ public class Main extends Application {
     private void handleKeyInput (KeyCode code) {
 
         // NEW syntax with Java 13 that some prefer over IF statements
-        switch (code) {
-            case LEFT, RIGHT -> myPaddle.movePaddle(code);
-            case UP -> myMover.setY(myMover.getY() - MOVER_SPEED);
-            case DOWN -> myMover.setY(myMover.getY() + MOVER_SPEED);
-        }
+
+
     }
-
-
     /**
      * Start the program.
      */
