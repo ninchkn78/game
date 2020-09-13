@@ -1,5 +1,5 @@
 # Game Plan
-## NAMEs
+## Alex Chao
 
 
 ### Breakout Variation Ideas
@@ -31,11 +31,13 @@
 
 #### Cheat Key Ideas
 
- * Cheat Key 1
+ * "R" -resets ball and paddle 
+ 
+ * " " - pause/unpause game 
 
- * Cheat Key 2
+ * "Tab" -go to next level
 
- * Cheat Key 3
+ * 
 
  * Cheat Key 4
 
@@ -60,27 +62,29 @@
 
 ### Possible Classes
 
- * Class 1
+ * Block
    * Purpose
 
    * Method
 
- * Class 2
+ * Paddle
    * Purpose
 
    * Method
 
- * Class 3
+ * DataReader
    * Purpose
 
    * Method
 
- * Class 4
+ * Ball 
    * Purpose
 
    * Method
 
- * Class 5
+ * Powerup 
    * Purpose
 
    * Method
+   
+ * Styles

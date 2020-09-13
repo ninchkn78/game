@@ -11,7 +11,7 @@ Start Date: 9/12/2020
 
 Finish Date: 
 
-Hours Spent (Alex): 2.5 hours
+Hours Spent (Alex): 3.0 hours
 
 ### Resources Used
 
