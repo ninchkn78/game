@@ -37,7 +37,9 @@ public class LevelConfig {
     for(String[] row : blockFile){
       rowNum = 0;
       for(String blockType : row){
-        root.getChildren().add(getBlock(blockType,rowNum,colNum));
+        Block block = getBlock(blockType,rowNum,colNum);
+        block.setId(String.format("%d,%d",rowNum,colNum));
+        root.getChildren().add(block);
         rowNum++;
       }
       colNum++;
@@ -52,6 +54,7 @@ public class LevelConfig {
 
   private void setUpPaddle(Group root){
     myPaddle = new Paddle(200,300,75,10);
+    myPaddle.setId("myPaddle");
     root.getChildren().add(myPaddle);
   }
 

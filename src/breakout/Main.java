@@ -9,14 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
 public class Main extends Application {
     public static final String TITLE = "Breakout";
-    public static final int SIZE = 400;
+    public static final int SIZE = 350;
     public static final int FRAMES_PER_SECOND = 60;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     public static final Paint BACKGROUND = Color.AZURE;
@@ -73,8 +72,6 @@ public class Main extends Application {
         // NEW syntax with Java 13 that some prefer over IF statements
         switch (code) {
             case LEFT, RIGHT -> myPaddle.movePaddle(code);
-            case UP -> myMover.setY(myMover.getY() - MOVER_SPEED);
-            case DOWN -> myMover.setY(myMover.getY() + MOVER_SPEED);
         }
     }
 
