@@ -27,12 +27,12 @@ public class Main extends Application {
     // some things needed to remember during game
     private Scene myScene;
     private Paddle myPaddle;
-<<<<<<< HEAD
+
 //testing branch
-=======
+
     private Ball myBall;
 
->>>>>>> f41e7ab8beeacb490af8db3c416ca9a1ac5bef72
+
     /**
      * Initialize what will be displayed and how it will be updated.
      */
@@ -75,10 +75,10 @@ public class Main extends Application {
     }
 
     private void handleKeyInput (KeyCode code) {
-<<<<<<< HEAD
+
 
         // NEW syntax with Java 13 that some prefer over IF statements
-=======
+
         //set up condition for when ball is not launched, ball gets moved too
         switch (code) {
             case LEFT, RIGHT -> {
@@ -90,21 +90,21 @@ public class Main extends Application {
             case SPACE -> setBallLaunched(true);
         }
     }
->>>>>>> f41e7ab8beeacb490af8db3c416ca9a1ac5bef72
+
 
     private void setBallLaunched(boolean status){
         ballLaunched = status;
     }
 
 
-<<<<<<< HEAD
-=======
+
+
     private void moveBall(double elapsedTime){
         if(ballLaunched == true){
             myBall.moveBall(elapsedTime);
         }
 
->>>>>>> f41e7ab8beeacb490af8db3c416ca9a1ac5bef72
+
     }
     /**
      * Start the program.
