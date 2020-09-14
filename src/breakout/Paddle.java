@@ -15,7 +15,8 @@ public class Paddle extends Rectangle {
     INITIAL_X = xPos;
     INITIAL_Y = yPos;
   }
-  public void reset(){
+
+  public void reset() {
     this.setX(INITIAL_X);
     this.setY(INITIAL_Y);
   }
