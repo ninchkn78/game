@@ -145,5 +145,28 @@ public class MainTest extends DukeApplicationTest {
     myGame.step(Main.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
   }
+  @Test
+  public void testPause(){
+    press(myScene, KeyCode.P);
+    myGame.step(Main.SECOND_DELAY);
+    testBallInitialPositionVelocity();
+    testPaddleInitialPosition();
+    press(myScene, KeyCode.P);
+    myGame.step(Main.SECOND_DELAY);
+    testBallMove();
+    testPaddleMove();
+  }
+  @Test
+  public void testReset(){
+    //launch ball
+    press(myScene, KeyCode.SPACE);
+    myGame.step(Main.SECOND_DELAY);
+    //reset
+    press(myScene, KeyCode.R);
+    //check initial positions
+    testBallInitialPositionVelocity();
+    testPaddleInitialPosition();
+
+  }
 
 }

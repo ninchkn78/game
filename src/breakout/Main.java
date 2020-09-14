@@ -22,12 +22,14 @@ public class Main extends Application {
     public static final Paint HIGHLIGHT = Color.OLIVEDRAB;
     public static final Paint RACER_COLOR = Color.HOTPINK;
 
-    private boolean ballLaunched;
+    private boolean ballLaunched = false;
+    private boolean gamePaused = false;
 
     // some things needed to remember during game
     private Scene myScene;
     private Paddle myPaddle;
     private Ball myBall;
+    private Timeline animation;
 
     /**
      * Initialize what will be displayed and how it will be updated.
@@ -41,7 +43,7 @@ public class Main extends Application {
         stage.show();
         // attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
         KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-        Timeline animation = new Timeline();
+        animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
@@ -52,7 +54,6 @@ public class Main extends Application {
         Group root = new Group();
         LevelConfig config = new LevelConfig();
         config.setUpLevel(1,root);
-        setBallLaunched(false);
         myPaddle = config.myPaddle;
         myBall = config.myBall;
         Scene scene = new Scene(root, width, height, background);
@@ -66,7 +67,9 @@ public class Main extends Application {
     // - collisions, did things intersect and, if so, what should happen
     // - goals, did the game or level end?
     void step(double elapsedTime) {
-        moveBall(elapsedTime);
+        if(!gamePaused) {
+            moveBall(elapsedTime);
+        }
 
     }
 
@@ -74,15 +77,22 @@ public class Main extends Application {
         //set up condition for when ball is not launched, ball gets moved too
         switch (code) {
             case LEFT, RIGHT -> {
-                myPaddle.movePaddle(code);
-                if(ballLaunched == false){
+                if(!gamePaused) {
+                    myPaddle.movePaddle(code);
+
+                if (!ballLaunched) {
                     myBall.moveBallWithPaddle(code);
-                }
+                }}
             }
             case SPACE -> setBallLaunched(true);
+            case P -> setGamePaused();
+            case R -> resetGame();
         }
     }
-
+    //how to stop paddle from moving too?
+    private void setGamePaused(){
+        gamePaused = !gamePaused;
+    }
     private void setBallLaunched(boolean status){
         ballLaunched = status;
     }
@@ -93,6 +103,11 @@ public class Main extends Application {
             myBall.moveBall(elapsedTime);
         }
 
+    }
+    private void resetGame(){
+        setBallLaunched(false);
+        myBall.reset();
+        myPaddle.reset();
     }
     /**
      * Start the program.
