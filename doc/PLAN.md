@@ -48,10 +48,16 @@
 
 
 #### Level Descriptions
-
+ * Common across levels 
+   * score displays based off of blocks broken 
+   
+   * level of lives displayed 
+   
+   * win and loss statements show up on screen 
+   
  * Level 1
    * Grid of blocks 
-
+   
    * all blocks take one hit to break, normal speed of paddle, normal speed of ball, no powerups,
    paddle is at the bottom, 5 lives  
 
