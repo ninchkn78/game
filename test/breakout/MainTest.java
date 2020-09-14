@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
+//need to ask about how to adapt these tests for higher levels
 public class MainTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
@@ -144,6 +144,29 @@ public class MainTest extends DukeApplicationTest {
     press(myScene, KeyCode.SPACE);
     myGame.step(Main.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
+  }
+  @Test
+  public void testPause(){
+    press(myScene, KeyCode.P);
+    myGame.step(Main.SECOND_DELAY);
+    testBallInitialPositionVelocity();
+    testPaddleInitialPosition();
+    press(myScene, KeyCode.P);
+    myGame.step(Main.SECOND_DELAY);
+    testBallMove();
+    testPaddleMove();
+  }
+  @Test
+  public void testReset(){
+    //launch ball
+    press(myScene, KeyCode.SPACE);
+    myGame.step(Main.SECOND_DELAY);
+    //reset
+    press(myScene, KeyCode.R);
+    //check initial positions
+    testBallInitialPositionVelocity();
+    testPaddleInitialPosition();
+
   }
 
 }
