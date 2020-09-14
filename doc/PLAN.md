@@ -6,7 +6,8 @@
 
 ### Interesting Existing Game Variations
 
- * Game 1
+ * Vortex, it was interesting to think about how to put the paddle somewhere else relationally to the blocks instead of 
+ just at the bottom 
 
  * Game 2
 
@@ -76,21 +77,21 @@
  * Paddle
    * represents the player controlled paddle 
 
-   * movePaddle method 
+   * movePaddle method moves the paddle 
 
  * LevelConfig
    * sets up the scene for the current level that the player is on 
 
-   * 
+   * setUpBlocks that given a textfile and a root, adds all the blocks specified in the text file to the root
 
  * Ball 
-   * Purpose
+   * represents the ball 
 
-   * Method
+   * handleBounce method that changes the direction of the ball when it hits something 
 
  * Powerup 
-   * Purpose
+   * represents the different types of powerups in the game 
 
-   * Method
+   * handlePowerup method that makes changes when the powerup hits the paddle 
    
  * Styles
