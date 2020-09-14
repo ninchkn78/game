@@ -81,19 +81,22 @@ public class Main extends Application {
 
   private void handleKeyInput(KeyCode code) {
     //set up condition for when ball is not launched, ball gets moved too
-    switch (code) {
-      case LEFT, RIGHT -> {
-        if (!gamePaused) {
-          myPaddle.movePaddle(code);
-
-          if (!ballLaunched) {
-            myBall.moveBallWithPaddle(code);
-          }
+    if (code.equals(KeyCode.LEFT) || code.equals(KeyCode.RIGHT)) {
+      if (!gamePaused) {
+        myPaddle.movePaddle(code);
+        if (!ballLaunched) {
+          myBall.moveBallWithPaddle(code);
         }
       }
-      case SPACE -> setBallLaunched(true);
-      case P -> setGamePaused();
-      case R -> resetGame();
+    }
+    if (code.equals(KeyCode.SHIFT)) {
+      setBallLaunched(true);
+    }
+    if (code.equals(KeyCode.SPACE)) {
+      setGamePaused();
+    }
+    if (code.equals(KeyCode.R)) {
+      resetGame();
     }
   }
 

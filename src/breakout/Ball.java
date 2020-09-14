@@ -17,9 +17,11 @@ public class Ball extends Circle {
   }
 
   public void moveBallWithPaddle(KeyCode code) {
-    switch (code) {
-      case LEFT -> this.setCenterX(this.getCenterX() - Paddle.MOVER_SPEED);
-      case RIGHT -> this.setCenterX(this.getCenterX() + Paddle.MOVER_SPEED);
+    if(code.equals(KeyCode.LEFT)){
+      this.setCenterX(this.getCenterX() - Paddle.MOVER_SPEED);
+    }
+    else if(code.equals(KeyCode.RIGHT)){
+      this.setCenterX(this.getCenterX() + Paddle.MOVER_SPEED);
     }
   }
 
