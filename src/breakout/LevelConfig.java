@@ -11,15 +11,22 @@ import javafx.scene.Group;
 
 public class LevelConfig {
 
-  private final
-  static int BLOCK_WIDTH = 50;
+  private final static int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   private static final int PADDLE_WIDTH = 75;
   private static final int PADDLE_XPOS = Main.SIZE / 2 - PADDLE_WIDTH / 2;
   private static final int PADDLE_YPOS = 300;
 
-  public Paddle myPaddle;
-  public Ball myBall;
+  private Paddle myPaddle;
+  private Ball myBall;
+
+  public Ball getMyBall() {
+    return myBall;
+  }
+
+  public Paddle getMyPaddle() {
+    return myPaddle;
+  }
 
   private List<String[]> readBlockFile(String dataSource) {
     List<String[]> blocks = new ArrayList<>();
@@ -45,12 +52,12 @@ public class LevelConfig {
     for (String[] row : blockFile) {
       rowNum = 0;
       for (String blockType : row) {
-          Block block = getBlock(blockType, rowNum, colNum);
-          if(block != null){
+        Block block = getBlock(blockType, rowNum, colNum);
+        if (block != null) {
           block.setId(String.format("%d,%d", rowNum, colNum));
           root.getChildren().add(block);
         }
-          rowNum++;
+        rowNum++;
 
       }
       colNum++;
@@ -77,14 +84,12 @@ public class LevelConfig {
     root.getChildren().add(myPaddle);
   }
 
+  //is this open closed principle ?
   public void setUpLevel(int level, Group root) {
-    String blockFile;
-    if (level == 1) {
-      //change later to just be one statement
-      blockFile = "level1.txt";
-      setUpBlocks(root,blockFile );
-      setUpPaddle(root);
-      setUpBall(root);
-    }
+    String blockFile = String.format("level%d.txt", level);
+    setUpBlocks(root, blockFile);
+    setUpPaddle(root);
+    setUpBall(root);
   }
 }
+

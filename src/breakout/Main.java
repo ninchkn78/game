@@ -60,8 +60,8 @@ public class Main extends Application {
     Group root = new Group();
     LevelConfig config = new LevelConfig();
     config.setUpLevel(1, root);
-    myPaddle = config.myPaddle;
-    myBall = config.myBall;
+    myPaddle = config.getMyPaddle();
+    myBall = config.getMyBall();
     Scene scene = new Scene(root, width, height, background);
     // respond to input
     scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
@@ -76,9 +76,9 @@ public class Main extends Application {
     if (!gamePaused) {
       moveBall(elapsedTime);
     }
-
   }
 
+  //ask about this method
   private void handleKeyInput(KeyCode code) {
     //set up condition for when ball is not launched, ball gets moved too
     if (code.equals(KeyCode.LEFT) || code.equals(KeyCode.RIGHT)) {
