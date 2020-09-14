@@ -65,7 +65,8 @@ public class Main extends Application {
     // - movement, how do things change over time
     // - collisions, did things intersect and, if so, what should happen
     // - goals, did the game or level end?
-    void step (double elapsedTime) {
+    void step(double elapsedTime) {
+        moveBall(elapsedTime);
 
     }
 
@@ -78,18 +79,21 @@ public class Main extends Application {
                     myBall.moveBallWithPaddle(code);
                 }
             }
-            case SPACE -> launchBall();
+            case SPACE -> setBallLaunched(true);
         }
     }
 
     private void setBallLaunched(boolean status){
         ballLaunched = status;
     }
-    private void launchBall(){
-        setBallLaunched(true);
+
+
+    private void moveBall(double elapsedTime){
+        if(ballLaunched == true){
+            myBall.moveBall(elapsedTime);
+        }
 
     }
-
     /**
      * Start the program.
      */
