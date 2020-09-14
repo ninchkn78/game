@@ -22,9 +22,11 @@ public class Paddle extends Rectangle {
   }
 
   public void movePaddle(KeyCode code) {
-    switch (code) {
-      case LEFT -> this.setX(this.getX() - MOVER_SPEED);
-      case RIGHT -> this.setX(this.getX() + MOVER_SPEED);
+    if(code.equals(KeyCode.LEFT)){
+      this.setX(this.getX() - MOVER_SPEED);
+    }
+    else if(code.equals(KeyCode.RIGHT)){
+      this.setX(this.getX() + MOVER_SPEED);
     }
   }
 }
