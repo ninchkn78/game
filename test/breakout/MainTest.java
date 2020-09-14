@@ -1,7 +1,10 @@
 package breakout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -49,12 +52,15 @@ public class MainTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testBallInitialPosition() {
+  public void testBallInitialPositionVelocity() {
+    assertEquals(350/2, myBall.getCenterX());
+    assertEquals(295, myBall.getCenterY());
+    assertEquals(5, myBall.getRadius());
+    myGame.step(Main.SECOND_DELAY);
     assertEquals(350/2, myBall.getCenterX());
     assertEquals(295, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
   }
-
 
   @Test
   public void testBLocksInitialPositions() {
@@ -129,6 +135,15 @@ public class MainTest extends DukeApplicationTest {
     assertEquals(100, myBall.getCenterX());
     assertEquals(100, myBall.getCenterY());
 
+  }
+  @Test
+  public void testBallMove () {
+    myBall.setCenterX(100);
+    myBall.setCenterY(100);
+    assertFalse(myBall.getCenterY() < 100);
+    press(myScene, KeyCode.SPACE);
+    myGame.step(Main.SECOND_DELAY);
+    assertTrue(myBall.getCenterY() < 100);
   }
 
 }
