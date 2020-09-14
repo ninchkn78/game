@@ -6,12 +6,10 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 
 public class Main extends Application {
 
@@ -21,8 +19,7 @@ public class Main extends Application {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
-  private boolean ballLaunched = false;
-  private boolean gamePaused = false;
+
 
   // some things needed to remember during game
   private Scene myScene;
@@ -30,11 +27,18 @@ public class Main extends Application {
   private Ball myBall;
   private Timeline animation;
 
+  private LevelConfig myConfig;
+  private GameLogic gameLogic;
+
   /**
    * Start the program.
    */
   public static void main(String[] args) {
     launch(args);
+  }
+
+  public LevelConfig getMyConfig() {
+    return myConfig;
   }
 
   /**
@@ -58,13 +62,12 @@ public class Main extends Application {
   // Create the game's "scene": what shapes will be in the game and their starting properties
   Scene setupScene(int width, int height, Paint background) {
     Group root = new Group();
-    LevelConfig config = new LevelConfig();
-    config.setUpLevel(1, root);
-    myPaddle = config.getMyPaddle();
-    myBall = config.getMyBall();
+    myConfig = new LevelConfig();
+    myConfig.setUpLevel(1, root);
+    gameLogic = new GameLogic(myConfig);
     Scene scene = new Scene(root, width, height, background);
     // respond to input
-    scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+    scene.setOnKeyPressed(e -> gameLogic.handleKeyInput(e.getCode()));
     return scene;
   }
 
@@ -73,53 +76,10 @@ public class Main extends Application {
   // - collisions, did things intersect and, if so, what should happen
   // - goals, did the game or level end?
   void step(double elapsedTime) {
-    if (!gamePaused) {
-      moveBall(elapsedTime);
-    }
+      gameLogic.moveBall(elapsedTime);
   }
 
-  //ask about this method
-  private void handleKeyInput(KeyCode code) {
-    //set up condition for when ball is not launched, ball gets moved too
-    if (code.equals(KeyCode.LEFT) || code.equals(KeyCode.RIGHT)) {
-      if (!gamePaused) {
-        myPaddle.movePaddle(code);
-        if (!ballLaunched) {
-          myBall.moveBallWithPaddle(code);
-        }
-      }
-    }
-    if (code.equals(KeyCode.SHIFT)) {
-      setBallLaunched(true);
-    }
-    if (code.equals(KeyCode.SPACE)) {
-      setGamePaused();
-    }
-    if (code.equals(KeyCode.R)) {
-      resetGame();
-    }
-  }
 
-  //how to stop paddle from moving too?
-  private void setGamePaused() {
-    gamePaused = !gamePaused;
-  }
 
-  private void setBallLaunched(boolean status) {
-    ballLaunched = status;
-  }
-
-  private void moveBall(double elapsedTime) {
-    if (ballLaunched) {
-      myBall.moveBall(elapsedTime);
-    }
-
-  }
-
-  private void resetGame() {
-    setBallLaunched(false);
-    myBall.reset();
-    myPaddle.reset();
-  }
 }
 
