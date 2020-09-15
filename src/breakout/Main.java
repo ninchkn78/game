@@ -72,12 +72,9 @@ public class Main extends Application {
   // - goals, did the game or level end?
 
        void step(double elapsedTime) {
-
             gameLogic.moveBall(elapsedTime);
             gameLogic.checkBallDropsThroughBottom();
             gameLogic.checkCollision();
-
-
         }
 
     }

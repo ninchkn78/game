@@ -195,14 +195,17 @@ public class MainTest extends DukeApplicationTest {
   @Test
   public void testBallIntoCorner(){
     //set ball in center of screen
-    myBall.setCenterX(350/2);
-    myBall.setCenterY(350/2);
-    //set direction towards bottom left
-    myBall.setDirection(-1,-1);
+    myBall.setCenterX(1);
+    myBall.setCenterY(1);
+    //set direction towards top left
+    myBall.setDirection(-1,1);
     press(myScene, KeyCode.SHIFT);
-    myGame.step(Main.SECOND_DELAY*500);
+
+    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Main.SECOND_DELAY);
+
     //check that it rebounds back exactly
     assertEquals(1,myBall.getDirectionX());
-    assertEquals(1,myBall.getDirectionY());
+    assertEquals(-1,myBall.getDirectionY());
   }
 }
