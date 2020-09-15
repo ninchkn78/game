@@ -25,6 +25,7 @@ public class Ball extends Circle {
     }
   }
 
+  //use triangles
   public void moveBall(double elapsedTime) {
     // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
     this.setCenterY(this.getCenterY() - BALL_SPEED * elapsedTime);

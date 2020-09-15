@@ -23,8 +23,6 @@ public class Main extends Application {
 
   // some things needed to remember during game
   private Scene myScene;
-  private Paddle myPaddle;
-  private Ball myBall;
   private Timeline animation;
 
   private LevelConfig myConfig;
@@ -35,10 +33,6 @@ public class Main extends Application {
    */
   public static void main(String[] args) {
     launch(args);
-  }
-
-  public LevelConfig getMyConfig() {
-    return myConfig;
   }
 
   /**
@@ -61,10 +55,10 @@ public class Main extends Application {
 
   // Create the game's "scene": what shapes will be in the game and their starting properties
   Scene setupScene(int width, int height, Paint background) {
-    Group root = new Group();
     myConfig = new LevelConfig();
-    myConfig.setUpLevel(1, root);
+    myConfig.setUpLevel(1);
     gameLogic = new GameLogic(myConfig);
+    Group root = myConfig.getRoot();
     Scene scene = new Scene(root, width, height, background);
     // respond to input
     scene.setOnKeyPressed(e -> gameLogic.handleKeyInput(e.getCode()));
