@@ -1,5 +1,5 @@
 # Game Plan
-## Alex Chao
+## Alex Chao & Christian Welch
 
 
 ### Breakout Variation Ideas
