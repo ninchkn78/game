@@ -12,6 +12,9 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main extends Application {
 
@@ -35,6 +38,9 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        LevelConfig config1 = new LevelConfig();
+        System.out.print(config1.getBlockLocations("level1.txt"));
+
     }
 
     /**
@@ -75,9 +81,17 @@ public class Main extends Application {
     void step(double elapsedTime) {
         if (!gamePaused) {
             moveBall(elapsedTime);
+            myBall.checkBallBlockCollision();
+            myBall.checkBallPaddleCollision(myPaddle);
+            if (myBall.checkBallDropsThroughBottom()){
+                myBall.reset();
+            }
+
         }
 
     }
+
+
 
     private void handleKeyInput(KeyCode code) {
         //set up condition for when ball is not launched, ball gets moved too
@@ -99,6 +113,8 @@ public class Main extends Application {
             resetGame();
         }
     }
+
+
 
     //how to stop paddle from moving too?
     private void setGamePaused() {
