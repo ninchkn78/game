@@ -55,7 +55,7 @@ public class LevelConfig {
     return blocks;
   }
 
-  void setUpBlocks(Group root, String dataSource) {
+  void setUpBlocks(String dataSource) {
     List<Block> blockLocations = getBlockLocations(dataSource);
     for (Block block: blockLocations){
       root.getChildren().add(block);
