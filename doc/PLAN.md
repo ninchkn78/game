@@ -9,7 +9,7 @@
  * Vortex, it was interesting to think about how to put the paddle somewhere else relationally to the blocks instead of 
  just at the bottom 
 
- * Game 2
+ * Super Breakout, the different powerups that were added made the game more dynamic and interesting
 
 
 #### Block Ideas
@@ -20,7 +20,6 @@
 
  * Bomb block, breaks blocks near it 
  
- * 
 
 
 #### Power Up Ideas
@@ -51,7 +50,7 @@
  * Common across levels 
    * score displays based off of blocks broken 
    
-   * level of lives displayed 
+   * number of lives displayed 
    
    * win and loss statements show up on screen 
    
