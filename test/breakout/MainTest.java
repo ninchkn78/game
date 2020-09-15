@@ -23,8 +23,6 @@ public class MainTest extends DukeApplicationTest {
   private Paddle myPaddle;
   private Ball myBall;
 
-
-
   /**
    * Start special test version of application that does not animate on its own before each test.
    * <p>
@@ -147,6 +145,7 @@ public class MainTest extends DukeApplicationTest {
     myGame.step(Main.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
   }
+
   @Test
   public void testPause(){
     press(myScene, KeyCode.SPACE);

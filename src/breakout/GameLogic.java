@@ -55,9 +55,24 @@ public class GameLogic {
     }
   }
 
-  private void resetGame() {
+  public void resetGame() {
     setBallLaunched(false);
     myBall.reset();
     myPaddle.reset();
   }
-}
+  public void checkCollision(){
+      myBall.checkBallBlockCollision();
+      myBall.checkBallPaddleCollision(myPaddle);
+  }
+  public void checkBallDropsThroughBottom(){
+    if (myBall.checkBallDropsThroughBottom()){
+     resetGame();
+    }
+  }
+
+
+
+
+
+    }
+
