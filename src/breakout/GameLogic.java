@@ -1,5 +1,7 @@
 package breakout;
 
+import java.util.List;
+import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 
 public class GameLogic {
@@ -8,11 +10,14 @@ public class GameLogic {
 
   private Ball myBall;
   private Paddle myPaddle;
+  private List<Block> blockList;
+  private Group root;
 
   public GameLogic(LevelConfig currentConfig) {
     myBall = currentConfig.getMyBall();
     myPaddle = currentConfig.getMyPaddle();
-
+    blockList = currentConfig.getBlockList();
+    root = currentConfig.getRoot();
   }
   //ask about this method if statements
   //ask about these methods in their own class
@@ -60,8 +65,18 @@ public class GameLogic {
     myBall.reset();
     myPaddle.reset();
   }
+  public void checkBallBlockCollision(Ball ball){
+    for(Block block : blockList){
+      if (ball.getBoundsInParent().intersects(block.getBoundsInParent())){
+        ball.setDirection(ball.getDirectionX(), ball.getDirectionY() * -1);
+        //this needs to be changed
+//        root.getChildren().remove(block);
+//        blockList.remove(block);
+      }
+    }
+  }
   public void checkCollision(){
-      myBall.checkBallBlockCollision();
+      checkBallBlockCollision(myBall);
       myBall.checkBallPaddleCollision(myPaddle);
   }
   public void checkBallDropsThroughBottom(){

@@ -40,27 +40,12 @@ public class Ball extends Circle {
     this.setCenterY(this.getCenterY() - BALL_SPEED * Y_DIRECTION * elapsedTime);
     this.setCenterX(this.getCenterX() + BALL_SPEED * X_DIRECTION* elapsedTime);
 
-
-
-
-
   }
 
   public boolean checkBallDropsThroughBottom() {
-    if (this.getCenterY() > 350) {
-      return true;
-    }
-    return false;
+    return this.getCenterY() > 350;
   }
-  public void checkBallBlockCollision(){
-    LevelConfig config = new LevelConfig();
-    List<Block> blockLocations = config.getBlockLocations("level1.txt");
-    for(Block block : blockLocations){
-      if (this.getBoundsInParent().intersects(block.getBoundsInParent())){
-        this.Y_DIRECTION *= -1;
-      }
-    }
-  }
+
 
   public void checkBallPaddleCollision(Paddle paddle){
     if (this.getBoundsInParent().intersects(paddle.getBoundsInParent())){

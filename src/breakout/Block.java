@@ -8,7 +8,7 @@ public abstract class Block extends Rectangle {
     super(row, col, width, height);
   }
 
-  public abstract void handleHit(Ball ball);
+  public abstract void handleHit();
 
 }
 

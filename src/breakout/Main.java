@@ -75,6 +75,7 @@ public class Main extends Application {
             gameLogic.moveBall(elapsedTime);
             gameLogic.checkBallDropsThroughBottom();
             gameLogic.checkCollision();
+
         }
 
     }
