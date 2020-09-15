@@ -84,7 +84,7 @@ public class Main extends Application {
             myBall.checkBallBlockCollision();
             myBall.checkBallPaddleCollision(myPaddle);
             if (myBall.checkBallDropsThroughBottom()){
-                myBall.reset();
+                resetGame();
             }
 
         }

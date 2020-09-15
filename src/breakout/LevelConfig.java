@@ -47,7 +47,7 @@ public class LevelConfig {
 
 
   }
-
+// need this to track collisions
   public List<Block> getBlockLocations(String dataSource){
     List<Block> blocks = new ArrayList<>();
     int rowNum, colNum = 0;

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.security.Key;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
@@ -192,5 +193,17 @@ public class MainTest extends DukeApplicationTest {
     assertEquals(175, myBall.getCenterX());
     assertEquals(295, myBall.getCenterY());
   }
-
+  @Test
+  public void testBallIntoCorner(){
+    //set ball in center of screen
+    myBall.setCenterX(350/2);
+    myBall.setCenterY(350/2);
+    //set direction towards bottom left
+    myBall.setDirection(-1,-1);
+    press(myScene, KeyCode.SHIFT);
+    myGame.step(Main.SECOND_DELAY*500);
+    //check that it rebounds back exactly
+    assertEquals(1,myBall.getDirectionX());
+    assertEquals(1,myBall.getDirectionY());
+  }
 }
