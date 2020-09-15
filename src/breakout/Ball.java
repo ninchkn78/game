@@ -16,7 +16,6 @@ public class Ball extends Circle {
     super(centerX, centerY, size);
     INITIAL_X = centerX;
     INITIAL_Y = centerY;
-
   }
 
   public void moveBallWithPaddle(KeyCode code) {
@@ -39,7 +38,7 @@ public class Ball extends Circle {
       X_DIRECTION *= -1;
     }
     this.setCenterY(this.getCenterY() - BALL_SPEED * Y_DIRECTION * elapsedTime);
-    this.setCenterX(this.getCenterX() - BALL_SPEED * X_DIRECTION* elapsedTime);
+    this.setCenterX(this.getCenterX() + BALL_SPEED * X_DIRECTION* elapsedTime);
 
 
 
