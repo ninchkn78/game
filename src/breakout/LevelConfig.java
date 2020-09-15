@@ -20,12 +20,21 @@ public class LevelConfig {
   private Paddle myPaddle;
   private Ball myBall;
 
+  private Group root;
+
+  public LevelConfig(){
+    root = new Group();
+  }
   public Ball getMyBall() {
     return myBall;
   }
 
   public Paddle getMyPaddle() {
     return myPaddle;
+  }
+
+  public Group getRoot(){
+    return root;
   }
 
   private List<String[]> readBlockFile(String dataSource) {
@@ -46,7 +55,7 @@ public class LevelConfig {
     return blocks;
   }
 
-  void setUpBlocks(Group root, String dataSource) {
+  void setUpBlocks(String dataSource) {
     int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
     for (String[] row : blockFile) {
@@ -71,13 +80,13 @@ public class LevelConfig {
     return null;
   }
 
-  private void setUpBall(Group root) {
+  private void setUpBall() {
     myBall = new Ball(Main.SIZE / 2, 295, 5);
     myBall.setId("myBall");
     root.getChildren().add(myBall);
   }
 
-  private void setUpPaddle(Group root) {
+  private void setUpPaddle() {
     System.out.println(PADDLE_XPOS);
     myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, 75, 10);
     myPaddle.setId("myPaddle");
@@ -85,11 +94,11 @@ public class LevelConfig {
   }
 
   //is this open closed principle ?
-  public void setUpLevel(int level, Group root) {
+  public void setUpLevel(int level) {
     String blockFile = String.format("level%d.txt", level);
-    setUpBlocks(root, blockFile);
-    setUpPaddle(root);
-    setUpBall(root);
+    setUpBlocks(blockFile);
+    setUpPaddle();
+    setUpBall();
   }
 }
 
