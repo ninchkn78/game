@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.security.Key;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -141,23 +143,22 @@ public class MainTest extends DukeApplicationTest {
     myBall.setCenterX(100);
     myBall.setCenterY(100);
     assertFalse(myBall.getCenterY() < 100);
-    press(myScene, KeyCode.SPACE);
+    press(myScene, KeyCode.SHIFT);
     myGame.step(Main.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
   }
   @Test
   public void testPause(){
-    press(myScene, KeyCode.P);
+    press(myScene, KeyCode.SPACE);
     myGame.step(Main.SECOND_DELAY);
     testBallInitialPositionVelocity();
     testPaddleInitialPosition();
-    press(myScene, KeyCode.P);
+    press(myScene, KeyCode.SPACE);
     myGame.step(Main.SECOND_DELAY);
-    testBallMove();
     testPaddleMove();
   }
   @Test
-  public void testReset(){
+  public void testResetKey(){
     //launch ball
     press(myScene, KeyCode.SPACE);
     myGame.step(Main.SECOND_DELAY);
@@ -168,5 +169,41 @@ public class MainTest extends DukeApplicationTest {
     testPaddleInitialPosition();
 
   }
-
+  @Test
+  public void testBallBounce(){
+    //launch ball
+    myBall.setCenterX(100);
+    myBall.setCenterY(100);
+    assertFalse(myBall.getCenterY() < 100);
+    press(myScene,KeyCode.SHIFT);
+    myGame.step(50); // give time to bounce upwards
+    assertTrue(myBall.getCenterY() < 50);
+    myGame.step(100); // give time to bounce downwards
+    assertTrue(myBall.getCenterY()> 100);
+  }
+  @Test
+  public void testBallReset(){
+    myBall.setCenterX(10);
+    myBall.setCenterY(295);
+    //ball falls downwards
+    myBall.setDirection(0,-1);
+    press(myScene,KeyCode.SHIFT);
+    myGame.step(Main.SECOND_DELAY*50);
+    //ball should  be in starting position
+    assertEquals(175, myBall.getCenterX());
+    assertEquals(295, myBall.getCenterY());
+  }
+  @Test
+  public void testBallIntoCorner(){
+    //set ball in center of screen
+    myBall.setCenterX(350/2);
+    myBall.setCenterY(350/2);
+    //set direction towards bottom left
+    myBall.setDirection(-1,-1);
+    press(myScene, KeyCode.SHIFT);
+    myGame.step(Main.SECOND_DELAY*500);
+    //check that it rebounds back exactly
+    assertEquals(1,myBall.getDirectionX());
+    assertEquals(1,myBall.getDirectionY());
+  }
 }

@@ -37,7 +37,7 @@ public class LevelConfig {
     return root;
   }
 
-  private List<String[]> readBlockFile(String dataSource) {
+  public List<String[]> readBlockFile(String dataSource) {
     List<String[]> blocks = new ArrayList<>();
     InputStream textFile = null;
     try {
@@ -55,22 +55,33 @@ public class LevelConfig {
     return blocks;
   }
 
-  void setUpBlocks(String dataSource) {
+  void setUpBlocks(Group root, String dataSource) {
+    List<Block> blockLocations = getBlockLocations(dataSource);
+    for (Block block: blockLocations){
+      root.getChildren().add(block);
+    }
+
+
+  }
+// need this to track collisions
+  public List<Block> getBlockLocations(String dataSource){
+    List<Block> blocks = new ArrayList<>();
     int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
     for (String[] row : blockFile) {
       rowNum = 0;
       for (String blockType : row) {
         Block block = getBlock(blockType, rowNum, colNum);
-        if (block != null) {
+        if(block != null){
           block.setId(String.format("%d,%d", rowNum, colNum));
-          root.getChildren().add(block);
+          blocks.add(block);
         }
         rowNum++;
 
       }
       colNum++;
     }
+    return blocks;
   }
 
   private Block getBlock(String blockType, int rowNum, int colNum) {
@@ -101,4 +112,5 @@ public class LevelConfig {
     setUpBall();
   }
 }
+
 
