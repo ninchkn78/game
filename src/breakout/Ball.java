@@ -10,6 +10,8 @@ import javafx.scene.shape.Shape;
 
 public class Ball extends Circle {
   public static final Paint BALL_COLOR = Color.PLUM;
+  public static final double X_SPEED_RANGE_START = .55;
+  public static final double X_SPEED_RANGE_END = .90;
   private static int INITIAL_X;
   private static int INITIAL_Y;
   private int BALL_SPEED = 200;
@@ -38,7 +40,7 @@ public class Ball extends Circle {
   public void moveBall(double elapsedTime) {
     // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
     checkWallCollision();
-    this.setCenterY(this.getCenterY() - this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
+    this.setCenterY(this.getCenterY() + this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
     this.setCenterX(this.getCenterX() + this.X_SPEED * this.X_DIRECTION * elapsedTime);
   }
 
@@ -53,7 +55,8 @@ public class Ball extends Circle {
   public void setLaunch(){
     this.setDirection(random.nextBoolean() ? -1 : 1,
         1);
-    this.X_SPEED = GameLogic.getRandomNumber(this.BALL_SPEED * -9/10, this.BALL_SPEED * 9/10);
+    this.X_SPEED = GameLogic.getRandomNumber((int) (this.BALL_SPEED * X_SPEED_RANGE_START),
+        (int) (this.BALL_SPEED * X_SPEED_RANGE_END));
     this.Y_SPEED = (int) Math.sqrt((this.BALL_SPEED * this.BALL_SPEED) - (this.X_SPEED * this.X_SPEED));
 
   }
@@ -63,10 +66,12 @@ public class Ball extends Circle {
   }
 
 
-  public void checkBallObjectCollision(Shape object){
+  public boolean checkBallObjectCollision(Shape object){
     if (this.getBoundsInParent().intersects(object.getBoundsInParent())){
         this.Y_DIRECTION *= -1;
+        return true;
     }
+    return false;
   }
 
   public void setDirection(int xDirection, int yDirection){

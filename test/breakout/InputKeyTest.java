@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.security.Key;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -17,7 +14,7 @@ import util.DukeApplicationTest;
 public class InputKeyTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
-  private final Main myGame = new Main();
+  private final Game myGame = new Game();
   // keep created scene to allow mouse and keyboard events
   private Scene myScene;
   // keep any useful elements whose values you want to test directly in multiple tests
@@ -32,7 +29,7 @@ public class InputKeyTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Main.SIZE, Main.SIZE, Main.BACKGROUND);
+    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
@@ -48,14 +45,14 @@ public class InputKeyTest extends DukeApplicationTest {
     press(myScene, KeyCode.SPACE);
     press(myScene, KeyCode.SHIFT);
     press(myScene, KeyCode.LEFT);
-    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     assertEquals(initialBallX,myBall.getCenterX());
     assertEquals(initialBallY,myBall.getCenterY());
     assertEquals(initialPaddleX, myPaddle.getX());
     assertEquals(initialPaddleY, myPaddle.getY());
     press(myScene, KeyCode.SPACE);
     press(myScene, KeyCode.LEFT);
-    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     assertNotEquals(initialBallX,myBall.getCenterX());
     assertNotEquals(initialBallY,myBall.getCenterY());
     assertNotEquals(initialPaddleX, myPaddle.getX());
@@ -66,9 +63,9 @@ public class InputKeyTest extends DukeApplicationTest {
     double initialPaddleX = myPaddle.getX(), initialPaddleY = myPaddle.getY();
     press(myScene, KeyCode.SHIFT);
     press(myScene, KeyCode.LEFT);
-    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     press(myScene, KeyCode.SPACE);
-    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     assertNotEquals(initialBallX,myBall.getCenterX());
     assertNotEquals(initialBallY,myBall.getCenterY());
     assertNotEquals(initialPaddleX, myPaddle.getX());
@@ -87,7 +84,7 @@ public class InputKeyTest extends DukeApplicationTest {
     Powerup powerup = lookup("#powerup0").query();
     assertEquals(0, powerup.getCenterY());
     double initialX = powerup.getCenterX();
-    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     assertTrue(powerup.getCenterY() > 0);
     assertEquals(initialX, powerup.getCenterX(), .1);
   }

@@ -14,7 +14,7 @@ public class LevelConfig {
   private final static int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   private static final int PADDLE_WIDTH = 75;
-  private static final int PADDLE_XPOS = Main.SIZE / 2 - PADDLE_WIDTH / 2;
+  private static final int PADDLE_XPOS = Game.SIZE / 2 - PADDLE_WIDTH / 2;
   private static final int PADDLE_YPOS = 300;
 
   private Paddle myPaddle;
@@ -96,7 +96,7 @@ public class LevelConfig {
   }
 
   private void setUpBall() {
-    myBall = new Ball(Main.SIZE / 2, 293, 5);
+    myBall = new Ball(Game.SIZE / 2, 293, 5);
     myBall.setId("myBall");
     root.getChildren().add(myBall);
   }

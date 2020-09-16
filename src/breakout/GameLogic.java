@@ -1,6 +1,7 @@
 package breakout;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javafx.scene.Group;
@@ -50,7 +51,7 @@ public class GameLogic {
   }
 
   private void addPowerup() {
-    int xPos = getRandomNumber(0, Main.SIZE);
+    int xPos = getRandomNumber(0, Game.SIZE);
     Powerup p = new Powerup(xPos,0, 10);
     root.getChildren().add(p);
     powerups.add(p);
@@ -89,13 +90,16 @@ public class GameLogic {
     myPaddle.reset();
   }
   public void checkBallBlockCollision(){
-    for(Block block : blockList){
-      myBall.checkBallObjectCollision(block);
-      //  this needs to be changed
-//        root.getChildren().remove(block);
-//        blockList.remove(block);
-      }
+    Iterator<Block> itr = blockList.iterator();
+    while (itr.hasNext()) {
+      Block block = itr.next();
+      if(myBall.checkBallObjectCollision(block)){
+        //  this needs to be changed
+        root.getChildren().remove(block);
+        itr.remove();
+      }}
     }
+
 
   public void dropPowerups(double elapsedTime){
     if(!gamePaused){
