@@ -1,6 +1,7 @@
 package breakout;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javafx.scene.Group;
@@ -50,7 +51,7 @@ public class GameLogic {
   }
 
   private void addPowerup() {
-    int xPos = getRandomNumber(0, Main.SIZE);
+    int xPos = getRandomNumber(0, Game.SIZE);
     Powerup p = new Powerup(xPos,0, 10);
     root.getChildren().add(p);
     powerups.add(p);
@@ -59,8 +60,7 @@ public class GameLogic {
 
   public static int getRandomNumber(int min, int max) {
     Random random = new Random();
-    int number = random.nextInt(max - min) + min;
-    return number;
+    return random.nextInt(max - min) + min;
   }
 
   void step(double elapsedTime) {
@@ -72,6 +72,9 @@ public class GameLogic {
   }
 
   private void setBallLaunched(boolean status) {
+    if(!ballLaunched){
+      myBall.setLaunch();
+    }
     ballLaunched = status;
   }
 
@@ -86,24 +89,28 @@ public class GameLogic {
     myBall.reset();
     myPaddle.reset();
   }
-  public void checkBallBlockCollision(Ball ball){
-    for(Block block : blockList){
-      if (ball.getBoundsInParent().intersects(block.getBoundsInParent())){
-        ball.setDirection(ball.getDirectionX(), ball.getDirectionY() * -1);
-      //  this needs to be changed
-//        root.getChildren().remove(block);
-//        blockList.remove(block);
-      }
+  public void checkBallBlockCollision(){
+    Iterator<Block> itr = blockList.iterator();
+    while (itr.hasNext()) {
+      Block block = itr.next();
+      if(myBall.checkBallObjectCollision(block)){
+        //  this needs to be changed
+        root.getChildren().remove(block);
+        itr.remove();
+      }}
     }
-  }
+
+
   public void dropPowerups(double elapsedTime){
-    for(Powerup powerup : powerups){
+    if(!gamePaused){
+    for(Powerup powerup : powerups) {
       powerup.drop(elapsedTime);
+    }
     }
   }
   public void checkCollision(){
-      checkBallBlockCollision(myBall);
-      myBall.checkBallPaddleCollision(myPaddle);
+      checkBallBlockCollision();
+      myBall.checkBallObjectCollision(myPaddle);
   }
   public void checkBallDropsThroughBottom(){
     if (myBall.checkBallDropsThroughBottom()){

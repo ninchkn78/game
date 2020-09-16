@@ -5,19 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.security.Key;
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+
 //need to ask about how to adapt these tests for higher levels
 public class GameStepTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
-  private final Main myGame = new Main();
+  private final Game myGame = new Game();
   // keep created scene to allow mouse and keyboard events
   private Scene myScene;
   // keep any useful elements whose values you want to test directly in multiple tests
@@ -32,16 +31,13 @@ public class GameStepTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Main.SIZE, Main.SIZE, Main.BACKGROUND);
+    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
     myBall = lookup("#myBall").query();
-
   }
-
-
   // Can write regular JUnit tests!
   // check initial configuration values of game items set when scene was created
 
@@ -97,7 +93,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setCenterY(100);
     assertFalse(myBall.getCenterY() < 100);
     press(myScene, KeyCode.SHIFT);
-    myGame.step(Main.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
   }
   @Test
@@ -119,7 +115,7 @@ public class GameStepTest extends DukeApplicationTest {
     //ball falls downwards
     myBall.setDirection(0,-1);
     press(myScene,KeyCode.SHIFT);
-    myGame.step(Main.SECOND_DELAY*50);
+    myGame.step(Game.SECOND_DELAY*50);
     //ball should  be in starting position
     assertEquals(175, myBall.getCenterX());
     assertEquals(295, myBall.getCenterY());
@@ -133,12 +129,32 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(-1,1);
     press(myScene, KeyCode.SHIFT);
 
-    myGame.step(Main.SECOND_DELAY);
-    myGame.step(Main.SECOND_DELAY);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    myGame.step(Game.SECOND_DELAY);
 
     //check that it rebounds back exactly
     assertEquals(1,myBall.getDirectionX());
     assertEquals(-1,myBall.getDirectionY());
   }
+  @Test
+  public void testBallBreaksBlock() {
+    Block testBlock = lookup("#5,0").query();
+    testBlock.setX(150);
+    testBlock.setY(105);
+    myBall.setCenterY(125);
+    press(myScene,KeyCode.SHIFT);
+    myBall.setDirection(0, -1);
+    sleep(1, TimeUnit.SECONDS);
+    myGame.step(Game.SECOND_DELAY);
+    sleep(1, TimeUnit.SECONDS);
+    myGame.step(Game.SECOND_DELAY);
+    sleep(1, TimeUnit.SECONDS);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
 
+    sleep(1, TimeUnit.SECONDS);
+
+
+
+
+  }
 }

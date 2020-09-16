@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class Main extends Application {
+public class Game extends Application {
 
   public static final String TITLE = "Breakout";
   public static final int SIZE = 350;
