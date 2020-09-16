@@ -94,9 +94,11 @@ public class GameLogic {
     while (itr.hasNext()) {
       Block block = itr.next();
       if(myBall.checkBallObjectCollision(block)){
-        //  this needs to be changed
-        root.getChildren().remove(block);
-        itr.remove();
+        block.handleHit();
+        if(block.isBlockBroken()) {
+          root.getChildren().remove(block);
+          itr.remove();
+        }
       }}
     }
 
