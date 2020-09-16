@@ -2,6 +2,7 @@ package breakout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.Key;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 //need to ask about how to adapt these tests for higher levels
-public class MainTest extends DukeApplicationTest {
+public class GameStepTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
   private final Main myGame = new Main();
@@ -43,52 +44,6 @@ public class MainTest extends DukeApplicationTest {
 
   // Can write regular JUnit tests!
   // check initial configuration values of game items set when scene was created
-  @Test
-  public void testPaddleInitialPosition() {
-    assertEquals(350/2 - 75/2, myPaddle.getX());
-    assertEquals(300, myPaddle.getY());
-    assertEquals(75, myPaddle.getWidth());
-    assertEquals(10, myPaddle.getHeight());
-  }
-
-  @Test
-  public void testBallInitialPositionVelocity() {
-    assertEquals(350/2, myBall.getCenterX());
-    assertEquals(295, myBall.getCenterY());
-    assertEquals(5, myBall.getRadius());
-    myGame.step(Main.SECOND_DELAY);
-    assertEquals(350/2, myBall.getCenterX());
-    assertEquals(295, myBall.getCenterY());
-    assertEquals(5, myBall.getRadius());
-  }
-
-  @Test
-  public void testBLocksInitialPositions() {
-    Block rowZeroStartBlock = lookup("#0,0").query();
-    assertEquals(0, rowZeroStartBlock.getX());
-    assertEquals(0, rowZeroStartBlock.getY());
-    assertEquals(50, rowZeroStartBlock.getWidth());
-    assertEquals(10, rowZeroStartBlock.getHeight());
-
-    Block rowOneStartBlock = lookup("#0,1").query();
-    assertEquals(0, rowOneStartBlock.getX());
-    assertEquals(15, rowOneStartBlock.getY());
-    assertEquals(50, rowOneStartBlock.getWidth());
-    assertEquals(10, rowOneStartBlock.getHeight());
-
-    Block rowTwoStartBlock = lookup("#0,2").query();
-    assertEquals(0, rowTwoStartBlock.getX());
-    assertEquals(30, rowTwoStartBlock.getY());
-    assertEquals(50, rowTwoStartBlock.getWidth());
-    assertEquals(10, rowTwoStartBlock.getHeight());
-
-    Block rowZeroFifthBlock = lookup("#5,0").query();
-    assertEquals(300, rowZeroFifthBlock.getX());
-    assertEquals(0, rowZeroFifthBlock.getY());
-    assertEquals(50, rowZeroFifthBlock.getWidth());
-    assertEquals(10, rowZeroFifthBlock.getHeight());
-
-  }
 
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
 
@@ -145,29 +100,6 @@ public class MainTest extends DukeApplicationTest {
     myGame.step(Main.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
   }
-
-  @Test
-  public void testPause(){
-    press(myScene, KeyCode.SPACE);
-    myGame.step(Main.SECOND_DELAY);
-    testBallInitialPositionVelocity();
-    testPaddleInitialPosition();
-    press(myScene, KeyCode.SPACE);
-    myGame.step(Main.SECOND_DELAY);
-    testPaddleMove();
-  }
-  @Test
-  public void testResetKey(){
-    //launch ball
-    press(myScene, KeyCode.SPACE);
-    myGame.step(Main.SECOND_DELAY);
-    //reset
-    press(myScene, KeyCode.R);
-    //check initial positions
-    testBallInitialPositionVelocity();
-    testPaddleInitialPosition();
-
-  }
   @Test
   public void testBallBounce(){
     //launch ball
@@ -181,7 +113,7 @@ public class MainTest extends DukeApplicationTest {
     assertTrue(myBall.getCenterY()> 100);
   }
   @Test
-  public void testBallReset(){
+  public void testBallOutOfBounds(){
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downwards
@@ -208,15 +140,5 @@ public class MainTest extends DukeApplicationTest {
     assertEquals(1,myBall.getDirectionX());
     assertEquals(-1,myBall.getDirectionY());
   }
-  @Test
-  public void testPowerupDropOnPress(){
-    //launch ball
-    press(myScene, KeyCode.P);
-    Powerup powerup = lookup("#powerup0").query();
-    assertEquals(0, powerup.getCenterY());
-    double initialX = powerup.getCenterX();
-    myGame.step(Main.SECOND_DELAY);
-    assertTrue(powerup.getCenterY() > 0);
-    assertEquals(initialX, powerup.getCenterX(), .1);
-  }
+
 }
