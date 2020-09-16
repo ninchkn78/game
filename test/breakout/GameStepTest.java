@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+
 //need to ask about how to adapt these tests for higher levels
 public class GameStepTest extends DukeApplicationTest {
 
@@ -128,7 +129,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(-1,1);
     press(myScene, KeyCode.SHIFT);
 
-    myGame.step(Game.SECOND_DELAY);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
     myGame.step(Game.SECOND_DELAY);
 
     //check that it rebounds back exactly
@@ -148,7 +149,7 @@ public class GameStepTest extends DukeApplicationTest {
     sleep(1, TimeUnit.SECONDS);
     myGame.step(Game.SECOND_DELAY);
     sleep(1, TimeUnit.SECONDS);
-    myGame.step(Game.SECOND_DELAY);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
 
     sleep(1, TimeUnit.SECONDS);
 
