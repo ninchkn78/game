@@ -20,8 +20,6 @@ public class Main extends Application {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
-
-
   // some things needed to remember during game
   private Scene myScene;
   private Timeline animation;
@@ -75,9 +73,8 @@ public class Main extends Application {
             gameLogic.moveBall(elapsedTime);
             gameLogic.checkBallDropsThroughBottom();
             gameLogic.checkCollision();
-
+            gameLogic.dropPowerups(elapsedTime);
         }
-
     }
 
 

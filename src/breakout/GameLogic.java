@@ -1,6 +1,8 @@
 package breakout;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 
@@ -12,6 +14,7 @@ public class GameLogic {
   private Paddle myPaddle;
   private List<Block> blockList;
   private Group root;
+  private List<Powerup> powerups = new ArrayList<>();
 
   public GameLogic(LevelConfig currentConfig) {
     myBall = currentConfig.getMyBall();
@@ -41,7 +44,25 @@ public class GameLogic {
     if (code.equals(KeyCode.R)) {
       resetGame();
     }
+    if (code.equals(KeyCode.P)){
+      addPowerup();
+    }
   }
+
+  private void addPowerup() {
+    int xPos = getRandomNumber(0, Main.SIZE);
+    Powerup p = new Powerup(xPos,0, 10);
+    root.getChildren().add(p);
+    powerups.add(p);
+    p.setId(String.format("powerup%d", powerups.indexOf(p)));
+  }
+
+  public static int getRandomNumber(int min, int max) {
+    Random random = new Random();
+    int number = random.nextInt(max - min) + min;
+    return number;
+  }
+
   void step(double elapsedTime) {
     moveBall(elapsedTime);
   }
@@ -69,10 +90,15 @@ public class GameLogic {
     for(Block block : blockList){
       if (ball.getBoundsInParent().intersects(block.getBoundsInParent())){
         ball.setDirection(ball.getDirectionX(), ball.getDirectionY() * -1);
-        //this needs to be changed
+      //  this needs to be changed
 //        root.getChildren().remove(block);
 //        blockList.remove(block);
       }
+    }
+  }
+  public void dropPowerups(double elapsedTime){
+    for(Powerup powerup : powerups){
+      powerup.drop(elapsedTime);
     }
   }
   public void checkCollision(){
@@ -84,10 +110,5 @@ public class GameLogic {
      resetGame();
     }
   }
-
-
-
-
-
-    }
+}
 
