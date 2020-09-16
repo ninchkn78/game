@@ -23,9 +23,10 @@ public class LevelConfig {
 
   private Group root;
 
-  public LevelConfig(){
+  public LevelConfig() {
     root = new Group();
   }
+
   public Ball getMyBall() {
     return myBall;
   }
@@ -34,7 +35,7 @@ public class LevelConfig {
     return myPaddle;
   }
 
-  public Group getRoot(){
+  public Group getRoot() {
     return root;
   }
 
@@ -55,18 +56,20 @@ public class LevelConfig {
     }
     return blocks;
   }
-  public List<Block> getBlockList(){
+
+  public List<Block> getBlockList() {
     return blockList;
   }
 
   void setUpBlocks(String dataSource) {
     makeListOfBlocks(dataSource);
-    for (Block block: blockList){
+    for (Block block : blockList) {
       root.getChildren().add(block);
     }
   }
-// need this to track collisions
-  private void makeListOfBlocks(String dataSource){
+
+  // need this to track collisions
+  private void makeListOfBlocks(String dataSource) {
     blockList = new ArrayList<>();
     int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
@@ -74,7 +77,7 @@ public class LevelConfig {
       rowNum = 0;
       for (String blockType : row) {
         Block block = getBlock(blockType, rowNum, colNum);
-        if(block != null){
+        if (block != null) {
           block.setId(String.format("%d,%d", rowNum, colNum));
           blockList.add(block);
         }

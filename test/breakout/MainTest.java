@@ -208,4 +208,15 @@ public class MainTest extends DukeApplicationTest {
     assertEquals(1,myBall.getDirectionX());
     assertEquals(-1,myBall.getDirectionY());
   }
+  @Test
+  public void testPowerupDropOnPress(){
+    //launch ball
+    press(myScene, KeyCode.P);
+    Powerup powerup = lookup("#powerup0").query();
+    assertEquals(0, powerup.getCenterY());
+    double initialX = powerup.getCenterX();
+    myGame.step(Main.SECOND_DELAY);
+    assertTrue(powerup.getCenterY() > 0);
+    assertEquals(initialX, powerup.getCenterX(), .1);
+  }
 }
