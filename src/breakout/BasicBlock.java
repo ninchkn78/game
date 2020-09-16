@@ -8,6 +8,7 @@ public class BasicBlock extends Block {
   public static int Y_SCALE = 15;
 
   private boolean blockHit = false;
+  private boolean blockBroken = false;
 
   public BasicBlock(int row, int col, int width, int height) {
     super(row * X_SCALE,
@@ -16,12 +17,13 @@ public class BasicBlock extends Block {
             height);
     this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
   }
-  public boolean wasHit(){
-    return blockHit;
+  @Override
+  public boolean isBlockBroken(){
+    return blockBroken;
   }
   @Override
   public void handleHit() {
-    blockHit = true;
+    blockBroken = true;
   }
 
 

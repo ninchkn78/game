@@ -51,11 +51,11 @@ public class LevelConfigTest extends DukeApplicationTest {
   @Test
   public void testBallInitialPositionVelocity() {
     assertEquals(350/2, myBall.getCenterX());
-    assertEquals(295, myBall.getCenterY());
+    assertEquals(293, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
     myGame.step(Game.SECOND_DELAY);
     assertEquals(350/2, myBall.getCenterX());
-    assertEquals(295, myBall.getCenterY());
+    assertEquals(293, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
   }
 

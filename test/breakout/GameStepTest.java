@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -50,6 +51,7 @@ public class GameStepTest extends DukeApplicationTest {
     myPaddle.setY(100);
     //CHECK Left
     press(myScene, KeyCode.LEFT);
+
     assertEquals(95, myPaddle.getX());
     assertEquals(100, myPaddle.getY());
     myPaddle.setX(100);
@@ -93,6 +95,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setCenterY(100);
     assertFalse(myBall.getCenterY() < 100);
     press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0,-1);
     myGame.step(Game.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 100);
   }
@@ -103,6 +106,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setCenterY(100);
     assertFalse(myBall.getCenterY() < 100);
     press(myScene,KeyCode.SHIFT);
+    myBall.setDirection(0,-1);
     myGame.step(50); // give time to bounce upwards
     assertTrue(myBall.getCenterY() < 50);
     myGame.step(100); // give time to bounce downwards
@@ -113,12 +117,12 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downwards
-    myBall.setDirection(0,-1);
     press(myScene,KeyCode.SHIFT);
+    myBall.setDirection(0,1);
     myGame.step(Game.SECOND_DELAY*50);
     //ball should  be in starting position
     assertEquals(175, myBall.getCenterX());
-    assertEquals(295, myBall.getCenterY());
+    assertEquals(293, myBall.getCenterY());
   }
   @Test
   public void testBallIntoCorner(){
@@ -141,20 +145,13 @@ public class GameStepTest extends DukeApplicationTest {
     Block testBlock = lookup("#5,0").query();
     testBlock.setX(150);
     testBlock.setY(105);
+    assertFalse(testBlock.isBlockBroken());
     myBall.setCenterY(125);
     press(myScene,KeyCode.SHIFT);
     myBall.setDirection(0, -1);
-    sleep(1, TimeUnit.SECONDS);
     myGame.step(Game.SECOND_DELAY);
-    sleep(1, TimeUnit.SECONDS);
-    myGame.step(Game.SECOND_DELAY);
-    sleep(1, TimeUnit.SECONDS);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-
-    sleep(1, TimeUnit.SECONDS);
-
-
-
-
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    assertTrue(testBlock.isBlockBroken());
   }
 }
