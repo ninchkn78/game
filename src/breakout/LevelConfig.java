@@ -96,13 +96,12 @@ public class LevelConfig {
   }
 
   private void setUpBall() {
-    myBall = new Ball(Main.SIZE / 2, 295, 5);
+    myBall = new Ball(Main.SIZE / 2, 293, 5);
     myBall.setId("myBall");
     root.getChildren().add(myBall);
   }
 
   private void setUpPaddle() {
-    System.out.println(PADDLE_XPOS);
     myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, 75, 10);
     myPaddle.setId("myPaddle");
     root.getChildren().add(myPaddle);

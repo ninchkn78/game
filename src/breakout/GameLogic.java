@@ -59,8 +59,7 @@ public class GameLogic {
 
   public static int getRandomNumber(int min, int max) {
     Random random = new Random();
-    int number = random.nextInt(max - min) + min;
-    return number;
+    return random.nextInt(max - min) + min;
   }
 
   void step(double elapsedTime) {
@@ -72,6 +71,9 @@ public class GameLogic {
   }
 
   private void setBallLaunched(boolean status) {
+    if(!ballLaunched){
+      myBall.setLaunch();
+    }
     ballLaunched = status;
   }
 
@@ -86,24 +88,25 @@ public class GameLogic {
     myBall.reset();
     myPaddle.reset();
   }
-  public void checkBallBlockCollision(Ball ball){
+  public void checkBallBlockCollision(){
     for(Block block : blockList){
-      if (ball.getBoundsInParent().intersects(block.getBoundsInParent())){
-        ball.setDirection(ball.getDirectionX(), ball.getDirectionY() * -1);
+      myBall.checkBallObjectCollision(block);
       //  this needs to be changed
 //        root.getChildren().remove(block);
 //        blockList.remove(block);
       }
     }
-  }
+
   public void dropPowerups(double elapsedTime){
-    for(Powerup powerup : powerups){
+    if(!gamePaused){
+    for(Powerup powerup : powerups) {
       powerup.drop(elapsedTime);
+    }
     }
   }
   public void checkCollision(){
-      checkBallBlockCollision(myBall);
-      myBall.checkBallPaddleCollision(myPaddle);
+      checkBallBlockCollision();
+      myBall.checkBallObjectCollision(myPaddle);
   }
   public void checkBallDropsThroughBottom(){
     if (myBall.checkBallDropsThroughBottom()){

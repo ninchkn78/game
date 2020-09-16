@@ -1,44 +1,60 @@
 package breakout;
 
+import java.util.Random;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-import java.util.List;
+import javafx.scene.shape.Shape;
 
 public class Ball extends Circle {
-
+  public static final Paint BALL_COLOR = Color.PLUM;
   private static int INITIAL_X;
   private static int INITIAL_Y;
-  private int BALL_SPEED = 100;
-  private int X_DIRECTION = 1;
-  private int Y_DIRECTION = 1;
+  private int BALL_SPEED = 200;
+  private int X_SPEED;
+  private int Y_SPEED;
+  private int X_DIRECTION;
+  private int Y_DIRECTION;
+  private Random random = new Random();;
   public Ball(int centerX, int centerY, int size) {
     super(centerX, centerY, size);
     INITIAL_X = centerX;
     INITIAL_Y = centerY;
+    this.setFill(BALL_COLOR);
   }
 
   public void moveBallWithPaddle(KeyCode code) {
     if(code.equals(KeyCode.LEFT)){
-      this.setCenterX(this.getCenterX() - Paddle.MOVER_SPEED);
+      this.setCenterX(this.getCenterX() - Paddle.PADDLE_SPEED);
     }
     else if(code.equals(KeyCode.RIGHT)){
-      this.setCenterX(this.getCenterX() + Paddle.MOVER_SPEED);
+      this.setCenterX(this.getCenterX() + Paddle.PADDLE_SPEED);
     }
   }
 
   //use triangles
   public void moveBall(double elapsedTime) {
     // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
+    checkWallCollision();
+    this.setCenterY(this.getCenterY() - this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
+    this.setCenterX(this.getCenterX() + this.X_SPEED * this.X_DIRECTION * elapsedTime);
+  }
 
+  private void checkWallCollision() {
     if (this.getCenterY() < 0) {
       Y_DIRECTION *= -1;
     }
     if (this.getCenterX() <= 0 || this.getCenterX() >= 350 ){
       X_DIRECTION *= -1;
     }
-    this.setCenterY(this.getCenterY() - BALL_SPEED * Y_DIRECTION * elapsedTime);
-    this.setCenterX(this.getCenterX() + BALL_SPEED * X_DIRECTION* elapsedTime);
+  }
+  public void setLaunch(){
+    this.setDirection(random.nextBoolean() ? -1 : 1,
+        1);
+    this.X_SPEED = GameLogic.getRandomNumber(this.BALL_SPEED * -9/10, this.BALL_SPEED * 9/10);
+    this.Y_SPEED = (int) Math.sqrt((this.BALL_SPEED * this.BALL_SPEED) - (this.X_SPEED * this.X_SPEED));
 
   }
 
@@ -47,8 +63,8 @@ public class Ball extends Circle {
   }
 
 
-  public void checkBallPaddleCollision(Paddle paddle){
-    if (this.getBoundsInParent().intersects(paddle.getBoundsInParent())){
+  public void checkBallObjectCollision(Shape object){
+    if (this.getBoundsInParent().intersects(object.getBoundsInParent())){
         this.Y_DIRECTION *= -1;
     }
   }
@@ -58,12 +74,6 @@ public class Ball extends Circle {
     this.Y_DIRECTION = yDirection;
   }
 
-  public int getDirectionX(){
-    return this.X_DIRECTION;
-  }
-  public int getDirectionY(){
-    return this.Y_DIRECTION;
-  }
 
   public void reset() {
     this.setCenterX(INITIAL_X);
@@ -71,4 +81,10 @@ public class Ball extends Circle {
     this.setDirection(1,1);
   }
 
+  public int getDirectionX() {
+    return this.X_DIRECTION;
+  }
+  public int getDirectionY() {
+    return this.Y_DIRECTION;
+  }
 }
