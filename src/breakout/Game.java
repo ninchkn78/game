@@ -20,12 +20,15 @@ public class Game extends Application {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
+  private int level = 1;
   // some things needed to remember during game
   private Scene myScene;
   private Timeline animation;
 
-  private LevelConfig myConfig;
-  private GameLogic gameLogic;
+  private LevelConfig myConfig = new LevelConfig(level);
+  private GameLogic gameLogic = new GameLogic(myConfig);
+
+
 
   /**
    * Start the program.
@@ -54,28 +57,23 @@ public class Game extends Application {
 
   // Create the game's "scene": what shapes will be in the game and their starting properties
   Scene setupScene(int width, int height, Paint background) {
-    myConfig = new LevelConfig();
-    myConfig.setUpLevel(1);
-    gameLogic = new GameLogic(myConfig);
     Group root = myConfig.getRoot();
     Scene scene = new Scene(root, width, height, background);
     // respond to input
     scene.setOnKeyPressed(e -> gameLogic.handleKeyInput(e.getCode()));
     return scene;
   }
-
   // Handle the game's "rules" for every "moment":
   // - movement, how do things change over time
   // - collisions, did things intersect and, if so, what should happen
   // - goals, did the game or level end?
-
-       void step(double elapsedTime) {
-            gameLogic.moveBall(elapsedTime);
-            gameLogic.checkBallDropsThroughBottom();
-            gameLogic.checkCollision();
-            gameLogic.dropPowerups(elapsedTime);
-        }
-    }
+  void step(double elapsedTime) {
+    gameLogic.moveBall(elapsedTime);
+    gameLogic.checkBallDroppedThroughBottom();
+    gameLogic.checkCollision();
+    gameLogic.dropPowerups(elapsedTime);
+  }
+}
 
 
 

@@ -38,10 +38,11 @@ public class Ball extends Circle {
 
   //use triangles
   public void moveBall(double elapsedTime) {
-    // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
-    checkWallCollision();
-    this.setCenterY(this.getCenterY() + this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
-    this.setCenterX(this.getCenterX() + this.X_SPEED * this.X_DIRECTION * elapsedTime);
+      // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
+      checkWallCollision();
+      this.setCenterY(this.getCenterY() + this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
+      this.setCenterX(this.getCenterX() + this.X_SPEED * this.X_DIRECTION * elapsedTime);
+
   }
 
   private void checkWallCollision() {
@@ -58,11 +59,11 @@ public class Ball extends Circle {
     this.X_SPEED = GameLogic.getRandomNumber((int) (this.BALL_SPEED * X_SPEED_RANGE_START),
         (int) (this.BALL_SPEED * X_SPEED_RANGE_END));
     this.Y_SPEED = (int) Math.sqrt((this.BALL_SPEED * this.BALL_SPEED) - (this.X_SPEED * this.X_SPEED));
-
   }
 
-  public boolean checkBallDropsThroughBottom() {
-    return this.getCenterY() > 350;
+  public boolean checkBallDroppedThroughBottom() {
+
+      return this.getCenterY() > 355;
   }
 
 
