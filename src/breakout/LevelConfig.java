@@ -10,36 +10,20 @@ import javafx.scene.Group;
 
 public class LevelConfig {
 
+  //reads in a block file to make blocks
+  //makes a paddle
+  //adds balls ?
+
+
+  //make a paddle, send it to Level, add it to the root
+  //make a paddle add it to the root, send the root to the Level
   private final static int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   private static final int PADDLE_WIDTH = 75;
   private static final int PADDLE_XPOS = Game.SIZE / 2 - PADDLE_WIDTH / 2;
   private static final int PADDLE_YPOS = 300;
 
-  private Paddle myPaddle;
-  private List<Ball> myBalls = new ArrayList<>();
-  private List<Block> blockList = new ArrayList<>();;
-
-  private Group root;
-
-  public LevelConfig(int level) {
-    root = new Group();
-    setUpLevel(level);
-  }
-
-  public List<Ball> getMyBall() {
-    return myBalls;
-  }
-
-  public Paddle getMyPaddle() {
-    return myPaddle;
-  }
-
-  public Group getRoot() {
-    return root;
-  }
-
-  public List<String[]> readBlockFile(String dataSource) {
+  public static List<String[]> readBlockFile(String dataSource) {
     List<String[]> blocks = new ArrayList<>();
     InputStream textFile = null;
     try {
@@ -57,19 +41,10 @@ public class LevelConfig {
     return blocks;
   }
 
-  public List<Block> getBlockList() {
-    return blockList;
-  }
-
-  void setUpBlocks(String dataSource) {
-    makeListOfBlocks(dataSource);
-    for (Block block : blockList) {
-      root.getChildren().add(block);
-    }
-  }
 
   // need this to track collisions
-  private void makeListOfBlocks(String dataSource) {
+  private static List<Block> makeListOfBlocks(String dataSource) {
+    List<Block> blockList = new ArrayList<>();
     int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
     for (String[] row : blockFile) {
@@ -84,39 +59,20 @@ public class LevelConfig {
       }
       colNum++;
     }
+    return blockList;
   }
-  private Block getBlock(String blockType, int rowNum, int colNum) {
+
+  private static Block getBlock(String blockType, int rowNum, int colNum) {
     if (blockType.equals("0")) {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
     }
     return null;
   }
-
-  private void addBall(int id) {
-    Ball ball = new Ball(Game.SIZE / 2, 293, 5);
-    ball.setId(String.format("ball%d",id));
-    root.getChildren().add(ball);
-    myBalls.add(ball);
-  }
-  private void setUpBalls(int numOfBalls) {
-    while(numOfBalls > 0){
-      addBall(numOfBalls);
-      numOfBalls -= 1;
-    }
-  }
-
-  private void setUpPaddle() {
-    myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, PADDLE_WIDTH, 10);
-    myPaddle.setId("myPaddle");
-    root.getChildren().add(myPaddle);
-  }
-
   //is this open closed principle ?
-  public void setUpLevel(int level) {
+  public static Level setUpLevel(int level, Group root) {
+    root.getChildren().clear();
     String blockFile = String.format("level%d.txt", level);
-    setUpBlocks(blockFile);
-    setUpPaddle();
-    setUpBalls(2);
+    return new Level(root, PADDLE_XPOS, PADDLE_YPOS, 2, makeListOfBlocks(blockFile));
   }
 }
 

@@ -24,9 +24,10 @@ public class Game extends Application {
   // some things needed to remember during game
   private Scene myScene;
   private Timeline animation;
+  private Group root = new Group();
 
-  private LevelConfig myConfig = new LevelConfig(level);
-  private GameLogic gameLogic = new GameLogic(myConfig);
+  private Level currentLevel = LevelConfig.setUpLevel(level, root);
+  private GameLogic gameLogic = new GameLogic(currentLevel);
 
   /**
    * Start the program.
@@ -52,10 +53,8 @@ public class Game extends Application {
     animation.getKeyFrames().add(frame);
     animation.play();
   }
-
   // Create the game's "scene": what shapes will be in the game and their starting properties
   Scene setupScene(int width, int height, Paint background) {
-    Group root = myConfig.getRoot();
     Scene scene = new Scene(root, width, height, background);
     // respond to input
     scene.setOnKeyPressed(e -> gameLogic.handleKeyInput(e.getCode()));
