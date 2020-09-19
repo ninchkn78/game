@@ -15,6 +15,8 @@ Hours Spent:
 
 
 ### Resources Used
+removing items from list while iterating
+https://www.java67.com/2018/12/how-to-remove-objects-or-elements-while-iterating-Arraylist-java.html
 getting random numbers
 https://stackoverflow.com/questions/27976857/how-do-i-get-a-random-number-with-a-negative-number-in-range
 
