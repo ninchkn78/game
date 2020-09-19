@@ -19,8 +19,9 @@ public class GameLogic {
   private List<Powerup> powerups = new ArrayList<>();
   private int numOfBalls;
 
-
+  //take in a level
   public GameLogic(LevelConfig currentConfig) {
+    //maybe could add a class to package these guys together
     myBalls = currentConfig.getMyBall();
     myPaddle = currentConfig.getMyPaddle();
     blockList = currentConfig.getBlockList();
@@ -33,15 +34,14 @@ public class GameLogic {
     return random.nextInt(max - min) + min;
   }
 
-  //ask about this method if statements
-  //ask about these methods in their own class
+ //stays in game logic
   public void handleKeyInput(KeyCode code) {
     //set up condition for when ball is not launched, ball gets moved too
     if (code.equals(KeyCode.LEFT) || code.equals(KeyCode.RIGHT)) {
       if (!gamePaused) {
         myPaddle.movePaddle(code);
         if (!ballLaunched) {
-          for(Ball ball: myBalls) {
+          for (Ball ball : myBalls) {
             ball.moveBallWithPaddle(code);
           }
         }
@@ -69,13 +69,13 @@ public class GameLogic {
     p.setId(String.format("powerup%d", powerups.indexOf(p)));
   }
 
-    private void setGamePaused() {
+  private void setGamePaused() {
     gamePaused = !gamePaused;
   }
 
   private void setBallLaunched(boolean status) {
     if (!ballLaunched) {
-      for(Ball ball: myBalls) {
+      for (Ball ball : myBalls) {
         ball.setLaunch();
       }
     }
@@ -84,7 +84,7 @@ public class GameLogic {
 
   public void moveBall(double elapsedTime) {
     if (ballLaunched && !gamePaused) {
-      for(Ball ball: myBalls) {
+      for (Ball ball : myBalls) {
         ball.moveBall(elapsedTime);
       }
     }
@@ -92,29 +92,27 @@ public class GameLogic {
 
   public void resetGame() {
     setBallLaunched(false);
-    for(Ball ball: myBalls) {
+    for (Ball ball : myBalls) {
       ball.reset();
     }
     myPaddle.reset();
     numOfBalls = myBalls.size();
   }
 
-  public void checkBallBlockCollision() {
-    //ask about where to loop
-    for(Ball ball : myBalls){ Iterator<Block> itr = blockList.iterator();
-    while (itr.hasNext()) {
-      Block block = itr.next();
-      if (ball.checkBallObjectCollision(block)) {
-        block.handleHit();
-        if (block.isBlockBroken()) {
-          root.getChildren().remove(block);
-          itr.remove();
+  public void checkBallBlockCollision(Ball ball) {
+      Iterator<Block> itr = blockList.iterator();
+      while (itr.hasNext()) {
+        Block block = itr.next();
+        if (ball.checkBallObjectCollision(block)) {
+          block.handleHit();
+          if (block.isBlockBroken()) {
+            //TODO score changes here
+            root.getChildren().remove(block);
+            itr.remove();
+          }
         }
       }
-      }
-    }
   }
-
 
   public void dropPowerups(double elapsedTime) {
     if (!gamePaused) {
@@ -125,24 +123,24 @@ public class GameLogic {
   }
 
   public void checkCollision() {
-    checkBallBlockCollision();
-    for(Ball ball : myBalls) {
+    for (Ball ball : myBalls) {
+      checkBallBlockCollision(ball);
       ball.checkBallObjectCollision(myPaddle);
     }
   }
 
   public void checkBallDroppedThroughBottom() {
-      for (Ball ball : myBalls) {
-        if (ball.checkBallDroppedThroughBottom()) {
-          numOfBalls -= 1;
-          //add something to account for if we want loss to only be on one ball ?
-        }
+    numOfBalls = myBalls.size();
+    for (Ball ball : myBalls) {
+      if (ball.checkBallDroppedThroughBottom()) {
+        numOfBalls -= 1;
+        //add something to account for if we want loss to only be on one ball ?
       }
-      if (numOfBalls == 0) {
-        System.out.println("yup");
-        resetGame();
-      }
-
+    }
+    if (numOfBalls == 0) {
+      System.out.println("yup");
+      resetGame();
+    }
   }
 }
 

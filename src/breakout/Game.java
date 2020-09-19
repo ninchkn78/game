@@ -20,15 +20,13 @@ public class Game extends Application {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
-  private int level = 1;
+  private int level = 0;
   // some things needed to remember during game
   private Scene myScene;
   private Timeline animation;
 
   private LevelConfig myConfig = new LevelConfig(level);
   private GameLogic gameLogic = new GameLogic(myConfig);
-
-
 
   /**
    * Start the program.

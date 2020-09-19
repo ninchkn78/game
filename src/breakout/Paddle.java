@@ -13,17 +13,20 @@ public class Paddle extends Rectangle {
 
   private static int INITIAL_X;
   private static int INITIAL_Y;
+  private int paddleWidth;
 
   public Paddle(int xPos, int yPos, int width, int height) {
     super(xPos, yPos, width, height);
     INITIAL_X = xPos;
     INITIAL_Y = yPos;
+    paddleWidth = width;
     this.setFill(PADDLE_COLOR);
   }
 
   public void reset() {
     this.setX(INITIAL_X);
     this.setY(INITIAL_Y);
+    this.setWidth(paddleWidth);
   }
 
   public void movePaddle(KeyCode code) {
@@ -33,6 +36,9 @@ public class Paddle extends Rectangle {
     else if(code.equals(KeyCode.RIGHT)){
       this.setX(this.getX() + PADDLE_SPEED);
     }
+  }
+  public void changePaddleWidth(double scale){
+    this.setWidth(scale * paddleWidth);
   }
 }
 

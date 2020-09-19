@@ -106,7 +106,7 @@ public class LevelConfig {
   }
 
   private void setUpPaddle() {
-    myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, 75, 10);
+    myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, PADDLE_WIDTH, 10);
     myPaddle.setId("myPaddle");
     root.getChildren().add(myPaddle);
   }
