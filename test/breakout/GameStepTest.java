@@ -2,14 +2,11 @@ package breakout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.concurrent.TimeUnit;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -37,7 +34,7 @@ public class GameStepTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#myBall").query();
+    myBall = lookup("#ball1").query();
   }
   // Can write regular JUnit tests!
   // check initial configuration values of game items set when scene was created
@@ -91,13 +88,13 @@ public class GameStepTest extends DukeApplicationTest {
   }
   @Test
   public void testBallMove () {
-    myBall.setCenterX(100);
-    myBall.setCenterY(100);
-    assertFalse(myBall.getCenterY() < 100);
+    myBall.setCenterX(200);
+    myBall.setCenterY(200);
+    assertFalse(myBall.getCenterY() < 200);
     press(myScene, KeyCode.SHIFT);
     myBall.setDirection(0,-1);
     myGame.step(Game.SECOND_DELAY);
-    assertTrue(myBall.getCenterY() < 100);
+    assertTrue(myBall.getCenterY() < 200);
   }
   @Test
   public void testBallBounce(){
@@ -126,27 +123,24 @@ public class GameStepTest extends DukeApplicationTest {
   }
   @Test
   public void testBallIntoCorner(){
-    //set ball in center of screen
     myBall.setCenterX(1);
     myBall.setCenterY(1);
     //set direction towards top left
-    myBall.setDirection(-1,1);
     press(myScene, KeyCode.SHIFT);
-
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    myBall.setDirection(-1,-1);
     myGame.step(Game.SECOND_DELAY);
-
+    myGame.step(Game.SECOND_DELAY);
     //check that it rebounds back exactly
     assertEquals(1,myBall.getDirectionX());
-    assertEquals(-1,myBall.getDirectionY());
+    assertEquals(1,myBall.getDirectionY());
   }
   @Test
   public void testBallBreaksBlock() {
     Block testBlock = lookup("#5,0").query();
     testBlock.setX(150);
-    testBlock.setY(105);
+    testBlock.setY(205);
     assertFalse(testBlock.isBlockBroken());
-    myBall.setCenterY(125);
+    myBall.setCenterY(225);
     press(myScene,KeyCode.SHIFT);
     myBall.setDirection(0, -1);
     myGame.step(Game.SECOND_DELAY);

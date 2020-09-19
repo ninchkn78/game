@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.Group;
 
-
 public class LevelConfig {
 
   private final static int BLOCK_WIDTH = 50;
@@ -18,17 +17,18 @@ public class LevelConfig {
   private static final int PADDLE_YPOS = 300;
 
   private Paddle myPaddle;
-  private Ball myBall;
-  private List<Block> blockList;
+  private List<Ball> myBalls = new ArrayList<>();
+  private List<Block> blockList = new ArrayList<>();;
 
   private Group root;
 
-  public LevelConfig() {
+  public LevelConfig(int level) {
     root = new Group();
+    setUpLevel(level);
   }
 
-  public Ball getMyBall() {
-    return myBall;
+  public List<Ball> getMyBall() {
+    return myBalls;
   }
 
   public Paddle getMyPaddle() {
@@ -70,7 +70,6 @@ public class LevelConfig {
 
   // need this to track collisions
   private void makeListOfBlocks(String dataSource) {
-    blockList = new ArrayList<>();
     int rowNum, colNum = 0;
     List<String[]> blockFile = readBlockFile(dataSource);
     for (String[] row : blockFile) {
@@ -82,12 +81,10 @@ public class LevelConfig {
           blockList.add(block);
         }
         rowNum++;
-
       }
       colNum++;
     }
   }
-
   private Block getBlock(String blockType, int rowNum, int colNum) {
     if (blockType.equals("0")) {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
@@ -95,14 +92,21 @@ public class LevelConfig {
     return null;
   }
 
-  private void setUpBall() {
-    myBall = new Ball(Game.SIZE / 2, 293, 5);
-    myBall.setId("myBall");
-    root.getChildren().add(myBall);
+  private void addBall(int id) {
+    Ball ball = new Ball(Game.SIZE / 2, 293, 5);
+    ball.setId(String.format("ball%d",id));
+    root.getChildren().add(ball);
+    myBalls.add(ball);
+  }
+  private void setUpBalls(int numOfBalls) {
+    while(numOfBalls > 0){
+      addBall(numOfBalls);
+      numOfBalls -= 1;
+    }
   }
 
   private void setUpPaddle() {
-    myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, 75, 10);
+    myPaddle = new Paddle(PADDLE_XPOS, PADDLE_YPOS, PADDLE_WIDTH, 10);
     myPaddle.setId("myPaddle");
     root.getChildren().add(myPaddle);
   }
@@ -112,7 +116,7 @@ public class LevelConfig {
     String blockFile = String.format("level%d.txt", level);
     setUpBlocks(blockFile);
     setUpPaddle();
-    setUpBall();
+    setUpBalls(2);
   }
 }
 

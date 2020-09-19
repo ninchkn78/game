@@ -35,7 +35,7 @@ public class InputKeyTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#myBall").query();
+    myBall = lookup("#ball1").query();
 
   }
 

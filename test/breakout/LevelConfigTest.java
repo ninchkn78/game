@@ -33,10 +33,9 @@ public class LevelConfigTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#myBall").query();
-
+    myBall = lookup("#ball1").query();
+    myBall = lookup("#ball2").query();
   }
-
 
   // Can write regular JUnit tests!
   // check initial configuration values of game items set when scene was created
@@ -63,25 +62,25 @@ public class LevelConfigTest extends DukeApplicationTest {
   public void testBLocksInitialPositions() {
     Block rowZeroStartBlock = lookup("#0,0").query();
     assertEquals(0, rowZeroStartBlock.getX());
-    assertEquals(0, rowZeroStartBlock.getY());
+    assertEquals(50, rowZeroStartBlock.getY());
     assertEquals(50, rowZeroStartBlock.getWidth());
     assertEquals(10, rowZeroStartBlock.getHeight());
 
     Block rowOneStartBlock = lookup("#0,1").query();
     assertEquals(0, rowOneStartBlock.getX());
-    assertEquals(15, rowOneStartBlock.getY());
+    assertEquals(65, rowOneStartBlock.getY());
     assertEquals(50, rowOneStartBlock.getWidth());
     assertEquals(10, rowOneStartBlock.getHeight());
 
     Block rowTwoStartBlock = lookup("#0,2").query();
     assertEquals(0, rowTwoStartBlock.getX());
-    assertEquals(30, rowTwoStartBlock.getY());
+    assertEquals(80, rowTwoStartBlock.getY());
     assertEquals(50, rowTwoStartBlock.getWidth());
     assertEquals(10, rowTwoStartBlock.getHeight());
 
     Block rowZeroFifthBlock = lookup("#5,0").query();
     assertEquals(300, rowZeroFifthBlock.getX());
-    assertEquals(0, rowZeroFifthBlock.getY());
+    assertEquals(50, rowZeroFifthBlock.getY());
     assertEquals(50, rowZeroFifthBlock.getWidth());
     assertEquals(10, rowZeroFifthBlock.getHeight());
 
