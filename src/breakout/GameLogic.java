@@ -56,20 +56,23 @@ public class GameLogic {
       resetGame();
       setUpLevel(LevelConfig.setUpLevel(1, level.getRoot()));
     }
+    if(code.equals(KeyCode.B)){
+      level.addBall(level.getBalls().size() + 1);
+      setBallLaunched(true);
+    }
   }
-
-
 
   private void setGamePaused() {
     gamePaused = !gamePaused;
   }
 
   private void setBallLaunched(boolean status) {
-    if (!ballLaunched) {
       for (Ball ball : level.getBalls()) {
-        ball.setLaunch();
+        if(!ball.isBallLaunched()) {
+          ball.setLaunch();
+        }
       }
-    }
+
     ballLaunched = status;
   }
 
@@ -85,8 +88,10 @@ public class GameLogic {
     setBallLaunched(false);
     for (Ball ball : level.getBalls()) {
       ball.reset();
+      level.getRoot().getChildren().remove(ball);
     }
     level.getPaddle().reset();
+    level.reset();
   }
 
   public void checkBallBlockCollision(Ball ball) {

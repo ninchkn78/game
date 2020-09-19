@@ -26,8 +26,5 @@ public class BasicBlock extends Block {
   public void handleHit() {
     blockBroken = true;
   }
-
-
-
   }
 

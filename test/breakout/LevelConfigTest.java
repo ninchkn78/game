@@ -34,7 +34,6 @@ public class LevelConfigTest extends DukeApplicationTest {
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
     myBall = lookup("#ball1").query();
-    myBall = lookup("#ball2").query();
   }
 
   // Can write regular JUnit tests!

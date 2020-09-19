@@ -19,14 +19,18 @@ public class Ball extends Circle {
   private int Y_SPEED;
   private int X_DIRECTION;
   private int Y_DIRECTION;
-  private Random random = new Random();;
+  private Random random = new Random();
+
+  private boolean ballLaunched = false;
   public Ball(int centerX, int centerY, int size) {
     super(centerX, centerY, size);
     INITIAL_X = centerX;
     INITIAL_Y = centerY;
     this.setFill(BALL_COLOR);
   }
-
+  public boolean isBallLaunched(){
+    return this.ballLaunched;
+  }
   public void moveBallWithPaddle(KeyCode code) {
     if(code.equals(KeyCode.LEFT)){
       this.setCenterX(this.getCenterX() - Paddle.PADDLE_SPEED);
@@ -41,12 +45,12 @@ public class Ball extends Circle {
       // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
       checkWallCollision();
       this.setCenterY(this.getCenterY() + this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
-      this.setCenterX(this.getCenterX() + this.X_SPEED * this.X_DIRECTION * elapsedTime);
+      this.setCenterX(this.getCenterX() - this.X_SPEED * this.X_DIRECTION * elapsedTime);
 
   }
 
   private void checkWallCollision() {
-    if (this.getCenterY() < 0) {
+    if (this.getCenterY() <= 0) {
       Y_DIRECTION *= -1;
     }
     if (this.getCenterX() <= 0 || this.getCenterX() >= 350 ){
@@ -54,8 +58,9 @@ public class Ball extends Circle {
     }
   }
   public void setLaunch(){
+    ballLaunched = true;
     this.setDirection(random.nextBoolean() ? -1 : 1,
-        1);
+        -1);
     this.X_SPEED = GameLogic.getRandomNumber((int) (this.BALL_SPEED * X_SPEED_RANGE_START),
         (int) (this.BALL_SPEED * X_SPEED_RANGE_END));
     this.Y_SPEED = (int) Math.sqrt((this.BALL_SPEED * this.BALL_SPEED) - (this.X_SPEED * this.X_SPEED));

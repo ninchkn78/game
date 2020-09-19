@@ -9,7 +9,7 @@ public class Level {
   private static final int PADDLE_WIDTH = 75;
 
   private Paddle myPaddle;
-  private List<Ball> myBalls = new ArrayList<>();
+  private List<Ball> myBalls ;
   private List<Block> myBlocks = new ArrayList<>();
   private Group myRoot;
   private List<Powerup> myPowerups = new ArrayList<>();
@@ -63,6 +63,7 @@ public class Level {
   }
 
   private void setUpBalls(int numOfBalls) {
+    myBalls = new ArrayList<>();
     while (numOfBalls > 0) {
       addBall(numOfBalls);
       numOfBalls -= 1;
@@ -73,6 +74,9 @@ public class Level {
     myPaddle = new Paddle(x, y, width, height);
     myPaddle.setId("myPaddle");
     myRoot.getChildren().add(myPaddle);
+  }
+  public void reset(){
+    setUpBalls(2);
   }
 
 }
