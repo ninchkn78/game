@@ -1,10 +1,7 @@
 package breakout;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
-import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 
 public class GameLogic {
@@ -12,21 +9,17 @@ public class GameLogic {
   private boolean ballLaunched = false;
   private boolean gamePaused = false;
 
-  private List<Ball> myBalls;
-  private Paddle myPaddle;
-  private List<Block> blockList;
-  private Group root;
-  private List<Powerup> powerups = new ArrayList<>();
-  private int numOfBalls;
+  private Level level;
 
   //take in a level
-  public GameLogic(LevelConfig currentConfig) {
+  public GameLogic(Level level) {
+
     //maybe could add a class to package these guys together
-    myBalls = currentConfig.getMyBall();
-    myPaddle = currentConfig.getMyPaddle();
-    blockList = currentConfig.getBlockList();
-    root = currentConfig.getRoot();
-    numOfBalls = myBalls.size();
+    setUpLevel(level);
+  }
+
+  public void setUpLevel(Level newLevel){
+    this.level = newLevel;
   }
 
   public static int getRandomNumber(int min, int max) {
@@ -39,9 +32,9 @@ public class GameLogic {
     //set up condition for when ball is not launched, ball gets moved too
     if (code.equals(KeyCode.LEFT) || code.equals(KeyCode.RIGHT)) {
       if (!gamePaused) {
-        myPaddle.movePaddle(code);
+        level.getPaddle().movePaddle(code);
         if (!ballLaunched) {
-          for (Ball ball : myBalls) {
+          for (Ball ball : level.getBalls()) {
             ball.moveBallWithPaddle(code);
           }
         }
@@ -57,17 +50,15 @@ public class GameLogic {
       resetGame();
     }
     if (code.equals(KeyCode.P)) {
-      addPowerup();
+      level.addPowerup();
+    }
+    if (code.equals(KeyCode.S)){
+      resetGame();
+      setUpLevel(LevelConfig.setUpLevel(1, level.getRoot()));
     }
   }
 
-  private void addPowerup() {
-    int xPos = getRandomNumber(0, Game.SIZE);
-    Powerup p = new Powerup(xPos, 0, 10);
-    root.getChildren().add(p);
-    powerups.add(p);
-    p.setId(String.format("powerup%d", powerups.indexOf(p)));
-  }
+
 
   private void setGamePaused() {
     gamePaused = !gamePaused;
@@ -75,7 +66,7 @@ public class GameLogic {
 
   private void setBallLaunched(boolean status) {
     if (!ballLaunched) {
-      for (Ball ball : myBalls) {
+      for (Ball ball : level.getBalls()) {
         ball.setLaunch();
       }
     }
@@ -84,7 +75,7 @@ public class GameLogic {
 
   public void moveBall(double elapsedTime) {
     if (ballLaunched && !gamePaused) {
-      for (Ball ball : myBalls) {
+      for (Ball ball : level.getBalls()) {
         ball.moveBall(elapsedTime);
       }
     }
@@ -92,22 +83,21 @@ public class GameLogic {
 
   public void resetGame() {
     setBallLaunched(false);
-    for (Ball ball : myBalls) {
+    for (Ball ball : level.getBalls()) {
       ball.reset();
     }
-    myPaddle.reset();
-    numOfBalls = myBalls.size();
+    level.getPaddle().reset();
   }
 
   public void checkBallBlockCollision(Ball ball) {
-      Iterator<Block> itr = blockList.iterator();
+      Iterator<Block> itr = level.getBlockList().iterator();
       while (itr.hasNext()) {
         Block block = itr.next();
         if (ball.checkBallObjectCollision(block)) {
           block.handleHit();
           if (block.isBlockBroken()) {
             //TODO score changes here
-            root.getChildren().remove(block);
+            level.getRoot().getChildren().remove(block);
             itr.remove();
           }
         }
@@ -116,22 +106,22 @@ public class GameLogic {
 
   public void dropPowerups(double elapsedTime) {
     if (!gamePaused) {
-      for (Powerup powerup : powerups) {
+      for (Powerup powerup : level.getPowerups()) {
         powerup.drop(elapsedTime);
       }
     }
   }
 
   public void checkCollision() {
-    for (Ball ball : myBalls) {
+    for (Ball ball : level.getBalls()) {
       checkBallBlockCollision(ball);
-      ball.checkBallObjectCollision(myPaddle);
+      ball.checkBallObjectCollision(level.getPaddle());
     }
   }
 
   public void checkBallDroppedThroughBottom() {
-    numOfBalls = myBalls.size();
-    for (Ball ball : myBalls) {
+    int numOfBalls = level.getBalls().size();
+    for (Ball ball : level.getBalls()) {
       if (ball.checkBallDroppedThroughBottom()) {
         numOfBalls -= 1;
         //add something to account for if we want loss to only be on one ball ?

@@ -11,5 +11,6 @@ public abstract class Block extends Rectangle {
   public abstract void handleHit();
   public abstract boolean isBlockBroken();
 
+  //bomb brick gets its neighbors when created
 }
 
