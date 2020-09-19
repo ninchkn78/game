@@ -89,4 +89,13 @@ public class InputKeyTest extends DukeApplicationTest {
     assertTrue(powerup.getCenterY() > 0);
     assertEquals(initialX, powerup.getCenterX(), .1);
   }
+  @Test
+  public void testNewBallOnPress(){
+    //launch ball
+    press(myScene, KeyCode.B);
+    press(myScene, KeyCode.B);
+    Ball ball = lookup("#ball2").query();
+    Ball ball2 = lookup("#ball3").query();
+
+  }
 }

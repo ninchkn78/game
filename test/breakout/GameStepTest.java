@@ -103,11 +103,11 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setCenterY(100);
     assertFalse(myBall.getCenterY() < 100);
     press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,-1);
+    myBall.setDirection(-1,0);
     myGame.step(50); // give time to bounce upwards
-    assertTrue(myBall.getCenterY() < 50);
+    assertTrue(myBall.getCenterX() > 50);
     myGame.step(100); // give time to bounce downwards
-    assertTrue(myBall.getCenterY()> 100);
+    assertTrue(myBall.getCenterX() < 100);
   }
   @Test
   public void testBallOutOfBounds(){
@@ -116,22 +116,22 @@ public class GameStepTest extends DukeApplicationTest {
     //ball falls downwards
     press(myScene,KeyCode.SHIFT);
     myBall.setDirection(0,1);
-    myGame.step(Game.SECOND_DELAY*50);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should  be in starting position
     assertEquals(175, myBall.getCenterX());
     assertEquals(293, myBall.getCenterY());
   }
   @Test
   public void testBallIntoCorner(){
-    myBall.setCenterX(1);
-    myBall.setCenterY(1);
+    myBall.setCenterX(2);
+    myBall.setCenterY(2);
     //set direction towards top left
     press(myScene, KeyCode.SHIFT);
     myBall.setDirection(-1,-1);
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
     //check that it rebounds back exactly
-    assertEquals(1,myBall.getDirectionX());
+    assertEquals(-1,myBall.getDirectionX());
     assertEquals(1,myBall.getDirectionY());
   }
   @Test
