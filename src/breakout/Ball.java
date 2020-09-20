@@ -67,10 +67,8 @@ public class Ball extends Circle {
   }
 
   public boolean checkBallDroppedThroughBottom() {
-
       return this.getCenterY() > 355;
   }
-
 
   public boolean checkBallObjectCollision(Shape object){
     if (this.getBoundsInParent().intersects(object.getBoundsInParent())){

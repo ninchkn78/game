@@ -105,7 +105,7 @@ public class GameLogic {
       while (itr.hasNext()) {
         Block block = itr.next();
         if (ball.checkBallObjectCollision(block)) {
-          block.handleHit();
+          block.handleHit(level);
           if (block.isBlockBroken()) {
             //TODO score changes here
             level.remove(block);
