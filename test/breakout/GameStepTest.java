@@ -130,6 +130,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(-1,-1);
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
     //check that it rebounds back exactly
     assertEquals(-1,myBall.getDirectionX());
     assertEquals(1,myBall.getDirectionY());

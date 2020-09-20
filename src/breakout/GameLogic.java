@@ -50,8 +50,9 @@ public class GameLogic {
       resetGame();
     }
     if (code.equals(KeyCode.P)) {
+      if(!gamePaused){
       level.addPowerup();
-    }
+    }}
     if (code.equals(KeyCode.S)){
       resetGame();
       setUpLevel(LevelConfig.setUpLevel(1, level.getRoot()));
@@ -88,7 +89,7 @@ public class GameLogic {
     setBallLaunched(false);
     for (Ball ball : level.getBalls()) {
       ball.reset();
-      level.getRoot().getChildren().remove(ball);
+      level.remove(ball);
     }
     level.getPaddle().reset();
     level.reset();
@@ -102,7 +103,7 @@ public class GameLogic {
           block.handleHit();
           if (block.isBlockBroken()) {
             //TODO score changes here
-            level.getRoot().getChildren().remove(block);
+            level.remove(block);
             itr.remove();
           }
         }
@@ -113,6 +114,9 @@ public class GameLogic {
     if (!gamePaused) {
       for (Powerup powerup : level.getPowerups()) {
         powerup.drop(elapsedTime);
+        if(powerup.powerUpPaddle(level.getPaddle())){
+          level.remove(powerup);
+        }
       }
     }
   }
