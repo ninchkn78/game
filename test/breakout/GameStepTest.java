@@ -43,6 +43,16 @@ public class GameStepTest extends DukeApplicationTest {
 
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
 
+  public void breakBlock(Block block){
+    block.setX(150);
+    block.setY(205);
+    myBall.setCenterY(225);
+    press(myScene,KeyCode.SHIFT);
+    myBall.setDirection(0, -1);
+    myGame.step(Game.SECOND_DELAY);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+  }
   @Test
   public void testPaddleMove() {
     // GIVEN, mover is at some position in the scene
@@ -50,7 +60,6 @@ public class GameStepTest extends DukeApplicationTest {
     myPaddle.setY(100);
     //CHECK Left
     press(myScene, KeyCode.LEFT);
-
     assertEquals(95, myPaddle.getX());
     assertEquals(100, myPaddle.getY());
     myPaddle.setX(100);
@@ -140,15 +149,8 @@ public class GameStepTest extends DukeApplicationTest {
   @Test
   public void testBallBreaksBlock() {
     Block testBlock = lookup("#0,0").query();
-    testBlock.setX(150);
-    testBlock.setY(205);
     assertFalse(testBlock.isBlockBroken());
-    myBall.setCenterY(225);
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0, -1);
-    myGame.step(Game.SECOND_DELAY);
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    breakBlock(testBlock);
     assertTrue(testBlock.isBlockBroken());
   }
 
@@ -158,16 +160,17 @@ public class GameStepTest extends DukeApplicationTest {
     allBlocks.add(lookup("#0,0").query());
     allBlocks.add(  lookup("#0,1").query());
     allBlocks.add(lookup("#1,0").query());
+    allBlocks.add(lookup("#1,1").query());
     for(Block testBlock : allBlocks){
-      testBlock.setX(150);
-      testBlock.setY(205);
-      myBall.setCenterY(225);
-      press(myScene,KeyCode.SHIFT);
-      myBall.setDirection(0, -1);
-      myGame.step(Game.SECOND_DELAY);
-      javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-      javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+      breakBlock(testBlock);
     }
     lookup("WonText");
   }
+  @Test
+  public void testPowerupDropsOnBrokenBlock() {
+    Block powerupBlock = lookup("#1,1").query();
+    breakBlock(powerupBlock);
+    lookup("#powerup0").query();
+  }
+
 }

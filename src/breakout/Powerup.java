@@ -8,7 +8,7 @@ public class Powerup extends Circle {
   public static final Paint POWER_UP_COLOR = Color.HOTPINK;
   private int dropSpeed = 200;
 
-  public Powerup(int centerX, int centerY, int size){
+  public Powerup(double centerX, double centerY, int size){
     super(centerX,centerY,size);
     this.setFill(POWER_UP_COLOR);
   }
@@ -23,7 +23,6 @@ public class Powerup extends Circle {
     }
     return false;
   }
-
 
   public void drop(double elapsedTime){
     this.setCenterY(this.getCenterY() + dropSpeed * elapsedTime);

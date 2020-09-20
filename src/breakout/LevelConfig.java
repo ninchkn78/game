@@ -66,6 +66,8 @@ public class LevelConfig {
     if (blockType.equals("0")) {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
     }
+    else if(blockType.equals("P"))
+      return new PowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
     return null;
   }
   //is this open closed principle ?
