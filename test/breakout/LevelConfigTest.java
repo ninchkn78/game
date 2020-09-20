@@ -71,18 +71,7 @@ public class LevelConfigTest extends DukeApplicationTest {
     assertEquals(50, rowOneStartBlock.getWidth());
     assertEquals(10, rowOneStartBlock.getHeight());
 
-    Block rowTwoStartBlock = lookup("#0,2").query();
-    assertEquals(0, rowTwoStartBlock.getX());
-    assertEquals(80, rowTwoStartBlock.getY());
-    assertEquals(50, rowTwoStartBlock.getWidth());
-    assertEquals(10, rowTwoStartBlock.getHeight());
 
-    Block rowZeroFifthBlock = lookup("#5,0").query();
-    assertEquals(300, rowZeroFifthBlock.getX());
-    assertEquals(50, rowZeroFifthBlock.getY());
-    assertEquals(50, rowZeroFifthBlock.getWidth());
-    assertEquals(10, rowZeroFifthBlock.getHeight());
 
-  }
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
-}
+}}
