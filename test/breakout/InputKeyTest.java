@@ -81,6 +81,7 @@ public class InputKeyTest extends DukeApplicationTest {
   @Test
   public void testPowerupDropOnPress(){
     //launch ball
+    press(myScene, KeyCode.SHIFT);
     press(myScene, KeyCode.P);
     Powerup powerup = lookup("#powerup0").query();
     assertEquals(0, powerup.getCenterY());

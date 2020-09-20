@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -14,7 +16,7 @@ import util.DukeApplicationTest;
 public class GameStepTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
-  private final Game myGame = new Game();
+  private  Game myGame = new Game();
   // keep created scene to allow mouse and keyboard events
   private Scene myScene;
   // keep any useful elements whose values you want to test directly in multiple tests
@@ -137,7 +139,7 @@ public class GameStepTest extends DukeApplicationTest {
   }
   @Test
   public void testBallBreaksBlock() {
-    Block testBlock = lookup("#5,0").query();
+    Block testBlock = lookup("#0,0").query();
     testBlock.setX(150);
     testBlock.setY(205);
     assertFalse(testBlock.isBlockBroken());
@@ -148,5 +150,24 @@ public class GameStepTest extends DukeApplicationTest {
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
     assertTrue(testBlock.isBlockBroken());
+  }
+
+  @Test
+  public void testGameWon() {
+    List<Block> allBlocks = new ArrayList();
+    allBlocks.add(lookup("#0,0").query());
+    allBlocks.add(  lookup("#0,1").query());
+    allBlocks.add(lookup("#1,0").query());
+    for(Block testBlock : allBlocks){
+      testBlock.setX(150);
+      testBlock.setY(205);
+      myBall.setCenterY(225);
+      press(myScene,KeyCode.SHIFT);
+      myBall.setDirection(0, -1);
+      myGame.step(Game.SECOND_DELAY);
+      javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+      javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    }
+    lookup("WonText");
   }
 }

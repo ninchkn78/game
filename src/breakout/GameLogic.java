@@ -2,7 +2,9 @@ package breakout;
 
 import java.util.Iterator;
 import java.util.Random;
+import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 
 public class GameLogic {
 
@@ -10,16 +12,18 @@ public class GameLogic {
   private boolean gamePaused = false;
 
   private Level level;
+  private int levelNum;
 
   //take in a level
-  public GameLogic(Level level) {
+  public GameLogic(int level, Group root) {
+    levelNum = level;
 
     //maybe could add a class to package these guys together
-    setUpLevel(level);
+    setUpLevel(levelNum, root);
   }
 
-  public void setUpLevel(Level newLevel){
-    this.level = newLevel;
+  public void setUpLevel(int levelNum, Group root){
+    level = LevelConfig.setUpLevel(levelNum, root);
   }
 
   public static int getRandomNumber(int min, int max) {
@@ -50,12 +54,13 @@ public class GameLogic {
       resetGame();
     }
     if (code.equals(KeyCode.P)) {
-      if(!gamePaused){
+      if(!gamePaused && ballLaunched){
       level.addPowerup();
     }}
     if (code.equals(KeyCode.S)){
       resetGame();
-      setUpLevel(LevelConfig.setUpLevel(1, level.getRoot()));
+      levelNum++;
+      setUpLevel(levelNum, level.getRoot());
     }
     if(code.equals(KeyCode.B)){
       level.addBall(level.getBalls().size() + 1);
@@ -105,6 +110,7 @@ public class GameLogic {
             //TODO score changes here
             level.remove(block);
             itr.remove();
+            checkGameWon();
           }
         }
       }
@@ -118,6 +124,14 @@ public class GameLogic {
           level.remove(powerup);
         }
       }
+    }
+  }
+
+  public void checkGameWon(){
+    if(level.getBlockList().isEmpty()){
+      Text won = new Text(Game.SIZE/2 - 50, Game.SIZE/2, "You won this level!\nPress S to continue");
+      won.setId("WonText");
+      level.getRoot().getChildren().add(won);
     }
   }
 
@@ -137,7 +151,6 @@ public class GameLogic {
       }
     }
     if (numOfBalls == 0) {
-      System.out.println("yup");
       resetGame();
     }
   }

@@ -14,12 +14,14 @@ public class Level {
   private List<Block> myBlocks = new ArrayList<>();
   private Group myRoot;
   private List<Powerup> myPowerups = new ArrayList<>();
+  private int numOfBalls;
 
   public Level(Group gameRoot, int paddleX, int paddleY, int numBalls, List<Block> blockList) {
     myRoot = gameRoot;
     setUpPaddle(paddleX,paddleY, PADDLE_WIDTH, 10);
     setUpBalls(numBalls);
     setUpBlocks(blockList);
+    numOfBalls = numBalls;
   }
 
   public List<Ball> getBalls() {
@@ -77,7 +79,7 @@ public class Level {
     myRoot.getChildren().add(myPaddle);
   }
   public void reset(){
-    setUpBalls(2);
+    setUpBalls(numOfBalls);
   }
 
   public void remove(Shape object){

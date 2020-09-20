@@ -36,6 +36,7 @@ public class PowerupTest extends DukeApplicationTest {
   }
   @Test
   public void testPaddleWidenPowerup() {
+    press(myScene, KeyCode.SHIFT);
     press(myScene, KeyCode.P);
     Powerup powerup = lookup("#powerup0").query();
     powerup.setCenterX(200);
