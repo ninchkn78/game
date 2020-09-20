@@ -3,6 +3,7 @@ package breakout;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Group;
+import javafx.scene.shape.Shape;
 
 public class Level {
 
@@ -77,6 +78,11 @@ public class Level {
   }
   public void reset(){
     setUpBalls(2);
+  }
+
+  public void remove(Shape object){
+    myRoot.getChildren().remove(object);
+
   }
 
 }

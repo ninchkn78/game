@@ -13,6 +13,17 @@ public class Powerup extends Circle {
     this.setFill(POWER_UP_COLOR);
   }
 
+  private boolean hitPaddle(Paddle paddle){
+    return this.getBoundsInParent().intersects(paddle.getBoundsInParent());
+  }
+  public boolean powerUpPaddle(Paddle paddle){
+    if(hitPaddle(paddle)){
+      paddle.changePaddleWidth(1.25);
+      return true;
+    }
+    return false;
+  }
+
 
   public void drop(double elapsedTime){
     this.setCenterY(this.getCenterY() + dropSpeed * elapsedTime);
