@@ -14,7 +14,6 @@ public class GameLogic {
   private Level level;
   private int levelNum;
   private Group myRoot;
-  private int currentScore = 0;
 
 
 
@@ -72,6 +71,9 @@ public class GameLogic {
       level.addBall(level.getBalls().size() + 1);
       setBallLaunched(true);
     }
+    if(code.equals(KeyCode.L)){
+      level.getDisplay().decrementLives(-1,myRoot);
+    }
   }
 
   private void setGamePaused() {
@@ -104,7 +106,7 @@ public class GameLogic {
     }
     level.getPaddle().reset();
     level.reset();
-    currentScore = 0;
+
 
   }
 
@@ -115,9 +117,9 @@ public class GameLogic {
         if (ball.checkBallObjectCollision(block)) {
           block.handleHit(level);
           if (block.isBlockBroken()) {
-            //TODO score changes here
-            currentScore += 1;
-            level.getDisplay().updateScore(currentScore, myRoot);
+            // TODO score changes here
+
+            level.getDisplay().incrementScore(1, myRoot);
             level.remove(block);
             itr.remove();
             checkGameWon();
@@ -147,6 +149,13 @@ public class GameLogic {
       level.getRoot().getChildren().add(won);
     }
   }
+  public void checkGameLost(){
+    if(level.getDisplay().getLives() == 0){
+      Text lost = new Text(Game.SIZE/2 - 50, Game.SIZE/2, "You lost this level! :( \nPress S to continue");
+      lost.setId("lostText");
+      level.getRoot().getChildren().add(lost);
+    }
+  }
 
 
 
@@ -172,6 +181,8 @@ public class GameLogic {
     }
     if (numOfBalls == 0) {
       resetGame();
+      level.getDisplay().decrementLives(1,myRoot);
+      checkGameLost();
     }
   }
 }

@@ -5,11 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+
+import javafx.scene.text.Text;
 
 //need to ask about how to adapt these tests for higher levels
 public class InputKeyTest extends DukeApplicationTest {
@@ -98,5 +101,13 @@ public class InputKeyTest extends DukeApplicationTest {
     Ball ball = lookup("#ball2").query();
     Ball ball2 = lookup("#ball3").query();
 
+  }
+  @Test
+  public void testAddLives(){
+    //add two lives
+    press(myScene,KeyCode.L);
+    press(myScene,KeyCode.L);
+    Text stats = lookup("#stats").queryText();
+    assertEquals("Lives: 5     Score: 0",stats.getText());
   }
 }
