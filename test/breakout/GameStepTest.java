@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -22,6 +23,7 @@ public class GameStepTest extends DukeApplicationTest {
   // keep any useful elements whose values you want to test directly in multiple tests
   private Paddle myPaddle;
   private Ball myBall;
+  private Display myDisplay;
 
   /**
    * Start special test version of application that does not animate on its own before each test.
@@ -173,4 +175,12 @@ public class GameStepTest extends DukeApplicationTest {
     lookup("#powerup0").query();
   }
 
+  @Test
+  public void testScoreUpdates (){
+    Block basicBlock = lookup("#0,0").query();
+    breakBlock(basicBlock);
+    Text stats = lookup("#stats").queryText();
+    assertEquals("Lives: 0     Score: 1", stats.getText());
+
+  }
 }

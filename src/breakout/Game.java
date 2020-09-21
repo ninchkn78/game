@@ -68,6 +68,7 @@ public class Game extends Application {
     gameLogic.checkBallDroppedThroughBottom();
     gameLogic.checkCollision();
     gameLogic.dropPowerups(elapsedTime);
+
   }
 }
 

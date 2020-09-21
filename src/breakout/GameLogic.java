@@ -13,11 +13,17 @@ public class GameLogic {
 
   private Level level;
   private int levelNum;
+  private Group myRoot;
+  private int currentScore = 0;
 
-  //take in a level
+
+
+
+
+    //take in a level
   public GameLogic(int level, Group root) {
     levelNum = level;
-
+    myRoot = root;
     //maybe could add a class to package these guys together
     setUpLevel(levelNum, root);
   }
@@ -98,6 +104,8 @@ public class GameLogic {
     }
     level.getPaddle().reset();
     level.reset();
+    currentScore = 0;
+
   }
 
   public void checkBallBlockCollision(Ball ball) {
@@ -108,6 +116,8 @@ public class GameLogic {
           block.handleHit(level);
           if (block.isBlockBroken()) {
             //TODO score changes here
+            currentScore += 1;
+            level.getDisplay().updateScore(currentScore, myRoot);
             level.remove(block);
             itr.remove();
             checkGameWon();
@@ -115,6 +125,9 @@ public class GameLogic {
         }
       }
   }
+
+
+
 
   public void dropPowerups(double elapsedTime) {
     if (!gamePaused) {
@@ -134,6 +147,13 @@ public class GameLogic {
       level.getRoot().getChildren().add(won);
     }
   }
+
+
+
+
+
+
+
 
   public void checkCollision() {
     for (Ball ball : level.getBalls()) {
