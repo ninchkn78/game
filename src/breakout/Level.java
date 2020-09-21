@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
+import org.assertj.core.internal.DigestDiff;
 
 public class Level {
 
   private static final int PADDLE_WIDTH = 75;
+  private static final double Y_DISPLAY = 350 - 20;
+  private static final double X_DISPLAY = 350/2;
+
 
   private Paddle myPaddle;
   private List<Ball> myBalls ;
@@ -15,12 +20,17 @@ public class Level {
   private Group myRoot;
   private List<Powerup> myPowerups = new ArrayList<>();
   private int numOfBalls;
+  private Display myDisplay;
+  private Text myStats;
+
+
 
   public Level(Group gameRoot, int paddleX, int paddleY, int numBalls, List<Block> blockList) {
     myRoot = gameRoot;
     setUpPaddle(paddleX,paddleY, PADDLE_WIDTH, 10);
     setUpBalls(numBalls);
     setUpBlocks(blockList);
+    setUpDisplay();
     numOfBalls = numBalls;
   }
 
@@ -43,6 +53,14 @@ public class Level {
   public List<Block> getBlockList() {
     return myBlocks;
   }
+  public Text getStats(){
+    return myStats;
+  }
+  public Display getDisplay(){
+    return myDisplay;
+  }
+
+
 
   void setUpBlocks(List<Block> blockList) {
     myBlocks = blockList;
@@ -77,6 +95,13 @@ public class Level {
     myPaddle = new Paddle(x, y, width, height);
     myPaddle.setId("myPaddle");
     myRoot.getChildren().add(myPaddle);
+  }
+
+  private void setUpDisplay(){
+    myDisplay = new Display();
+    myStats = myDisplay.createDisplay();
+    myRoot.getChildren().add(myStats);
+
   }
   public void reset(){
     setUpBalls(numOfBalls);

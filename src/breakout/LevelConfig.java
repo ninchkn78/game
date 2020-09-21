@@ -74,7 +74,9 @@ public class LevelConfig {
   public static Level setUpLevel(int level, Group root) {
     root.getChildren().clear();
     String blockFile = String.format("level%d.txt", level);
+
     return new Level(root, PADDLE_XPOS, PADDLE_YPOS, 1, makeListOfBlocks(blockFile));
+
   }
 }
 
