@@ -3,8 +3,6 @@ package breakout;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 
-
-
 public class Display {
 
 private int currentLives = 3;
@@ -12,12 +10,8 @@ private int currentScore = 0;
 private Text stats;
 
     public Display(){
-
-
-
     }
-
-
+    
     public Text createDisplay(){
 
        stats = new Text(350 / 2 - 50, 350 - 20, "Lives: " + currentLives + "     Score: " + currentScore);

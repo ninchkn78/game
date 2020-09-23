@@ -1,5 +1,7 @@
 package breakout;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -27,12 +29,11 @@ public class Game extends Application {
 
   private GameLogic gameLogic = new GameLogic(level, root);
 
-
   /**
    * Start the program.
    */
   public static void main(String[] args) {
-    launch(args);
+        launch(args);
   }
 
   /**
@@ -65,7 +66,6 @@ public class Game extends Application {
   // - goals, did the game or level end?
   void step(double elapsedTime) {
     gameLogic.moveBall(elapsedTime);
-    gameLogic.checkBallDroppedThroughBottom();
     gameLogic.checkCollision();
     gameLogic.dropPowerups(elapsedTime);
 

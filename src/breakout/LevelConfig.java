@@ -8,20 +8,25 @@ import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.Group;
 
-public class LevelConfig {
+public abstract class LevelConfig {
 
   //reads in a block file to make blocks
   //makes a paddle
   //adds balls ?
 
-
   //make a paddle, send it to Level, add it to the root
   //make a paddle add it to the root, send the root to the Level
-  private final static int BLOCK_WIDTH = 50;
+  private static int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   private static final int PADDLE_WIDTH = 75;
-  private static final int PADDLE_XPOS = Game.SIZE / 2 - PADDLE_WIDTH / 2;
-  private static final int PADDLE_YPOS = 300;
+  private static int paddleX = Game.SIZE / 2 - PADDLE_WIDTH/2;
+  private static int paddleY = 300;
+
+  public abstract void setPaddleXpos(int xpos);
+
+  public abstract void setPaddleYpos(int ypos);
+
+
 
   public static List<String[]> readBlockFile(String dataSource) {
     List<String[]> blocks = new ArrayList<>();
@@ -70,13 +75,14 @@ public class LevelConfig {
       return new PowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
     return null;
   }
-  //is this open closed principle ?
+
   public static Level setUpLevel(int level, Group root) {
     root.getChildren().clear();
     String blockFile = String.format("level%d.txt", level);
-
-    return new Level(root, PADDLE_XPOS, PADDLE_YPOS, 1, makeListOfBlocks(blockFile));
-
+    return new Level(root, paddleX, paddleY, 1, makeListOfBlocks(blockFile));
+  }
+  public static List<Block> getBlockList(int level) {
+    return makeListOfBlocks(String.format("level%d.txt", level));
   }
 }
 
