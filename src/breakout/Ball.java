@@ -1,5 +1,6 @@
 package breakout;
 
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;

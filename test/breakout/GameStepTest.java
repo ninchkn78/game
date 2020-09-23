@@ -131,6 +131,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(0,1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should  be in starting position
+    myBall = lookup("#ball1").query();
     assertEquals(175, myBall.getCenterX());
     assertEquals(293, myBall.getCenterY());
   }
