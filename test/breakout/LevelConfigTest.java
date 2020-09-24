@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+import javafx.scene.input.KeyCode;
 
 //need to ask about how to adapt these tests for higher levels
 public class LevelConfigTest extends DukeApplicationTest {
@@ -74,4 +76,16 @@ public class LevelConfigTest extends DukeApplicationTest {
 
 
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
-}}
+
+}
+
+  @Test
+  public void testLevelDisplay(){
+    Text stats = lookup("#stats").queryText();
+    assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
+    press(myScene,KeyCode.S);
+    stats = lookup("#stats").queryText();
+    assertEquals("Level: 1     Lives: 3     Score: 0", stats.getText());
+  }
+}
+

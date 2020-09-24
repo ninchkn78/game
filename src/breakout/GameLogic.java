@@ -14,6 +14,7 @@ public class GameLogic {
   private Level level;
   private int levelNum;
   private final Group myRoot;
+  private Display myDisplay = new Display();
 
 
 
@@ -73,6 +74,10 @@ public class GameLogic {
     if (code.equals(KeyCode.S)){
       levelNum++;
       resetGame();
+      myDisplay.changeLevel(levelNum,myRoot);
+
+      //System.out.println(level.getRoot().getChildren());
+
     }
     if(code.equals(KeyCode.B)){
       level.addBall();

@@ -7,6 +7,7 @@ public class Display {
 
 private int currentLives = 3;
 private int currentScore = 0;
+private int currentLevel = 0;
 private Text stats;
 
     public Display(){
@@ -14,7 +15,7 @@ private Text stats;
     
     public Text createDisplay(){
 
-       stats = new Text(350 / 2 - 50, 350 - 20, "Lives: " + currentLives + "     Score: " + currentScore);
+       stats = new Text(350 / 2 - 50, 350 - 20, "Level: " + currentLevel + "     Lives: " + currentLives + "     Score: " + currentScore);
        stats.setId("stats");
        return stats;
 
@@ -31,6 +32,16 @@ private Text stats;
         this.currentLives -= lives;
         Text newStats = createDisplay();
         root.getChildren().add(newStats);
+    }
+    public void changeLevel(int level, Group root){
+        this.currentLevel = level;
+        // for some reason .remove(stats) does not work here so I hardcoded it
+        root.getChildren().remove(root.getChildren().size() - 1); // assumes Text is always last in root???
+        Text newStats = createDisplay();
+        root.getChildren().add(newStats);
+        //stats.setText("Level: " + currentLevel + "     Lives: " + currentLives + "     Score: " + currentScore);
+
+
     }
     /* might need this later? not sure
     public void resetScore(Group root){
