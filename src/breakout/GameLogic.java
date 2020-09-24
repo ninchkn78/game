@@ -16,6 +16,7 @@ public class GameLogic {
   private final Group myRoot;
 
 
+
     //take in a level
   public GameLogic(int level, Group root) {
     levelNum = level;
@@ -78,6 +79,9 @@ public class GameLogic {
     }
     if(code.equals(KeyCode.L)){
       level.changeLives(-1);
+    }
+    if(code.equals(KeyCode.D)){ //destroy first block
+        level.removeBlock(0);
     }
   }
 
