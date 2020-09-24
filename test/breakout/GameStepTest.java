@@ -181,13 +181,13 @@ public class GameStepTest extends DukeApplicationTest {
     Block basicBlock = lookup("#0,0").query();
     breakBlock(basicBlock);
     Text stats = lookup("#stats").queryText();
-    assertEquals("Lives: 3     Score: 1", stats.getText());
+    assertEquals("Level: 0     Lives: 3     Score: 1", stats.getText());
 
   }
   @Test
   public void testLivesUpdate(){
     Text stats = lookup("#stats").queryText();
-    assertEquals("Lives: 3     Score: 0", stats.getText());
+    assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downwards
@@ -195,7 +195,7 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(0,1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     stats = lookup("#stats").queryText();
-    assertEquals("Lives: 2     Score: 0",stats.getText());
+    assertEquals("Level: 0     Lives: 2     Score: 0",stats.getText());
   }
   @Test
   public void testGameLost(){
