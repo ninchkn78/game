@@ -53,6 +53,7 @@ public class Level {
         block.handleHit(this);
         if (block.isBlockBroken()) {
           // TODO score changes here
+
           myDisplay.incrementScore(1, myRoot);
           remove(block);
           itr.remove();
@@ -163,6 +164,16 @@ public class Level {
   public boolean noBlocks(){
     return myBlocks.isEmpty();
   }
+
+
+  public void removeBlock(int index){ //index of block in blocklist
+    Block block = myBlocks.get(index); //get block from list at index
+    myBlocks.remove(index); //remove block from list at index
+    block.handleHit(this);
+    remove(block); //remove block from scene
+  }
 }
+
+
 
 

@@ -1,10 +1,5 @@
 package breakout;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -13,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 import javafx.scene.text.Text;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 //need to ask about how to adapt these tests for higher levels
 public class InputKeyTest extends DukeApplicationTest {
@@ -24,6 +23,8 @@ public class InputKeyTest extends DukeApplicationTest {
   // keep any useful elements whose values you want to test directly in multiple tests
   private Paddle myPaddle;
   private Ball myBall;
+  private Level level;
+
 
   /**
    * Start special test version of application that does not animate on its own before each test.
@@ -110,4 +111,25 @@ public class InputKeyTest extends DukeApplicationTest {
     Text stats = lookup("#stats").queryText();
     assertEquals("Lives: 5     Score: 0",stats.getText());
   }
+
+  @Test
+  public void testRemoveFirstBlock(){
+    //test first block in list
+    Block testBlock1 = lookup("#0,0").query();
+    assertFalse(testBlock1.isBlockBroken()); //check that block is intact
+    press(myScene, KeyCode.D);// use removeFirstBlock cheat key
+    assertTrue(testBlock1.isBlockBroken()); // check that block broke
+
+    //test second block in list
+    Block testBlock2 = lookup("#1,0").query();
+    assertFalse(testBlock2.isBlockBroken()); //check that block is intact
+    press(myScene, KeyCode.D); // use removeFirstBlock cheat key
+    assertTrue(testBlock2.isBlockBroken()); // check that block broke
+
+
+
+
+
+  }
 }
+
