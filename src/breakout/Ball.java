@@ -97,4 +97,12 @@ public class Ball extends Circle {
   public int getDirectionY() {
     return this.Y_DIRECTION;
   }
+
+
+  public void ignoreBottom(){ // ball does not fall through bottom and instead bounces back up
+
+    if (this.getCenterY() > 355){
+      this.Y_DIRECTION *= -1;
+    }
+  }
 }

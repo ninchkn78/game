@@ -126,10 +126,32 @@ public class InputKeyTest extends DukeApplicationTest {
     press(myScene, KeyCode.D); // use removeFirstBlock cheat key
     assertTrue(testBlock2.isBlockBroken()); // check that block broke
 
+  }
 
+  @Test
+  public void testToggleImmunity(){
+    // no immunity
+    myBall.setCenterX(10);
+    myBall.setCenterY(295);
+    //ball falls downwards
+    press(myScene,KeyCode.SHIFT);
+    myBall.setDirection(0,1);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
+    //ball should  be in starting position
+    myBall = lookup("#ball1").query();
+    assertEquals(175, myBall.getCenterX());
+    assertEquals(293, myBall.getCenterY());
 
-
-
+    // with immunity
+    myBall.setCenterX(10);
+    myBall.setCenterY(295);
+    //ball falls downward
+    press(myScene,KeyCode.SHIFT);
+    press(myScene,KeyCode.I);
+    myBall.setDirection(0,1);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
+    //ball should bounce directly back upwards
+    assertEquals(-1, myBall.getDirectionY() );
   }
 }
 
