@@ -63,15 +63,16 @@ public class GameLogic {
     }
     if (code.equals(KeyCode.R)) {
       resetGame();
+
     }
     if (code.equals(KeyCode.P)) {
       if(!gamePaused && ballLaunched){
       level.addPowerup();
+
     }}
     if (code.equals(KeyCode.S)){
-      resetGame();
       levelNum++;
-      setUpLevel(levelNum, level.getRoot());
+      resetGame();
     }
     if(code.equals(KeyCode.B)){
       level.addBall();
@@ -82,6 +83,9 @@ public class GameLogic {
     }
     if(code.equals(KeyCode.D)){ //destroy first block
         level.removeBlock(0);
+    }
+    if(code.equals(KeyCode.I)){ // toggle immunity
+        level.alternateImmunity();
     }
   }
 
@@ -103,6 +107,7 @@ public class GameLogic {
   public void resetGame() {
     ballLaunched = false;
     level.reset();
+    setUpLevel(levelNum,myRoot);
   }
 
   public void dropPowerups(double elapsedTime) {
@@ -117,10 +122,10 @@ public class GameLogic {
       level.add(won);
     }
   }
-  //TODO have some way to restart level
+
   public void checkGameLost(){
     if(level.noLives()){
-      Text lost = new Text(Game.SIZE/2 - 50, Game.SIZE/2, "You lost this level! :( \nPress S to continue");
+      Text lost = new Text(Game.SIZE/2 - 50, Game.SIZE/2, "You lost this level! :( \nPress R to restart");
       lost.setId("lostText");
       level.add(lost);
     }

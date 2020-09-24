@@ -20,6 +20,7 @@ public class Level {
   private final int numOfBalls;
   private Display myDisplay;
   private Text myStats;
+  private boolean immunity;
 
   public Level(Group gameRoot, int paddleX, int paddleY, int numBalls, List<Block> blockList) {
     myRoot = gameRoot;
@@ -119,6 +120,7 @@ public class Level {
 
   }
   public void reset(){
+
     for (Ball ball : myBalls) {
       ball.reset();
       remove(ball);
@@ -146,16 +148,23 @@ public class Level {
     myDisplay.decrementLives(change,myRoot);
   }
   private void checkBallDroppedThroughBottom() {
+
     int numBalls = myBalls.size();
     for (Ball ball : myBalls) {
-      if (ball.checkBallDroppedThroughBottom()) {
-        numBalls -= 1;
-        //add something to account for if we want loss to only be on one ball ?
+      if (!immunity) {
+        if (ball.checkBallDroppedThroughBottom()) {
+
+          numBalls -= 1;
+          //add something to account for if we want loss to only be on one ball ?
+        }
       }
-    }
-    if (numBalls == 0) {
-      reset();
-      changeLives(1);
+      else ball.ignoreBottom();
+      if (numBalls == 0) {
+        reset();
+        changeLives(1);
+      }
+
+
     }
   }
   public boolean noLives(){
@@ -171,6 +180,19 @@ public class Level {
     myBlocks.remove(index); //remove block from list at index
     block.handleHit(this);
     remove(block); //remove block from scene
+  }
+
+  //sets value of immunity to argument passed
+  public void setImmunity(Boolean identity){
+    immunity = identity;
+  }
+  // gets current value of immunity
+  public Boolean getImmunity(){
+    return immunity;
+  }
+  //toggles immunity
+  public void alternateImmunity(){
+    immunity = !immunity;
   }
 }
 
