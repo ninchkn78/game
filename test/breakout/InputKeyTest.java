@@ -9,8 +9,6 @@ import util.DukeApplicationTest;
 
 import javafx.scene.text.Text;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 //need to ask about how to adapt these tests for higher levels
@@ -34,7 +32,7 @@ public class InputKeyTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
+    myScene = myGame.setupScene();
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
