@@ -73,6 +73,9 @@ public abstract class LevelConfig {
     }
     else if(blockType.equals("P"))
       return new PowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    else if(blockType.equals("D")) {
+      return new DurableBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    }
     return null;
   }
 
