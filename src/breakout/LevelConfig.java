@@ -84,6 +84,7 @@ public abstract class LevelConfig {
     String blockFile = String.format("level%d.txt", level);
     return new Level(root, paddleX, paddleY, 1, makeListOfBlocks(blockFile));
   }
+
   public static List<Block> getBlockList(int level) {
     return makeListOfBlocks(String.format("level%d.txt", level));
   }

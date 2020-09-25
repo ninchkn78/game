@@ -1,14 +1,25 @@
 ## Lab Discussion
-### Team
-### Names
+### Game_35
+### Alex Chao ac590
+###Christian Welch cs356
 
 
 ### Issues in Current Code
 
 #### Method or Class
- * Design issues
+ * Lines 46-91 handleKeyInput method isn't abstracted 
 
- * Design issue
+ * Class responsibilities 
+ 
+ * Magic numbers 
+ 
+ * instance variables could be local variables 
+ 
+ * 161/74 curly brace missing 
+ 
+ * 150 Level checkBallDrop cyclomatic complexity is 5 
+ 
+ * 13 Display empty method
 
 #### Method or Class
  * Design issues

@@ -120,7 +120,6 @@ public class Level {
 
   }
   public void reset(){
-
     for (Ball ball : myBalls) {
       ball.reset();
       remove(ball);
