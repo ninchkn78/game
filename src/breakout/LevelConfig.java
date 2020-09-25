@@ -16,11 +16,11 @@ public abstract class LevelConfig {
 
   //make a paddle, send it to Level, add it to the root
   //make a paddle add it to the root, send the root to the Level
-  private static int BLOCK_WIDTH = 50;
+  private static final int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   private static final int PADDLE_WIDTH = 75;
-  private static int paddleX = Game.SIZE / 2 - PADDLE_WIDTH/2;
-  private static int paddleY = 300;
+  private static final int paddleX = Game.SIZE / 2 - PADDLE_WIDTH/2;
+  private static final int paddleY = 300;
 
   public abstract void setPaddleXpos(int xpos);
 
@@ -66,17 +66,14 @@ public abstract class LevelConfig {
     }
     return blockList;
   }
-
+  //ask about this
   private static Block getBlock(String blockType, int rowNum, int colNum) {
-    if (blockType.equals("0")) {
-      return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    }
-    else if(blockType.equals("P"))
-      return new PowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
-    else if(blockType.equals("D")) {
-      return new DurableBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
-    }
-    return null;
+    return switch (blockType) {
+      case "0" -> new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+      case "P" -> new PowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+      case "D" -> new DurableBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+      default -> null;
+    };
   }
 
   public static Level setUpLevel(int level, Group root) {

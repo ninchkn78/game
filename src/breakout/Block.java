@@ -5,8 +5,6 @@ import javafx.scene.shape.Rectangle;
 //should a block have access to the level ?
 
 public abstract class Block extends Rectangle {
-  private boolean blockHit = false;
-  private boolean blockBroken = false;
 
   public Block(int row, int col, int width, int height) {
 

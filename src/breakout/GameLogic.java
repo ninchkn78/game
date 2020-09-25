@@ -17,9 +17,10 @@ public class GameLogic {
   private boolean gamePaused = false;
   private Level level;
   private int levelNum;
-  private Display myDisplay = new Display();
+  private final Display myDisplay = new Display();
 
-  private Map<KeyCode, Consumer> myKeyActions = new HashMap<>();
+  //add a comment later
+  private Map<KeyCode, Runnable> myKeyActions = new KeyActionMap(this).getMyKeyActions();
 
   //take in a level
   public GameLogic(int level, Group root) {
@@ -48,7 +49,8 @@ public class GameLogic {
 
   //stays in game logic
   public void handleKeyInput(KeyCode code) {
-    myKeyActions.put(RIGHT, (KeyCode) -> level.movePaddle(RIGHT));
+
+    myKeyActions.get(code).run();
 
     //set up condition for when ball is not launched, ball gets moved too
     if (code.equals(KeyCode.LEFT) || code.equals(RIGHT)) {
@@ -98,7 +100,7 @@ public class GameLogic {
     gamePaused = !gamePaused;
   }
 
-  private void setBallLaunched() {
+  public void setBallLaunched() {
     ballLaunched = true;
     level.setBallLaunched();
   }
