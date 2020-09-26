@@ -71,7 +71,6 @@ public class Level {
     for (Ball ball : myBalls) {
       ball.moveBall(elapsedTime);
     }
-    checkBallDroppedThroughBottom();
   }
 
   public void changeBallSpeed(double modifier){
@@ -166,13 +165,12 @@ public class Level {
     myDisplay.decrementLives(change, myRoot);
   }
 
-  private void checkBallDroppedThroughBottom() {
+  public boolean checkBallDroppedThroughBottom() {
     int numBalls = myBalls.size();
     for (Ball ball : myBalls) {
       if (!immunity) {
         if (ball.checkBallDroppedThroughBottom()) {
           numBalls -= 1;
-          //add something to account for if we want loss to only be on one ball ?
         }
       } else {
         ball.ignoreBottom();
@@ -180,8 +178,10 @@ public class Level {
       if (numBalls == 0) {
         reset();
         changeLives(1);
+        return true;
       }
     }
+    return false;
   }
 
   public boolean noLives() {

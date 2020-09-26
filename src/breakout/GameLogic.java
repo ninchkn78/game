@@ -39,16 +39,23 @@ public class GameLogic {
     addKeyInput(KeyCode.B, this::addBall);
     addKeyInput(KeyCode.L, this::addLife);
     addKeyInput(KeyCode.D, this::destroyFirstBlock);
-    addKeyInput(KeyCode.I, this::alternateImmunity);
+    addKeyInput(KeyCode.I, () -> level.alternateImmunity());
+    addKeyInput(KeyCode.UP,this::increaseBallSpeed);
+    addKeyInput(KeyCode.DOWN,this::decreaseBallSpeed);
   }
 
   private void addKeyInput(KeyCode code, Runnable executable){
     myKeyActions.put(code, executable);
   }
 
-  private void alternateImmunity() {
-    level.alternateImmunity();
+  private void increaseBallSpeed(){
+    level.changeBallSpeed(1.05);
   }
+  private void decreaseBallSpeed(){
+    level.changeBallSpeed(.95);
+  }
+
+
 
   private void destroyFirstBlock() {
     if(!level.noBlocks()) {//destroy first block
@@ -130,7 +137,10 @@ public class GameLogic {
     if (ballLaunched && !gamePaused) {
       level.moveBall(elapsedTime);
     }
-    checkGameLost();
+    if(level.checkBallDroppedThroughBottom()) {
+      ballLaunched = false;
+      checkGameLost();
+    }
   }
 
   private void resetGame() {
