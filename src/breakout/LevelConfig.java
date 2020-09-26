@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.Group;
 
-public abstract class LevelConfig {
+public class LevelConfig {
 
   //reads in a block file to make blocks
   //makes a paddle
@@ -18,18 +18,8 @@ public abstract class LevelConfig {
   //make a paddle add it to the root, send the root to the Level
   private static final int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
-  private static final int PADDLE_WIDTH = 75;
-  private static final int paddleX = Game.SIZE / 2 - PADDLE_WIDTH/2;
-  private static final int paddleY = 300;
 
-  public abstract void setPaddleXpos(int xpos);
-
-  public abstract void setPaddleYpos(int ypos);
-
-
-
-  public static List<String[]> readBlockFile(String dataSource) {
-    List<String[]> blocks = new ArrayList<>();
+  private static Scanner getLevelConfigFileScanner(String dataSource){
     InputStream textFile = null;
     try {
       textFile = Objects.requireNonNull(LevelConfig.class.getClassLoader().getResource(dataSource))
@@ -37,8 +27,17 @@ public abstract class LevelConfig {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    String[] block;
     Scanner scan = new Scanner(Objects.requireNonNull(textFile));
+    return scan;
+  }
+  private static List<String[]> readBlockFile(String datasource) {
+    Scanner scan = getLevelConfigFileScanner(datasource);
+    List<String[]> blocks = new ArrayList<>();
+    String[] block;
+//    String[] setUpInfo;
+//    setUpInfo = scan.nextLine().split(",");
+//    scan.nextLine();
+    //blocks start on second line
     while (scan.hasNextLine()) {
       block = scan.nextLine().split(",");
       blocks.add(block);
@@ -81,9 +80,18 @@ public abstract class LevelConfig {
 
 
   public static Level setUpLevel(int level, Group root) {
+    // TODO: 2020-09-26 add information to file  
     root.getChildren().clear();
     String blockFile = String.format("level%d.txt", level);
-    return new Level(root, paddleX, paddleY, 1, makeListOfBlocks(blockFile));
+//    String setUpInfo[] = //;
+//    int paddleX = setUpInfo[0];
+//    int paddleY = setUpInfo[1];
+//    int numBalls = setUpInfo[2];
+    int paddleX = 137;
+    int paddleY = 300;
+    int numBalls = 1;
+    System.out.println(makeListOfBlocks(blockFile));
+    return new Level(root, paddleX, paddleY, numBalls, makeListOfBlocks(blockFile));
   }
 
   public static List<Block> getBlockList(int level) {

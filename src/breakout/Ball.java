@@ -103,7 +103,7 @@ public class Ball extends Circle {
       this.yDirection *= -1;
     }
   }
-  public changeBallSpeed(double modifier){
-    this.ballSpeed
+  public void changeBallSpeed(double modifier){
+    this.ballSpeed *= modifier;
   }
 }

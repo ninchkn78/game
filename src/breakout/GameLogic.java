@@ -42,6 +42,10 @@ public class GameLogic {
     addKeyInput(KeyCode.I, this::alternateImmunity);
   }
 
+  private void addKeyInput(KeyCode code, Runnable executable){
+    myKeyActions.put(code, executable);
+  }
+
   private void alternateImmunity() {
     level.alternateImmunity();
   }
@@ -71,14 +75,12 @@ public class GameLogic {
 
   private void addPowerup() {
     if (!gamePaused && ballLaunched) {
-      level.addPowerup();
+      level.addPowerUp();
     }
   }
 
-  private void addKeyInput(KeyCode code, Runnable executable){
-    myKeyActions.put(code, executable);
-  }
 
+  //found this on stack overflow
   public static int getRandomNumber(int min, int max) {
     Random random = new Random();
     return random.nextInt(max - min) + min;
