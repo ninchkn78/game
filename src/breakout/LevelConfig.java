@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import javafx.scene.Group;
+import javafx.util.Pair;
 
 public class LevelConfig {
 
@@ -27,22 +28,19 @@ public class LevelConfig {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    Scanner scan = new Scanner(Objects.requireNonNull(textFile));
-    return scan;
+    return new Scanner(Objects.requireNonNull(textFile));
   }
-  private static List<String[]> readBlockFile(String datasource) {
+  private static Pair<String[], List<String[]>> readFile(String datasource) {
     Scanner scan = getLevelConfigFileScanner(datasource);
     List<String[]> blocks = new ArrayList<>();
-    String[] block;
-//    String[] setUpInfo;
-//    setUpInfo = scan.nextLine().split(",");
-//    scan.nextLine();
+    String[] block, setUpInfo;
+    setUpInfo = scan.nextLine().split(",");
     //blocks start on second line
     while (scan.hasNextLine()) {
       block = scan.nextLine().split(",");
       blocks.add(block);
     }
-    return blocks;
+    return new Pair<>(setUpInfo, blocks);
   }
 
 
@@ -50,7 +48,7 @@ public class LevelConfig {
   private static List<Block> makeListOfBlocks(String dataSource) {
     List<Block> blockList = new ArrayList<>();
     int rowNum, colNum = 0;
-    List<String[]> blockFile = readBlockFile(dataSource);
+    List<String[]> blockFile = readFile(dataSource).getValue();
     for (String[] row : blockFile) {
       rowNum = 0;
       for (String blockType : row) {
@@ -80,23 +78,15 @@ public class LevelConfig {
 
 
   public static Level setUpLevel(int level, Group root) {
-    // TODO: 2020-09-26 add information to file  
     root.getChildren().clear();
     String blockFile = String.format("level%d.txt", level);
-//    String setUpInfo[] = //;
-//    int paddleX = setUpInfo[0];
-//    int paddleY = setUpInfo[1];
-//    int numBalls = setUpInfo[2];
-    int paddleX = 137;
-    int paddleY = 300;
-    int numBalls = 1;
-    System.out.println(makeListOfBlocks(blockFile));
+    String[] setUpInfo = readFile(blockFile).getKey();
+    int paddleX = Integer.parseInt(setUpInfo[0]);
+    int paddleY = Integer.parseInt(setUpInfo[1]);
+    int numBalls = Integer.parseInt(setUpInfo[2]);
     return new Level(root, paddleX, paddleY, numBalls, makeListOfBlocks(blockFile));
   }
 
-  public static List<Block> getBlockList(int level) {
-    return makeListOfBlocks(String.format("level%d.txt", level));
-  }
 }
 
 

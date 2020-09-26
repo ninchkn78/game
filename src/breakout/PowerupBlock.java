@@ -4,7 +4,6 @@ import javafx.scene.paint.Color;
 
 public class PowerupBlock extends Block {
 
-
   private boolean blockHit = false;
   private boolean blockBroken = false;
 
@@ -12,6 +11,7 @@ public class PowerupBlock extends Block {
     super(row, col, width, height);
     this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
   }
+
   @Override
   public boolean isBlockBroken(){
     return blockBroken;
