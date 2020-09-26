@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import breakout.blocks.Block;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Scene;
@@ -167,7 +168,8 @@ public class GameStepTest extends DukeApplicationTest {
     for(Block testBlock : allBlocks){
       breakBlock(testBlock);
     }
-    lookup("WonText");
+    sleep(2000);
+    lookup("#WonText").query();
   }
   @Test
   public void testPowerupDropsOnBrokenBlock() {
@@ -218,6 +220,6 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(0,1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     //check loss displays
-    lookup("lossText");
+    lookup("#lostText").query();
   }
 }

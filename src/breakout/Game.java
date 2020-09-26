@@ -64,7 +64,6 @@ public class Game extends Application {
     gameLogic.moveBall(elapsedTime);
     gameLogic.checkCollision();
     gameLogic.dropPowerups(elapsedTime);
-
   }
 }
 
