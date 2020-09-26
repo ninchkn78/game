@@ -68,13 +68,17 @@ public abstract class LevelConfig {
   }
   //ask about this
   private static Block getBlock(String blockType, int rowNum, int colNum) {
-    return switch (blockType) {
-      case "0" -> new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-      case "P" -> new PowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-      case "D" -> new DurableBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-      default -> null;
-    };
+    if (blockType.equals("0")) {
+      return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+    }
+    else if(blockType.equals("P"))
+      return new PowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    else if(blockType.equals("D")) {
+      return new DurableBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    }
+    return null;
   }
+
 
   public static Level setUpLevel(int level, Group root) {
     root.getChildren().clear();
