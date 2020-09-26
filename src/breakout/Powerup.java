@@ -8,7 +8,6 @@ public abstract class Powerup extends Circle {
   public static final Paint PADDLE_POWER_UP_COLOR = Color.HOTPINK;
   public static final Paint BALL_POWER_UP_COLOR = Color.BLUEVIOLET;
 
-  private int dropSpeed = 200;
   public static final int POWERUP_SIZE = 10;
 
   public Powerup(double centerX, double centerY){
@@ -21,6 +20,7 @@ public abstract class Powerup extends Circle {
   public abstract boolean poweredUp(Level level, Paddle paddle);
 
   public void drop(double elapsedTime){
+    int dropSpeed = 200;
     this.setCenterY(this.getCenterY() + dropSpeed * elapsedTime);
   }
 

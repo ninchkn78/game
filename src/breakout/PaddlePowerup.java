@@ -1,10 +1,6 @@
 package breakout;
 
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-
 public class PaddlePowerup extends Powerup {
-
 
   public PaddlePowerup(double centerX, double centerY) {
     super(centerX, centerY);

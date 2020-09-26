@@ -10,14 +10,13 @@ import javafx.scene.text.Text;
 public class GameLogic {
 
   private final Group myRoot;
+  private final Display myDisplay = new Display();
+  private final Map<KeyCode, Runnable> myKeyActions = new HashMap<>();
   private boolean ballLaunched = false;
   private boolean gamePaused = false;
   private boolean gameWon = false;
   private Level level;
   private int levelNum;
-  private final Display myDisplay = new Display();
-
-  private final Map<KeyCode, Runnable> myKeyActions = new HashMap<>();
 
   //take in a level
   public GameLogic(int level, Group root) {
@@ -28,10 +27,16 @@ public class GameLogic {
     makeKeyActionsMap();
   }
 
+  //found this on stack overflow
+  public static int getRandomNumber(int min, int max) {
+    Random random = new Random();
+    return random.nextInt(max - min) + min;
+  }
+
   private void makeKeyActionsMap() {
     addKeyInput(KeyCode.SHIFT, this::setBallLaunched);
     addKeyInput(KeyCode.SPACE, this::setGamePaused);
-    addKeyInput(KeyCode.RIGHT,() -> movePaddle(KeyCode.RIGHT));
+    addKeyInput(KeyCode.RIGHT, () -> movePaddle(KeyCode.RIGHT));
     addKeyInput(KeyCode.LEFT, () -> movePaddle(KeyCode.LEFT));
     addKeyInput(KeyCode.R, this::resetGame);
     addKeyInput(KeyCode.P, this::addPowerup);
@@ -40,28 +45,27 @@ public class GameLogic {
     addKeyInput(KeyCode.L, this::addLife);
     addKeyInput(KeyCode.D, this::destroyFirstBlock);
     addKeyInput(KeyCode.I, () -> level.alternateImmunity());
-    addKeyInput(KeyCode.UP,this::increaseBallSpeed);
-    addKeyInput(KeyCode.DOWN,this::decreaseBallSpeed);
-    addKeyInput(KeyCode.DIGIT1,() -> changeLevel(1));
-    addKeyInput(KeyCode.DIGIT2,() -> changeLevel(2));
-    addKeyInput(KeyCode.DIGIT3,() -> changeLevel(3));
+    addKeyInput(KeyCode.UP, this::increaseBallSpeed);
+    addKeyInput(KeyCode.DOWN, this::decreaseBallSpeed);
+    addKeyInput(KeyCode.DIGIT1, () -> changeLevel(1));
+    addKeyInput(KeyCode.DIGIT2, () -> changeLevel(2));
+    addKeyInput(KeyCode.DIGIT3, () -> changeLevel(3));
   }
 
-  private void addKeyInput(KeyCode code, Runnable executable){
+  private void addKeyInput(KeyCode code, Runnable executable) {
     myKeyActions.put(code, executable);
   }
 
-  private void increaseBallSpeed(){
+  private void increaseBallSpeed() {
     level.changeBallSpeed(1.05);
   }
-  private void decreaseBallSpeed(){
+
+  private void decreaseBallSpeed() {
     level.changeBallSpeed(.95);
   }
 
-
-
   private void destroyFirstBlock() {
-    if(!level.noBlocks()) {//destroy first block
+    if (!level.noBlocks()) {//destroy first block
       level.removeBlock(0);
     }
   }
@@ -71,7 +75,7 @@ public class GameLogic {
   }
 
   private void addBall() {
-    if(!gamePaused) {
+    if (!gamePaused) {
       level.addBall();
       setBallLaunched();
     }
@@ -89,16 +93,11 @@ public class GameLogic {
     }
   }
 
-  private void changeLevel(int level){
+  // TODO: fix display not clearing sometimes
+  private void changeLevel(int level) {
     resetGame();
-    setUpLevel(level,myRoot);
+    setUpLevel(level, myRoot);
     myDisplay.changeLevel(level, myRoot);
-  }
-
-  //found this on stack overflow
-  public static int getRandomNumber(int min, int max) {
-    Random random = new Random();
-    return random.nextInt(max - min) + min;
   }
 //  public void setUpLevel1(Group root){
 //    level = LevelConfig1.setUpLevel(root);
@@ -115,7 +114,8 @@ public class GameLogic {
 
   //stays in game logic
   public void handleKeyInput(KeyCode code) {
-    myKeyActions.getOrDefault(code, () -> {} ).run();
+    myKeyActions.getOrDefault(code, () -> {
+    }).run();
   }
 
   private void movePaddle(KeyCode code) {
@@ -140,12 +140,13 @@ public class GameLogic {
     if (ballLaunched && !gamePaused) {
       level.moveBall(elapsedTime);
     }
-    if(level.checkBallDroppedThroughBottom()) {
+    if (level.checkBallDroppedThroughBottom()) {
       ballLaunched = false;
       checkGameLost();
     }
   }
 
+  // TODO: fix level in display resetting back to 0 on reset
   private void resetGame() {
     ballLaunched = false;
     level.reset();
@@ -169,6 +170,7 @@ public class GameLogic {
     }
   }
 
+  // TODO: fix bug where can lose game after winning
   private void checkGameLost() {
     if (level.noLives()) {
       Text lost = new Text(Game.SIZE / 2 - 50, Game.SIZE / 2,
@@ -177,6 +179,7 @@ public class GameLogic {
       level.add(lost);
     }
   }
+
   public void checkCollision() {
     level.checkCollisions();
     checkGameWon();

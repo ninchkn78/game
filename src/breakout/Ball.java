@@ -39,9 +39,8 @@ public class Ball extends Circle {
     }
   }
 
-  //use triangles
+
   public void moveBall(double elapsedTime) {
-      // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
       checkWallCollision();
       this.setCenterY(this.getCenterY() + this.ySpeed * this.yDirection * elapsedTime);
       this.setCenterX(this.getCenterX() - this.xSpeed * this.xDirection * elapsedTime);
@@ -65,9 +64,7 @@ public class Ball extends Circle {
     this.ySpeed = (int) Math.sqrt((this.ballSpeed * this.ballSpeed) - (this.xSpeed * this.xSpeed));
   }
 
-  public void printXSpeed(){
-    System.out.println(this.xSpeed);
-  }
+  // TODO: 2020-09-26 added in gamelogic too, but generalize for dropping through top
   public boolean checkBallDroppedThroughBottom() {
       return this.getCenterY() > 355;
   }
@@ -101,7 +98,6 @@ public class Ball extends Circle {
 
 
   public void ignoreBottom(){ // ball does not fall through bottom and instead bounces back up
-
     if (this.getCenterY() > 355){
       this.yDirection *= -1;
     }

@@ -1,5 +1,7 @@
 package breakout;
 
+import static breakout.Level.RANDOM_POWERUP;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -9,8 +11,8 @@ public class PowerupChooser {
   public static final int PADDLE_POWERUP = 1;
 
   private int numOfPowerups = 0;
-  private double xPos;
-  private double yPos;
+  private final double xPos;
+  private final double yPos;
 
   public PowerupChooser(double x, double y){
     xPos = x;
@@ -18,10 +20,10 @@ public class PowerupChooser {
     addAllPowerups();
   }
 
-  private Map<Integer, Powerup> powerupTypes = new HashMap<>();
+  private final Map<Integer, Powerup> powerupTypes = new HashMap<>();
 
    public Powerup getPowerup(int powerupIndex){
-     if(powerupIndex == -1) {
+     if(powerupIndex == RANDOM_POWERUP) {
        Random rand = new Random();
        powerupIndex = rand.nextInt(powerupTypes.size());
      }
