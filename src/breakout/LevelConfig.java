@@ -16,14 +16,8 @@ import javafx.util.Pair;
 
 public class LevelConfig {
 
-  //reads in a block file to make blocks
-  //makes a paddle
-  //adds balls ?
-
-  //make a paddle, send it to Level, add it to the root
-  //make a paddle add it to the root, send the root to the Level
-  private static final int BLOCK_WIDTH = 50;
-  private final static int BLOCK_HEIGHT = 10;
+  public static final int BLOCK_WIDTH = 50;
+  public final static int BLOCK_HEIGHT = 10;
 
   private static Scanner getLevelConfigFileScanner(String dataSource){
     InputStream textFile = null;
@@ -48,8 +42,6 @@ public class LevelConfig {
     return new Pair<>(setUpInfo, blocks);
   }
 
-
-  // need this to track collisions
   private static List<Block> makeListOfBlocks(String dataSource) {
     List<Block> blockList = new ArrayList<>();
     int rowNum, colNum = 0;
@@ -68,7 +60,8 @@ public class LevelConfig {
     }
     return blockList;
   }
-  //ask about this
+
+  // TODO: 2020-09-26 make a map
   private static Block getBlock(String blockType, int rowNum, int colNum) {
     if (blockType.equals("0")) {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);

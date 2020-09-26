@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 public abstract class PowerupBlock extends Block {
 
 
-  private boolean blockHit = false;
   private boolean blockBroken = false;
 
   public PowerupBlock(int row, int col, int width, int height) {

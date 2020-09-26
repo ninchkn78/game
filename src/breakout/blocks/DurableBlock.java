@@ -3,6 +3,8 @@ package breakout.blocks;
 import breakout.Level;
 import javafx.scene.paint.Color;
 
+// TODO: 2020-09-26 add tests for this block 
+
 public class DurableBlock extends Block {
 
     private int count = 3;

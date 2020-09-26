@@ -161,10 +161,11 @@ public class Level {
   }
 
   public void changeLives(int change) {
-    // TODO: 2020-09-26 change Name ?  
+    // TODO: 2020-09-26 change name from decrement ?
     myDisplay.decrementLives(change, myRoot);
   }
 
+  // TODO: generalize this to check for when ball drops through top too (for later levels), maybe add as a parameter
   public boolean checkBallDroppedThroughBottom() {
     int numBalls = myBalls.size();
     for (Ball ball : myBalls) {
@@ -211,7 +212,7 @@ public class Level {
   }
 
   //toggles immunity
-  // TODO: immunity could be in the ball?
+  // TODO: immunity could be in ball? not sure about this one
   public void alternateImmunity() {
     immunity = !immunity;
   }
