@@ -1,12 +1,10 @@
 package breakout;
 
-import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-
 import javafx.scene.shape.Shape;
 
 public class Ball extends Circle {
@@ -20,7 +18,7 @@ public class Ball extends Circle {
   private int Y_SPEED;
   private int X_DIRECTION;
   private int Y_DIRECTION;
-  private Random random = new Random();
+  private final Random random = new Random();
 
   private boolean ballLaunched = false;
   public Ball(int centerX, int centerY, int size) {

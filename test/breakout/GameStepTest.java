@@ -33,7 +33,7 @@ public class GameStepTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
+    myScene = myGame.setupScene();
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
@@ -156,9 +156,9 @@ public class GameStepTest extends DukeApplicationTest {
     breakBlock(testBlock);
     assertTrue(testBlock.isBlockBroken());
   }
-
   @Test
   public void testGameWon() {
+    // TODO: check this test
     List<Block> allBlocks = new ArrayList();
     allBlocks.add(lookup("#0,0").query());
     allBlocks.add(  lookup("#0,1").query());

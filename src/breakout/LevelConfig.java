@@ -16,11 +16,11 @@ public abstract class LevelConfig {
 
   //make a paddle, send it to Level, add it to the root
   //make a paddle add it to the root, send the root to the Level
-  private static int BLOCK_WIDTH = 50;
+  private static final int BLOCK_WIDTH = 50;
   private final static int BLOCK_HEIGHT = 10;
   private static final int PADDLE_WIDTH = 75;
-  private static int paddleX = Game.SIZE / 2 - PADDLE_WIDTH/2;
-  private static int paddleY = 300;
+  private static final int paddleX = Game.SIZE / 2 - PADDLE_WIDTH/2;
+  private static final int paddleY = 300;
 
   public abstract void setPaddleXpos(int xpos);
 
@@ -66,7 +66,7 @@ public abstract class LevelConfig {
     }
     return blockList;
   }
-
+  //ask about this
   private static Block getBlock(String blockType, int rowNum, int colNum) {
     if (blockType.equals("0")) {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
@@ -79,11 +79,13 @@ public abstract class LevelConfig {
     return null;
   }
 
+
   public static Level setUpLevel(int level, Group root) {
     root.getChildren().clear();
     String blockFile = String.format("level%d.txt", level);
     return new Level(root, paddleX, paddleY, 1, makeListOfBlocks(blockFile));
   }
+
   public static List<Block> getBlockList(int level) {
     return makeListOfBlocks(String.format("level%d.txt", level));
   }

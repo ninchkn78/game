@@ -27,7 +27,7 @@ public class PowerupTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
+    myScene = myGame.setupScene();
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())

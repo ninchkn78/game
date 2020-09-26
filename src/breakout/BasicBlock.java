@@ -8,7 +8,6 @@ public class BasicBlock extends Block {
   public final static int X_DISPLACEMENT = 10;
   public final static int SPACE_FROM_TOP = 50;
 
-  private boolean blockHit = false;
   private boolean blockBroken = false;
 
   public BasicBlock(int row, int col, int width, int height) {

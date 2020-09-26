@@ -10,9 +10,6 @@ private int currentScore = 0;
 private int currentLevel = 0;
 private Text stats;
 
-    public Display(){
-    }
-    
     public Text createDisplay(){
 
        stats = new Text(350 / 2 - 50, 350 - 20, "Level: " + currentLevel + "     Lives: " + currentLives + "     Score: " + currentScore);

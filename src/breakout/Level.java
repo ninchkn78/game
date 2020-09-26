@@ -19,19 +19,15 @@ public class Level {
   private final List<Powerup> myPowerups = new ArrayList<>();
   private final int numOfBalls;
   private Display myDisplay;
-  private Text myStats;
   private boolean immunity;
 
   public Level(Group gameRoot, int paddleX, int paddleY, int numBalls, List<Block> blockList) {
     myRoot = gameRoot;
-    setUpPaddle(paddleX,paddleY, PADDLE_WIDTH, 10);
+    setUpPaddle(paddleX,paddleY);
     setUpBalls(numBalls);
     setUpBlocks(blockList);
     setUpDisplay();
     numOfBalls = numBalls;
-  }
-  public Group getRoot() {
-    return myRoot;
   }
 
   void setUpBlocks(List<Block> blockList) {
@@ -107,20 +103,19 @@ public class Level {
     }
   }
 
-  private void setUpPaddle(int x, int y, int width, int height) {
-    myPaddle = new Paddle(x, y, width, height);
+  private void setUpPaddle(int x, int y) {
+    myPaddle = new Paddle(x, y, Level.PADDLE_WIDTH, 10);
     myPaddle.setId("myPaddle");
     myRoot.getChildren().add(myPaddle);
   }
 
   private void setUpDisplay(){
     myDisplay = new Display();
-    myStats = myDisplay.createDisplay();
+    Text myStats = myDisplay.createDisplay();
     myRoot.getChildren().add(myStats);
 
   }
   public void reset(){
-
     for (Ball ball : myBalls) {
       ball.reset();
       remove(ball);
