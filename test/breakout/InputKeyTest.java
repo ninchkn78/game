@@ -161,6 +161,43 @@ public class InputKeyTest extends DukeApplicationTest {
     assertEquals(25,myPaddle.getY());
 
   }
+  private double calculateDistanceTravelled(){
+    myBall.setCenterX(25);
+    myBall.setCenterY(275);
+    myBall.printXSpeed();
+    myGame.step(Game.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
+    return Math.abs(myBall.getCenterY() - 275);
+  }
+  @Test
+  public void testBallSlowDown() {
+    press(myScene, KeyCode.SHIFT);
+    double distanceTravelled = calculateDistanceTravelled();
+    press(myScene, KeyCode.DOWN);
+    double newDistanceTravelled = calculateDistanceTravelled();
+    assertTrue(newDistanceTravelled < distanceTravelled);
+  }
+  @Test
+  public void testBallSpeedsUp() {
+    press(myScene, KeyCode.SHIFT);
+    double distanceTravelled = calculateDistanceTravelled();
+    press(myScene, KeyCode.UP);
+    double newDistanceTravelled = calculateDistanceTravelled();
+    assertTrue(newDistanceTravelled > distanceTravelled);
+  }
+  @Test
+  public void testLevelTransition() {
+    press(myScene, KeyCode.DIGIT1);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(300,myPaddle.getY());
+    press(myScene, KeyCode.DIGIT2);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(25,myPaddle.getY());
+    press(myScene, KeyCode.DIGIT3);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(150,myPaddle.getY());
+  }
+
 
 
 }

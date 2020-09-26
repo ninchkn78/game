@@ -168,7 +168,6 @@ public class GameStepTest extends DukeApplicationTest {
     for(Block testBlock : allBlocks){
       breakBlock(testBlock);
     }
-    sleep(2000);
     lookup("#WonText").query();
   }
   @Test
