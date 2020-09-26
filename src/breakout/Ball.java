@@ -11,20 +11,20 @@ public class Ball extends Circle {
   public static final Paint BALL_COLOR = Color.PLUM;
   public static final double X_SPEED_RANGE_START = .55;
   public static final double X_SPEED_RANGE_END = .90;
-  private static int INITIAL_X;
-  private static int INITIAL_Y;
-  private int BALL_SPEED = 200;
-  private int X_SPEED;
-  private int Y_SPEED;
-  private int X_DIRECTION;
-  private int Y_DIRECTION;
+  private static int initialX;
+  private static int initialY;
+  private int ballSpeed = 200;
+  private int xSpeed;
+  private int ySpeed;
+  private int xDirection;
+  private int yDirection;
   private final Random random = new Random();
 
   private boolean ballLaunched = false;
   public Ball(int centerX, int centerY, int size) {
     super(centerX, centerY, size);
-    INITIAL_X = centerX;
-    INITIAL_Y = centerY;
+    initialX = centerX;
+    initialY = centerY;
     this.setFill(BALL_COLOR);
   }
   public boolean isBallLaunched(){
@@ -43,26 +43,26 @@ public class Ball extends Circle {
   public void moveBall(double elapsedTime) {
       // there are more sophisticated ways to animate shapes, but these simple ways work fine to start
       checkWallCollision();
-      this.setCenterY(this.getCenterY() + this.Y_SPEED * this.Y_DIRECTION * elapsedTime);
-      this.setCenterX(this.getCenterX() - this.X_SPEED * this.X_DIRECTION * elapsedTime);
+      this.setCenterY(this.getCenterY() + this.ySpeed * this.yDirection * elapsedTime);
+      this.setCenterX(this.getCenterX() - this.xSpeed * this.xDirection * elapsedTime);
 
   }
 
   private void checkWallCollision() {
     if (this.getCenterY() <= 0) {
-      Y_DIRECTION *= -1;
+      yDirection *= -1;
     }
     if (this.getCenterX() <= 0 || this.getCenterX() >= 350 ){
-      X_DIRECTION *= -1;
+      xDirection *= -1;
     }
   }
   public void setLaunch(){
     ballLaunched = true;
     this.setDirection(random.nextBoolean() ? -1 : 1,
         -1);
-    this.X_SPEED = GameLogic.getRandomNumber((int) (this.BALL_SPEED * X_SPEED_RANGE_START),
-        (int) (this.BALL_SPEED * X_SPEED_RANGE_END));
-    this.Y_SPEED = (int) Math.sqrt((this.BALL_SPEED * this.BALL_SPEED) - (this.X_SPEED * this.X_SPEED));
+    this.xSpeed = GameLogic.getRandomNumber((int) (this.ballSpeed * X_SPEED_RANGE_START),
+        (int) (this.ballSpeed * X_SPEED_RANGE_END));
+    this.ySpeed = (int) Math.sqrt((this.ballSpeed * this.ballSpeed) - (this.xSpeed * this.xSpeed));
   }
 
   public boolean checkBallDroppedThroughBottom() {
@@ -71,36 +71,39 @@ public class Ball extends Circle {
 
   public boolean checkBallObjectCollision(Shape object){
     if (this.getBoundsInParent().intersects(object.getBoundsInParent())){
-        this.Y_DIRECTION *= -1;
+        this.yDirection *= -1;
         return true;
     }
     return false;
   }
 
   public void setDirection(int xDirection, int yDirection){
-    this.X_DIRECTION = xDirection;
-    this.Y_DIRECTION = yDirection;
+    this.xDirection = xDirection;
+    this.yDirection = yDirection;
   }
 
 
   public void reset() {
-    this.setCenterX(INITIAL_X);
-    this.setCenterY(INITIAL_Y);
+    this.setCenterX(initialX);
+    this.setCenterY(initialY);
     this.setDirection(1,1);
   }
 
   public int getDirectionX() {
-    return this.X_DIRECTION;
+    return this.xDirection;
   }
   public int getDirectionY() {
-    return this.Y_DIRECTION;
+    return this.yDirection;
   }
 
 
   public void ignoreBottom(){ // ball does not fall through bottom and instead bounces back up
 
     if (this.getCenterY() > 355){
-      this.Y_DIRECTION *= -1;
+      this.yDirection *= -1;
     }
+  }
+  public changeBallSpeed(double modifier){
+    this.ballSpeed
   }
 }
