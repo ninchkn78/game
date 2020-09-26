@@ -68,17 +68,22 @@ public class GameLogic {
   }
 
   private void advanceLevel() {
-    resetGame();
     levelNum++;
-    myDisplay.changeLevel(levelNum, myRoot);
+    changeLevel(levelNum);
+
   }
 
   private void addPowerup() {
     if (!gamePaused && ballLaunched) {
-      level.addPowerUp();
+      level.addRandomPowerup();
     }
   }
 
+  private void changeLevel(int level){
+    resetGame();
+    setUpLevel(level,myRoot);
+    myDisplay.changeLevel(level, myRoot);
+  }
 
   //found this on stack overflow
   public static int getRandomNumber(int min, int max) {

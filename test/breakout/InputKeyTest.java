@@ -1,6 +1,7 @@
 package breakout;
 
 
+import breakout.blocks.Block;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -99,7 +100,6 @@ public class InputKeyTest extends DukeApplicationTest {
     press(myScene, KeyCode.B);
     Ball ball = lookup("#ball2").query();
     Ball ball2 = lookup("#ball3").query();
-
   }
   @Test
   public void testAddLives(){
@@ -151,5 +151,17 @@ public class InputKeyTest extends DukeApplicationTest {
     //ball should bounce directly back upwards
     assertEquals(-1, myBall.getDirectionY() );
   }
+  @Test
+  public void testAdvanceLevel(){
+    //advance to level 2
+    javafxRun(() -> press(myScene,KeyCode.S));
+    javafxRun(() -> press(myScene,KeyCode.S));
+    //check paddle position changed
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(25,myPaddle.getY());
+
+  }
+
+
 }
 

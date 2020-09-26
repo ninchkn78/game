@@ -1,8 +1,9 @@
-package breakout;
+package breakout.blocks;
 
+import breakout.Level;
 import javafx.scene.paint.Color;
 
-public class DurableBlock extends Block{
+public class DurableBlock extends Block {
 
     private int count = 3;
     private boolean blockBroken = false;

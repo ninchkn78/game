@@ -1,5 +1,10 @@
 package breakout;
 
+import breakout.blocks.BallPowerupBlock;
+import breakout.blocks.BasicBlock;
+import breakout.blocks.Block;
+import breakout.blocks.DurableBlock;
+import breakout.blocks.PaddlePowerupBlock;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -69,7 +74,9 @@ public class LevelConfig {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
     }
     else if(blockType.equals("P"))
-      return new PowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+      return new PaddlePowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    else if(blockType.equals("B"))
+      return new BallPowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
     else if(blockType.equals("D")) {
       return new DurableBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
     }

@@ -1,5 +1,6 @@
 package breakout;
 
+import breakout.blocks.Block;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +12,7 @@ import javafx.scene.text.Text;
 public class Level {
 
   private static final int PADDLE_WIDTH = 75;
+  public static final int RANDOM_POWERUP = -1;
   private final Group myRoot;
   private final List<Powerup> myPowerups = new ArrayList<>();
   private final int numOfBalls;
@@ -93,22 +95,23 @@ public class Level {
     myBalls.add(ball);
   }
 
-  public void addPowerupFromBlock(Block block) {
-    int xPos = block.getxPos();
-    int yPos = block.getyPos();
-    // TODO: 2020-09-26 add a random powerup
-    addPowerupFrom(xPos,yPos);
+  public void addPowerupFromBlock(Block block, int powerupType) {
+    double xPos = block.getX();
+    double yPos = block.getY();
+    addPowerupFrom(xPos,yPos, powerupType);
   }
 
-  private void addPowerupFrom(int xPos, int yPos){
-    Powerup p = new PaddlePowerup(xPos, yPos, 10);
-    myRoot.getChildren().add(p);
-    myPowerups.add(p);
-    p.setId(String.format("powerup%d", myPowerups.indexOf(p)));
+  private void addPowerupFrom(double xPos, double yPos, int powerupType){
+    PowerupChooser powerupChooser = new PowerupChooser(xPos,yPos);
+    Powerup powerup = powerupChooser.getPowerup(powerupType);
+    myRoot.getChildren().add(powerup);
+    myPowerups.add(powerup);
+    powerup.setId(String.format("powerup%d", myPowerups.indexOf(powerup)));
   }
-  public void addPowerUp(){
+
+  public void addRandomPowerup(){
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
-    addPowerupFrom(xPos,0);
+    addPowerupFrom(xPos,0, RANDOM_POWERUP);
   }
 
   private void setUpBalls(int numOfBalls) {

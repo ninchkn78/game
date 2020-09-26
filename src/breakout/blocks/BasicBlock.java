@@ -1,17 +1,16 @@
-package breakout;
+package breakout.blocks;
 
+import breakout.Level;
 import javafx.scene.paint.Color;
 
-public class PowerupBlock extends Block {
+public class BasicBlock extends Block {
 
-  private boolean blockHit = false;
   private boolean blockBroken = false;
 
-  public PowerupBlock(int row, int col, int width, int height) {
+  public BasicBlock(int row, int col, int width, int height) {
     super(row, col, width, height);
     this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
   }
-
   @Override
   public boolean isBlockBroken(){
     return blockBroken;
@@ -19,10 +18,6 @@ public class PowerupBlock extends Block {
   @Override
   public void handleHit(Level level) {
     blockBroken = true;
-    dropPowerup(level);
   }
-  private void dropPowerup(Level level){
-    level.addPowerupFromBlock(this);
   }
-}
 

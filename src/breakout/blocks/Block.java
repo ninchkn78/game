@@ -1,5 +1,6 @@
-package breakout;
+package breakout.blocks;
 
+import breakout.Level;
 import javafx.scene.shape.Rectangle;
 
 //should a block have access to the level ?
@@ -21,12 +22,6 @@ public abstract class Block extends Rectangle {
 
   }
 
-  public int getxPos() {
-    return xPos;
-  }
-  public int getyPos() {
-    return yPos;
-  }
 
   public abstract void handleHit(Level level);
 

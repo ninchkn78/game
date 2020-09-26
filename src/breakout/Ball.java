@@ -65,6 +65,9 @@ public class Ball extends Circle {
     this.ySpeed = (int) Math.sqrt((this.ballSpeed * this.ballSpeed) - (this.xSpeed * this.xSpeed));
   }
 
+  public void printXSpeed(){
+    System.out.println(this.xSpeed);
+  }
   public boolean checkBallDroppedThroughBottom() {
       return this.getCenterY() > 355;
   }
@@ -104,6 +107,7 @@ public class Ball extends Circle {
     }
   }
   public void changeBallSpeed(double modifier){
-    this.ballSpeed *= modifier;
+    this.ySpeed *= modifier;
+    this.xSpeed *= modifier;
   }
 }
