@@ -185,6 +185,18 @@ public class InputKeyTest extends DukeApplicationTest {
     double newDistanceTravelled = calculateDistanceTravelled();
     assertTrue(newDistanceTravelled > distanceTravelled);
   }
+  @Test
+  public void testLevelTransition() {
+    press(myScene, KeyCode.DIGIT1);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(300,myPaddle.getY());
+    press(myScene, KeyCode.DIGIT2);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(25,myPaddle.getY());
+    press(myScene, KeyCode.DIGIT3);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(150,myPaddle.getY());
+  }
 
 
 

@@ -42,6 +42,9 @@ public class GameLogic {
     addKeyInput(KeyCode.I, () -> level.alternateImmunity());
     addKeyInput(KeyCode.UP,this::increaseBallSpeed);
     addKeyInput(KeyCode.DOWN,this::decreaseBallSpeed);
+    addKeyInput(KeyCode.DIGIT1,() -> changeLevel(1));
+    addKeyInput(KeyCode.DIGIT2,() -> changeLevel(2));
+    addKeyInput(KeyCode.DIGIT3,() -> changeLevel(3));
   }
 
   private void addKeyInput(KeyCode code, Runnable executable){
@@ -112,7 +115,7 @@ public class GameLogic {
 
   //stays in game logic
   public void handleKeyInput(KeyCode code) {
-    myKeyActions.get(code).run();
+    myKeyActions.getOrDefault(code, () -> {} ).run();
   }
 
   private void movePaddle(KeyCode code) {
