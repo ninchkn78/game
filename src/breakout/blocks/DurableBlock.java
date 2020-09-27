@@ -1,20 +1,17 @@
-package breakout;
+package breakout.blocks;
 
+import breakout.Level;
 import javafx.scene.paint.Color;
 
-public class DurableBlock extends Block{
+// TODO: 2020-09-26 add tests for this block 
 
-    private static final int X_DISPLACEMENT = 10;
-    private static final int Y_DISPLACEMENT = 5;
-    private static final int SPACE_FROM_TOP = 50;
+public class DurableBlock extends Block {
+
     private int count = 3;
     private boolean blockBroken = false;
 
     public DurableBlock(int row, int col, int width, int height) {
-        super(row * (width + X_DISPLACEMENT),
-                col * (height + Y_DISPLACEMENT) + SPACE_FROM_TOP,
-                width,
-                height);
+        super(row, col, width, height);
         this.setFill(Color.color( .5, 0, .5));
     }
     @Override
@@ -28,7 +25,6 @@ public class DurableBlock extends Block{
 
     @Override
     public boolean isBlockBroken() {
-
         return blockBroken;
     }
 }

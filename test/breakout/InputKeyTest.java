@@ -1,6 +1,7 @@
 package breakout;
 
 
+import breakout.blocks.Block;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -8,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 import javafx.scene.text.Text;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +33,7 @@ public class InputKeyTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
+    myScene = myGame.setupScene();
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
@@ -101,7 +100,6 @@ public class InputKeyTest extends DukeApplicationTest {
     press(myScene, KeyCode.B);
     Ball ball = lookup("#ball2").query();
     Ball ball2 = lookup("#ball3").query();
-
   }
   @Test
   public void testAddLives(){
@@ -153,5 +151,54 @@ public class InputKeyTest extends DukeApplicationTest {
     //ball should bounce directly back upwards
     assertEquals(-1, myBall.getDirectionY() );
   }
+  @Test
+  public void testAdvanceLevel(){
+    //advance to level 2
+    javafxRun(() -> press(myScene,KeyCode.S));
+    javafxRun(() -> press(myScene,KeyCode.S));
+    //check paddle position changed
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(25,myPaddle.getY());
+
+  }
+  private double calculateDistanceTravelled(){
+    myBall.setCenterX(25);
+    myBall.setCenterY(275);
+    myBall.printXSpeed();
+    myGame.step(Game.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
+    return Math.abs(myBall.getCenterY() - 275);
+  }
+  @Test
+  public void testBallSlowDown() {
+    press(myScene, KeyCode.SHIFT);
+    double distanceTravelled = calculateDistanceTravelled();
+    press(myScene, KeyCode.DOWN);
+    double newDistanceTravelled = calculateDistanceTravelled();
+    assertTrue(newDistanceTravelled < distanceTravelled);
+  }
+  @Test
+  public void testBallSpeedsUp() {
+    press(myScene, KeyCode.SHIFT);
+    double distanceTravelled = calculateDistanceTravelled();
+    press(myScene, KeyCode.UP);
+    double newDistanceTravelled = calculateDistanceTravelled();
+    assertTrue(newDistanceTravelled > distanceTravelled);
+  }
+  @Test
+  public void testLevelTransition() {
+    press(myScene, KeyCode.DIGIT1);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(300,myPaddle.getY());
+    press(myScene, KeyCode.DIGIT2);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(25,myPaddle.getY());
+    press(myScene, KeyCode.DIGIT3);
+    myPaddle = lookup("#myPaddle").query();
+    assertEquals(150,myPaddle.getY());
+  }
+
+
+
 }
 

@@ -3,6 +3,7 @@ package breakout;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import breakout.blocks.Block;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -24,10 +25,22 @@ public class PowerupTest extends DukeApplicationTest {
    * <p>
    * Automatically called @BeforeEach by TestFX.
    */
+
+  public void breakBlock(Block block){
+    block.setX(150);
+    block.setY(205);
+    myBall.setCenterY(225);
+    myBall.setCenterX(150);
+    myBall.setDirection(0, -1);
+    myGame.step(Game.SECOND_DELAY);
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+  }
+
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
+    myScene = myGame.setupScene();
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
@@ -37,17 +50,41 @@ public class PowerupTest extends DukeApplicationTest {
   @Test
   public void testPaddleWidenPowerup() {
     press(myScene, KeyCode.SHIFT);
-    press(myScene, KeyCode.P);
+    Block powerupBlock = lookup("#1,1").query();
+    breakBlock(powerupBlock);
+    assertTrue(myPaddle.getWidth() == 75);
+    makePaddleHitPowerup();
+    assertTrue(myPaddle.getWidth() > 75);
+  }
+  @Test
+  public void testBallSlowDownPowerup() {
+    press(myScene, KeyCode.SHIFT);
+    Block powerupBlock = lookup("#0,1").query();
+    breakBlock(powerupBlock);
+    double distanceTravelled = calculateDistanceTravelled();
+    makePaddleHitPowerup();
+    double newDistanceTravelled = calculateDistanceTravelled();
+    System.out.println(distanceTravelled);
+    System.out.println(newDistanceTravelled);
+    assertTrue(newDistanceTravelled < distanceTravelled);
+
+  }
+
+  private void makePaddleHitPowerup() {
     Powerup powerup = lookup("#powerup0").query();
     powerup.setCenterX(200);
     powerup.setCenterY(210);
     myPaddle.setX(190);
     myPaddle.setY(200);
     myPaddle.setWidth(75);
-    assertTrue(myPaddle.getWidth() == 75);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    assertTrue(myPaddle.getWidth() > 75);
+  }
+  private double calculateDistanceTravelled(){
+    myBall.setCenterX(25);
+    myBall.setCenterY(275);
+    myBall.printXSpeed();
+    myGame.step(Game.SECOND_DELAY);
+    myGame.step(Game.SECOND_DELAY);
+    return Math.abs(myBall.getCenterY() - 275);
   }
 }

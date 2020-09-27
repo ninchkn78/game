@@ -13,7 +13,7 @@ public class Paddle extends Rectangle {
 
   private static int INITIAL_X;
   private static int INITIAL_Y;
-  private int paddleWidth;
+  private final int paddleWidth;
 
   public Paddle(int xPos, int yPos, int width, int height) {
     super(xPos, yPos, width, height);

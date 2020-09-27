@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import breakout.blocks.Block;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Scene;
@@ -33,7 +34,7 @@ public class GameStepTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
-    myScene = myGame.setupScene(Game.SIZE, Game.SIZE, Game.BACKGROUND);
+    myScene = myGame.setupScene();
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
@@ -156,9 +157,9 @@ public class GameStepTest extends DukeApplicationTest {
     breakBlock(testBlock);
     assertTrue(testBlock.isBlockBroken());
   }
-
   @Test
   public void testGameWon() {
+    // TODO: check this test
     List<Block> allBlocks = new ArrayList();
     allBlocks.add(lookup("#0,0").query());
     allBlocks.add(  lookup("#0,1").query());
@@ -167,7 +168,7 @@ public class GameStepTest extends DukeApplicationTest {
     for(Block testBlock : allBlocks){
       breakBlock(testBlock);
     }
-    lookup("WonText");
+    lookup("#WonText").query();
   }
   @Test
   public void testPowerupDropsOnBrokenBlock() {
@@ -218,6 +219,6 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(0,1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     //check loss displays
-    lookup("lossText");
+    lookup("#lostText").query();
   }
 }

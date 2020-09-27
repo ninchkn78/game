@@ -1,7 +1,5 @@
 package breakout;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -20,14 +18,11 @@ public class Game extends Application {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
-  // some things needed to remember during game
-  private Scene myScene;
-  private Timeline animation;
-  private Group root = new Group();
+  private final Group root = new Group();
 
-  private int level = 0;
+  private final int level = 0;
 
-  private GameLogic gameLogic = new GameLogic(level, root);
+  private final GameLogic gameLogic = new GameLogic(level, root);
 
   /**
    * Start the program.
@@ -42,20 +37,21 @@ public class Game extends Application {
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
-    myScene = setupScene(SIZE, SIZE, BACKGROUND);
+    // some things needed to remember during game
+    Scene myScene = setupScene();
     stage.setScene(myScene);
     stage.setTitle(TITLE);
     stage.show();
     // attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-    animation = new Timeline();
+    Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
   }
   // Create the game's "scene": what shapes will be in the game and their starting properties
-  Scene setupScene(int width, int height, Paint background) {
-    Scene scene = new Scene(root, width, height, background);
+  Scene setupScene() {
+    Scene scene = new Scene(root, Game.SIZE, Game.SIZE, Game.BACKGROUND);
     // respond to input
     scene.setOnKeyPressed(e -> gameLogic.handleKeyInput(e.getCode()));
     return scene;
@@ -68,7 +64,6 @@ public class Game extends Application {
     gameLogic.moveBall(elapsedTime);
     gameLogic.checkCollision();
     gameLogic.dropPowerups(elapsedTime);
-
   }
 }
 
