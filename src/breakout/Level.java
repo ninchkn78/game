@@ -193,7 +193,10 @@ public class Level {
   //toggles immunity
   public void alternateImmunity(){
     immunity = !immunity;
+
   }
+
+
 }
 
 

@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Paddle extends Rectangle {
 
-  public static final int PADDLE_SPEED = 5;
+  public static final int PADDLE_SPEED = 10;
 
   public static final Paint PADDLE_COLOR = Color.LIGHTCORAL;
 

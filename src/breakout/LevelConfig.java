@@ -76,6 +76,9 @@ public abstract class LevelConfig {
     else if(blockType.equals("D")) {
       return new DurableBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
     }
+    else if(blockType.equals("E")) {
+      return new ExplodingBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    }
     return null;
   }
 
