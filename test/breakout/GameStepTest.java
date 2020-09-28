@@ -18,13 +18,12 @@ import util.DukeApplicationTest;
 public class GameStepTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
-  private  Game myGame = new Game();
+  private final Game myGame = new Game();
   // keep created scene to allow mouse and keyboard events
   private Scene myScene;
   // keep any useful elements whose values you want to test directly in multiple tests
   private Paddle myPaddle;
   private Ball myBall;
-  private Display myDisplay;
 
   /**
    * Start special test version of application that does not animate on its own before each test.
@@ -46,16 +45,17 @@ public class GameStepTest extends DukeApplicationTest {
 
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
 
-  public void breakBlock(Block block){
+  public void breakBlock(Block block) {
     block.setX(150);
     block.setY(205);
     myBall.setCenterY(225);
-    press(myScene,KeyCode.SHIFT);
+    press(myScene, KeyCode.SHIFT);
     myBall.setDirection(0, -1);
     myGame.step(Game.SECOND_DELAY);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
   }
+
   @Test
   public void testPaddleMove() {
     // GIVEN, mover is at some position in the scene
@@ -100,56 +100,61 @@ public class GameStepTest extends DukeApplicationTest {
     assertEquals(100, myBall.getCenterY());
 
   }
+
   @Test
-  public void testBallMove () {
+  public void testBallMove() {
     myBall.setCenterX(200);
     myBall.setCenterY(200);
     assertFalse(myBall.getCenterY() < 200);
     press(myScene, KeyCode.SHIFT);
-    myBall.setDirection(0,-1);
+    myBall.setDirection(0, -1);
     myGame.step(Game.SECOND_DELAY);
     assertTrue(myBall.getCenterY() < 200);
   }
+
   @Test
-  public void testBallBounce(){
+  public void testBallBounce() {
     //launch ball
     myBall.setCenterX(100);
     myBall.setCenterY(100);
     assertFalse(myBall.getCenterY() < 100);
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(-1,0);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(-1, 0);
     myGame.step(50); // give time to bounce upwards
     assertTrue(myBall.getCenterX() > 50);
     myGame.step(100); // give time to bounce downwards
     assertTrue(myBall.getCenterX() < 100);
   }
+
   @Test
-  public void testBallOutOfBounds(){
+  public void testBallOutOfBounds() {
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downwards
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should  be in starting position
     myBall = lookup("#ball0").query();
     assertEquals(175, myBall.getCenterX());
     assertEquals(290, myBall.getCenterY());
   }
+
   @Test
-  public void testBallIntoCorner(){
+  public void testBallIntoCorner() {
     myBall.setCenterX(2);
     myBall.setCenterY(2);
     //set direction towards top left
     press(myScene, KeyCode.SHIFT);
-    myBall.setDirection(-1,-1);
+    myBall.setDirection(-1, -1);
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
     //check that it rebounds back exactly
-    assertEquals(-1,myBall.getDirectionX());
-    assertEquals(1,myBall.getDirectionY());
+    assertEquals(-1, myBall.getDirectionX());
+    assertEquals(1, myBall.getDirectionY());
   }
+
   @Test
   public void testBallBreaksBlock() {
     Block testBlock = lookup("#0,0").query();
@@ -157,19 +162,21 @@ public class GameStepTest extends DukeApplicationTest {
     breakBlock(testBlock);
     assertTrue(testBlock.isBlockBroken());
   }
+
   @Test
   public void testGameWon() {
     // TODO: check this test
-    List<Block> allBlocks = new ArrayList();
+    List<Block> allBlocks = new ArrayList<>();
     allBlocks.add(lookup("#0,0").query());
-    allBlocks.add(  lookup("#0,1").query());
+    allBlocks.add(lookup("#0,1").query());
     allBlocks.add(lookup("#1,0").query());
     allBlocks.add(lookup("#1,1").query());
-    for(Block testBlock : allBlocks){
+    for (Block testBlock : allBlocks) {
       breakBlock(testBlock);
     }
     lookup("#WonText").query();
   }
+
   @Test
   public void testPowerupDropsOnBrokenBlock() {
     Block powerupBlock = lookup("#1,1").query();
@@ -178,7 +185,7 @@ public class GameStepTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testScoreUpdates(){
+  public void testScoreUpdates() {
     Block basicBlock = lookup("#0,0").query();
     breakBlock(basicBlock);
     sleep(1000);
@@ -186,38 +193,40 @@ public class GameStepTest extends DukeApplicationTest {
     assertEquals("Level: 0     Lives: 3     Score: 1", stats.getText());
 
   }
+
   @Test
-  public void testLivesUpdate(){
+  public void testLivesUpdate() {
     Text stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downwards
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     stats = lookup("#stats").queryText();
-    assertEquals("Level: 0     Lives: 2     Score: 0",stats.getText());
+    assertEquals("Level: 0     Lives: 2     Score: 0", stats.getText());
   }
+
   @Test
-  public void testGameLost(){
+  public void testGameLost() {
     //first drop
     myBall.setCenterX(10);
     myBall.setCenterY(295);
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     //second drop
     myBall.setCenterX(10);
     myBall.setCenterY(295);
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     //third drop
     myBall.setCenterX(10);
     myBall.setCenterY(295);
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 200));
     //check loss displays
     lookup("#lostText").query();

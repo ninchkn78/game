@@ -1,7 +1,6 @@
 package breakout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import breakout.blocks.Block;
@@ -28,7 +27,7 @@ public class PowerupTest extends DukeApplicationTest {
    * Automatically called @BeforeEach by TestFX.
    */
 
-  public void breakBlock(Block block){
+  public void breakBlock(Block block) {
     block.setX(150);
     block.setY(205);
     myBall.setCenterY(225);
@@ -49,15 +48,17 @@ public class PowerupTest extends DukeApplicationTest {
     myPaddle = lookup("#myPaddle").query();
     myBall = lookup("#ball0").query();
   }
+
   @Test
   public void testPaddleWidenPowerup() {
     press(myScene, KeyCode.SHIFT);
     Block powerupBlock = lookup("#1,1").query();
     breakBlock(powerupBlock);
-    assertTrue(myPaddle.getWidth() == 75);
+    assertEquals(myPaddle.getWidth(), 75);
     makePaddleHitPowerup();
     assertTrue(myPaddle.getWidth() > 75);
   }
+
   @Test
   public void testBallSlowDownPowerup() {
     press(myScene, KeyCode.SHIFT);
@@ -71,6 +72,7 @@ public class PowerupTest extends DukeApplicationTest {
     assertTrue(newDistanceTravelled < distanceTravelled);
 
   }
+
   @Test
   public void testExtraLifePowerup() {
     Text stats = lookup("#stats").queryText();
@@ -80,7 +82,7 @@ public class PowerupTest extends DukeApplicationTest {
     breakBlock(powerupBlock);
     makePaddleHitPowerup();
     stats = lookup("#stats").queryText();
-    assertEquals("Level: 0     Lives: 4     Score: 1",stats.getText());
+    assertEquals("Level: 0     Lives: 4     Score: 1", stats.getText());
   }
 
 
@@ -93,7 +95,8 @@ public class PowerupTest extends DukeApplicationTest {
     myPaddle.setWidth(75);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
   }
-  private double calculateDistanceTravelled(){
+
+  private double calculateDistanceTravelled() {
     myBall.setCenterX(25);
     myBall.setCenterY(275);
     myGame.step(Game.SECOND_DELAY);

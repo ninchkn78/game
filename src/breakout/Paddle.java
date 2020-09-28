@@ -30,14 +30,14 @@ public class Paddle extends Rectangle {
   }
 
   public void movePaddle(KeyCode code) {
-    if(code.equals(KeyCode.LEFT)){
+    if (code.equals(KeyCode.LEFT)) {
       this.setX(this.getX() - PADDLE_SPEED);
-    }
-    else if(code.equals(KeyCode.RIGHT)){
+    } else if (code.equals(KeyCode.RIGHT)) {
       this.setX(this.getX() + PADDLE_SPEED);
     }
   }
-  public void changePaddleWidth(double scale){
+
+  public void changePaddleWidth(double scale) {
     this.setWidth(scale * paddleWidth);
   }
 }

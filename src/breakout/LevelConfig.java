@@ -4,8 +4,8 @@ import breakout.blocks.BallPowerupBlock;
 import breakout.blocks.BasicBlock;
 import breakout.blocks.Block;
 import breakout.blocks.DurableBlock;
-import breakout.blocks.PaddlePowerupBlock;
 import breakout.blocks.ExtraLifePowerupBlock;
+import breakout.blocks.PaddlePowerupBlock;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,7 +20,10 @@ public class LevelConfig {
   public static final int BLOCK_WIDTH = 42;
   public final static int BLOCK_HEIGHT = 10;
 
-  private static Scanner getLevelConfigFileScanner(String dataSource){
+  private LevelConfig() {
+  }
+
+  private static Scanner getLevelConfigFileScanner(String dataSource) {
     InputStream textFile = null;
     try {
       textFile = Objects.requireNonNull(LevelConfig.class.getClassLoader().getResource(dataSource))
@@ -30,6 +33,7 @@ public class LevelConfig {
     }
     return new Scanner(Objects.requireNonNull(textFile));
   }
+
   private static Pair<String[], List<String[]>> readFile(String datasource) {
     Scanner scan = getLevelConfigFileScanner(datasource);
     List<String[]> blocks = new ArrayList<>();
@@ -66,16 +70,14 @@ public class LevelConfig {
   private static Block getBlock(String blockType, int rowNum, int colNum) {
     if (blockType.equals("0")) {
       return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    }
-    else if(blockType.equals("P"))
-      return new PaddlePowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
-    else if(blockType.equals("B"))
-      return new BallPowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
-    else if(blockType.equals("D")) {
-      return new DurableBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
-    }
-    else if(blockType.equals("L")) {
-      return new ExtraLifePowerupBlock(rowNum,colNum,BLOCK_WIDTH,BLOCK_HEIGHT);
+    } else if (blockType.equals("P")) {
+      return new PaddlePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+    } else if (blockType.equals("B")) {
+      return new BallPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+    } else if (blockType.equals("D")) {
+      return new DurableBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
+    } else if (blockType.equals("L")) {
+      return new ExtraLifePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
     }
     return null;
   }
@@ -89,7 +91,8 @@ public class LevelConfig {
     int paddleY = Integer.parseInt(setUpInfo[1]);
     int numTopBalls = Integer.parseInt(setUpInfo[2]);
     int numBottomBalls = Integer.parseInt(setUpInfo[3]);
-    return new Level(root, paddleX, paddleY, numTopBalls, numBottomBalls, makeListOfBlocks(blockFile));
+    return new Level(root, paddleX, paddleY, numTopBalls, numBottomBalls,
+        makeListOfBlocks(blockFile));
   }
 
 }

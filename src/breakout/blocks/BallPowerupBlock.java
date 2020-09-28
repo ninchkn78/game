@@ -12,7 +12,7 @@ public class BallPowerupBlock extends PowerupBlock {
   }
 
   @Override
-  public void makePowerup(Level level){
+  public void makePowerup(Level level) {
     level.addPowerupFromBlock(this, BALL_POWERUP);
   }
 }

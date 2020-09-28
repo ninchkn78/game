@@ -40,7 +40,7 @@ public class PowerupChooser {
   private void addAllPowerups() {
     addPowerupToMap(new BallPowerup(xPos, yPos));
     addPowerupToMap(new PaddlePowerup(xPos, yPos));
-    addPowerupToMap(new ExtraLifePowerup(xPos,yPos));
+    addPowerupToMap(new ExtraLifePowerup(xPos, yPos));
   }
 
 }

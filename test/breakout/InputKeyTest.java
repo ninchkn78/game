@@ -1,16 +1,18 @@
 package breakout;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import breakout.blocks.Block;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import javafx.scene.text.Text;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 //need to ask about how to adapt these tests for higher levels
 public class InputKeyTest extends DukeApplicationTest {
@@ -22,7 +24,6 @@ public class InputKeyTest extends DukeApplicationTest {
   // keep any useful elements whose values you want to test directly in multiple tests
   private Paddle myPaddle;
   private Ball myBall;
-  private Level level;
 
 
   /**
@@ -42,26 +43,27 @@ public class InputKeyTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testPause(){
+  public void testPause() {
     double initialBallX = myBall.getCenterX(), initialBallY = myBall.getCenterY();
     double initialPaddleX = myPaddle.getX(), initialPaddleY = myPaddle.getY();
     press(myScene, KeyCode.SPACE);
     press(myScene, KeyCode.SHIFT);
     press(myScene, KeyCode.LEFT);
     myGame.step(Game.SECOND_DELAY);
-    assertEquals(initialBallX,myBall.getCenterX());
-    assertEquals(initialBallY,myBall.getCenterY());
+    assertEquals(initialBallX, myBall.getCenterX());
+    assertEquals(initialBallY, myBall.getCenterY());
     assertEquals(initialPaddleX, myPaddle.getX());
     assertEquals(initialPaddleY, myPaddle.getY());
     press(myScene, KeyCode.SPACE);
     press(myScene, KeyCode.LEFT);
     myGame.step(Game.SECOND_DELAY);
-    assertNotEquals(initialBallX,myBall.getCenterX());
-    assertNotEquals(initialBallY,myBall.getCenterY());
+    assertNotEquals(initialBallX, myBall.getCenterX());
+    assertNotEquals(initialBallY, myBall.getCenterY());
     assertNotEquals(initialPaddleX, myPaddle.getX());
   }
+
   @Test
-  public void testResetKey(){
+  public void testResetKey() {
     double initialBallX = myBall.getCenterX(), initialBallY = myBall.getCenterY();
     double initialPaddleX = myPaddle.getX(), initialPaddleY = myPaddle.getY();
     press(myScene, KeyCode.SHIFT);
@@ -69,19 +71,19 @@ public class InputKeyTest extends DukeApplicationTest {
     myGame.step(Game.SECOND_DELAY);
     press(myScene, KeyCode.SPACE);
     myGame.step(Game.SECOND_DELAY);
-    assertNotEquals(initialBallX,myBall.getCenterX());
-    assertNotEquals(initialBallY,myBall.getCenterY());
+    assertNotEquals(initialBallX, myBall.getCenterX());
+    assertNotEquals(initialBallY, myBall.getCenterY());
     assertNotEquals(initialPaddleX, myPaddle.getX());
     press(myScene, KeyCode.R);
-    assertEquals(initialBallX,myBall.getCenterX());
-    assertEquals(initialBallY,myBall.getCenterY());
+    assertEquals(initialBallX, myBall.getCenterX());
+    assertEquals(initialBallY, myBall.getCenterY());
     assertEquals(initialPaddleX, myPaddle.getX());
     assertEquals(initialPaddleY, myPaddle.getY());
 
   }
 
   @Test
-  public void testPowerupDropOnPress(){
+  public void testPowerupDropOnPress() {
     //launch ball
     press(myScene, KeyCode.SHIFT);
     press(myScene, KeyCode.P);
@@ -92,25 +94,27 @@ public class InputKeyTest extends DukeApplicationTest {
     assertTrue(powerup.getCenterY() > 0);
     assertEquals(initialX, powerup.getCenterX(), .1);
   }
+
   @Test
-  public void testNewBallOnPress(){
+  public void testNewBallOnPress() {
     //launch ball
     press(myScene, KeyCode.B);
     press(myScene, KeyCode.B);
-    Ball ball = lookup("#ball1").query();
-    Ball ball2 = lookup("#ball2").query();
-  }
-  @Test
-  public void testAddLives(){
-    //add two lives
-    press(myScene,KeyCode.L);
-    press(myScene,KeyCode.L);
-    Text stats = lookup("#stats").queryText();
-    assertEquals("Lives: 5     Score: 0",stats.getText());
+    lookup("#ball1").query();
+    lookup("#ball2").query();
   }
 
   @Test
-  public void testRemoveFirstBlock(){
+  public void testAddLives() {
+    //add two lives
+    press(myScene, KeyCode.L);
+    press(myScene, KeyCode.L);
+    Text stats = lookup("#stats").queryText();
+    assertEquals("Lives: 5     Score: 0", stats.getText());
+  }
+
+  @Test
+  public void testRemoveFirstBlock() {
     //test first block in list
     Block testBlock1 = lookup("#0,0").query();
     assertFalse(testBlock1.isBlockBroken()); //check that block is intact
@@ -126,13 +130,13 @@ public class InputKeyTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testToggleImmunity(){
+  public void testToggleImmunity() {
     // no immunity
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downwards
-    press(myScene,KeyCode.SHIFT);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should  be in starting position
     myBall = lookup("#ball0").query();
@@ -143,30 +147,33 @@ public class InputKeyTest extends DukeApplicationTest {
     myBall.setCenterX(10);
     myBall.setCenterY(295);
     //ball falls downward
-    press(myScene,KeyCode.SHIFT);
-    press(myScene,KeyCode.I);
-    myBall.setDirection(0,1);
+    press(myScene, KeyCode.SHIFT);
+    press(myScene, KeyCode.I);
+    myBall.setDirection(0, 1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should bounce directly back upwards
-    assertEquals(-1, myBall.getDirectionY() );
+    assertEquals(-1, myBall.getDirectionY());
   }
+
   @Test
-  public void testAdvanceLevel(){
+  public void testAdvanceLevel() {
     //advance to level 2
-    javafxRun(() -> press(myScene,KeyCode.TAB));
-    javafxRun(() -> press(myScene,KeyCode.TAB));
+    javafxRun(() -> press(myScene, KeyCode.TAB));
+    javafxRun(() -> press(myScene, KeyCode.TAB));
     //check paddle position changed
     myPaddle = lookup("#myPaddle").query();
-    assertEquals(25,myPaddle.getY());
+    assertEquals(25, myPaddle.getY());
 
   }
-  private double calculateDistanceTravelled(){
+
+  private double calculateDistanceTravelled() {
     myBall.setCenterX(25);
     myBall.setCenterY(275);
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
     return Math.abs(myBall.getCenterY() - 275);
   }
+
   @Test
   public void testBallSlowDown() {
     press(myScene, KeyCode.SHIFT);
@@ -175,6 +182,7 @@ public class InputKeyTest extends DukeApplicationTest {
     double newDistanceTravelled = calculateDistanceTravelled();
     assertTrue(newDistanceTravelled < distanceTravelled);
   }
+
   @Test
   public void testBallSpeedsUp() {
     press(myScene, KeyCode.SHIFT);
@@ -183,19 +191,19 @@ public class InputKeyTest extends DukeApplicationTest {
     double newDistanceTravelled = calculateDistanceTravelled();
     assertTrue(newDistanceTravelled > distanceTravelled);
   }
+
   @Test
   public void testLevelTransition() {
     press(myScene, KeyCode.DIGIT1);
     myPaddle = lookup("#myPaddle").query();
-    assertEquals(300,myPaddle.getY());
+    assertEquals(300, myPaddle.getY());
     press(myScene, KeyCode.DIGIT2);
     myPaddle = lookup("#myPaddle").query();
-    assertEquals(25,myPaddle.getY());
+    assertEquals(25, myPaddle.getY());
     press(myScene, KeyCode.DIGIT3);
     myPaddle = lookup("#myPaddle").query();
-    assertEquals(175,myPaddle.getY());
+    assertEquals(175, myPaddle.getY());
   }
-
 
 
 }
