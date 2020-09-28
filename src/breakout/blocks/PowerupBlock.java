@@ -14,14 +14,16 @@ public abstract class PowerupBlock extends Block {
   }
 
   @Override
-  public boolean isBlockBroken(){
+  public boolean isBlockBroken() {
     return blockBroken;
   }
+
   @Override
   public void handleHit(Level level) {
     blockBroken = true;
     makePowerup(level);
   }
+
   public abstract void makePowerup(Level level);
 }
 

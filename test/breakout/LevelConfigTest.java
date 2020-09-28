@@ -12,6 +12,7 @@ import util.DukeApplicationTest;
 
 //need to ask about how to adapt these tests for higher levels
 public class LevelConfigTest extends DukeApplicationTest {
+
   // create an instance of our game to be able to call in tests (like step())
   private final Game myGame = new Game();
   // keep created scene to allow mouse and keyboard events
@@ -40,7 +41,7 @@ public class LevelConfigTest extends DukeApplicationTest {
   // check initial configuration values of game items set when scene was created
   @Test
   public void testPaddleInitialPosition() {
-    assertEquals(Game.SIZE/2 - 75/2, myPaddle.getX());
+    assertEquals(Game.SIZE / 2 - 75 / 2, myPaddle.getX());
     assertEquals(300, myPaddle.getY());
     assertEquals(75, myPaddle.getWidth());
     assertEquals(10, myPaddle.getHeight());
@@ -48,11 +49,11 @@ public class LevelConfigTest extends DukeApplicationTest {
 
   @Test
   public void testBallInitialPositionVelocity() {
-    assertEquals(350/2, myBall.getCenterX());
+    assertEquals(350 / 2, myBall.getCenterX());
     assertEquals(290, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
     myGame.step(Game.SECOND_DELAY);
-    assertEquals(350/2, myBall.getCenterX());
+    assertEquals(350 / 2, myBall.getCenterX());
     assertEquals(290, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
   }
@@ -70,14 +71,14 @@ public class LevelConfigTest extends DukeApplicationTest {
     assertEquals(65, rowOneStartBlock.getY());
     assertEquals(42, rowOneStartBlock.getWidth());
     assertEquals(10, rowOneStartBlock.getHeight());
-  // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
-}
+    // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
+  }
 
   @Test
-  public void testLevelDisplay(){
+  public void testLevelDisplay() {
     Text stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
-    press(myScene,KeyCode.TAB);
+    press(myScene, KeyCode.TAB);
     stats = lookup("#stats").queryText();
     assertEquals("Level: 1     Lives: 3     Score: 0", stats.getText());
   }

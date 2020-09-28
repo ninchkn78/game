@@ -12,7 +12,7 @@ public class ExtraLifePowerupBlock extends PowerupBlock {
   }
 
   @Override
-  public void makePowerup(Level level){
+  public void makePowerup(Level level) {
     level.addPowerupFromBlock(this, EXTRA_LIFE_POWERUP);
   }
 }

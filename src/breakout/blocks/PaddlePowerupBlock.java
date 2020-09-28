@@ -11,7 +11,7 @@ public class PaddlePowerupBlock extends PowerupBlock {
   }
 
   @Override
-  public void makePowerup(Level level){
+  public void makePowerup(Level level) {
     level.addPowerupFromBlock(this, PADDLE_POWERUP);
   }
 }
