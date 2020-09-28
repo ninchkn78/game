@@ -11,8 +11,8 @@ public class Ball extends Circle {
   public static final Paint BALL_COLOR = Color.PLUM;
   public static final double X_SPEED_RANGE_START = .55;
   public static final double X_SPEED_RANGE_END = .90;
-  private static int initialX;
-  private static int initialY;
+  private int initialX;
+  private int initialY;
   private int ballSpeed = 200;
   private int xSpeed;
   private int ySpeed;

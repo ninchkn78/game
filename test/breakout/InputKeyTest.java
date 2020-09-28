@@ -38,8 +38,7 @@ public class InputKeyTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#ball1").query();
-
+    myBall = lookup("#ball0").query();
   }
 
   @Test
@@ -98,8 +97,8 @@ public class InputKeyTest extends DukeApplicationTest {
     //launch ball
     press(myScene, KeyCode.B);
     press(myScene, KeyCode.B);
-    Ball ball = lookup("#ball2").query();
-    Ball ball2 = lookup("#ball3").query();
+    Ball ball = lookup("#ball1").query();
+    Ball ball2 = lookup("#ball2").query();
   }
   @Test
   public void testAddLives(){
@@ -136,9 +135,9 @@ public class InputKeyTest extends DukeApplicationTest {
     myBall.setDirection(0,1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should  be in starting position
-    myBall = lookup("#ball1").query();
+    myBall = lookup("#ball0").query();
     assertEquals(175, myBall.getCenterX());
-    assertEquals(293, myBall.getCenterY());
+    assertEquals(290, myBall.getCenterY());
 
     // with immunity
     myBall.setCenterX(10);
@@ -154,8 +153,8 @@ public class InputKeyTest extends DukeApplicationTest {
   @Test
   public void testAdvanceLevel(){
     //advance to level 2
-    javafxRun(() -> press(myScene,KeyCode.S));
-    javafxRun(() -> press(myScene,KeyCode.S));
+    javafxRun(() -> press(myScene,KeyCode.TAB));
+    javafxRun(() -> press(myScene,KeyCode.TAB));
     //check paddle position changed
     myPaddle = lookup("#myPaddle").query();
     assertEquals(25,myPaddle.getY());
@@ -194,7 +193,7 @@ public class InputKeyTest extends DukeApplicationTest {
     assertEquals(25,myPaddle.getY());
     press(myScene, KeyCode.DIGIT3);
     myPaddle = lookup("#myPaddle").query();
-    assertEquals(150,myPaddle.getY());
+    assertEquals(175,myPaddle.getY());
   }
 
 

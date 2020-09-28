@@ -39,7 +39,7 @@ public class GameStepTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#ball1").query();
+    myBall = lookup("#ball0").query();
   }
   // Can write regular JUnit tests!
   // check initial configuration values of game items set when scene was created
@@ -132,9 +132,9 @@ public class GameStepTest extends DukeApplicationTest {
     myBall.setDirection(0,1);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY * 50));
     //ball should  be in starting position
-    myBall = lookup("#ball1").query();
+    myBall = lookup("#ball0").query();
     assertEquals(175, myBall.getCenterX());
-    assertEquals(293, myBall.getCenterY());
+    assertEquals(290, myBall.getCenterY());
   }
   @Test
   public void testBallIntoCorner(){
@@ -181,6 +181,7 @@ public class GameStepTest extends DukeApplicationTest {
   public void testScoreUpdates(){
     Block basicBlock = lookup("#0,0").query();
     breakBlock(basicBlock);
+    sleep(1000);
     Text stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 3     Score: 1", stats.getText());
 

@@ -9,26 +9,34 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
+
+
 public class Level {
 
-  private static final int PADDLE_WIDTH = 75;
+  //might be worth it to think about putting all the balls in their own class
+
+  private static final double PADDLE_WIDTH = 75;
   public static final int RANDOM_POWERUP = -1;
+  public static final int PADDLE_HEIGHT = 10;
+  public static final int BALL_SIZE = 5;
   private final Group myRoot;
   private final List<Powerup> myPowerups = new ArrayList<>();
-  private final int numOfBalls;
+  private final int numOfTopBalls;
+  private final int numOfBottomBalls;
   private Paddle myPaddle;
   private List<Ball> myBalls = new ArrayList<>();
   private List<Block> myBlocks = new ArrayList<>();
   private Display myDisplay;
   private boolean immunity;
 
-  public Level(Group gameRoot, int paddleX, int paddleY, int numBalls, List<Block> blockList) {
+  public Level(Group gameRoot, int paddleX, int paddleY, int numTopBalls, int numBottomballs, List<Block> blockList) {
     myRoot = gameRoot;
     setUpPaddle(paddleX, paddleY);
-    setUpBalls(numBalls);
+    setUpBalls(numTopBalls, numBottomballs);
     setUpBlocks(blockList);
     setUpDisplay();
-    numOfBalls = numBalls;
+    numOfTopBalls = numTopBalls;
+    numOfBottomBalls = numBottomballs;
   }
 
   void setUpBlocks(List<Block> blockList) {
@@ -92,13 +100,33 @@ public class Level {
     }
   }
 
-  public void addBall() {
-    Ball ball = new Ball(Game.SIZE / 2, 293, 5);
-    ball.setId(String.format("ball%d", myBalls.size() + 1));
+  private void addTopBall(){
+    int ballY = (int) myPaddle.getY() - PADDLE_HEIGHT;
+    addBall(ballY);
+  }
+  private void addBottomBall(){
+    int ballY = (int) myPaddle.getY() + PADDLE_HEIGHT * 2;
+    addBall(ballY);
+  }
+
+  //probability of adding either top ball or bottom ball is based off of how many of each are in the level
+  private void addBall(int ballY) {
+    int ballX = (int) (myPaddle.getX() + PADDLE_WIDTH/2);
+    Ball ball = new Ball(ballX, ballY, BALL_SIZE);
+    ball.setId(String.format("ball%d", myBalls.size()));
     myRoot.getChildren().add(ball);
     myBalls.add(ball);
   }
+  public void addNewBall(){
+    double topBalls = numOfTopBalls;
+    double topBallProb = topBalls / (numOfTopBalls + numOfBottomBalls) ;
+    if (Math.random() <= topBallProb) {
+      addTopBall();
+    } else {
+      addBottomBall();
+    }
 
+  }
   public void addPowerupFromBlock(Block block, int powerupType) {
     double xPos = block.getX();
     double yPos = block.getY();
@@ -115,19 +143,36 @@ public class Level {
 
   public void addRandomPowerup(){
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
-    addPowerupFrom(xPos,0, RANDOM_POWERUP);
+    int yPos = getRandomPowerupYPosition();
+    addPowerupFrom(xPos,yPos, RANDOM_POWERUP);
+  }
+  private int getRandomPowerupYPosition(){
+    if(myPaddle.getY() < Game.SIZE / 2){
+      return Game.SIZE;
+    }
+    else if(myPaddle.getY() > Game.SIZE / 2){
+      return 0;
+    }
+    else{
+      return Math.random() <= .5 ? Game.SIZE : 0;
+    }
   }
 
-  private void setUpBalls(int numOfBalls) {
+  private void setUpBalls(int numTopBalls, int numBottomBalls) {
+    // TODO: 2020-09-27 remove duplicated code
     myBalls = new ArrayList<>();
-    while (numOfBalls > 0) {
-      addBall();
-      numOfBalls -= 1;
+    while (numTopBalls > 0) {
+      addTopBall();
+      numTopBalls -= 1;
+    }
+    while (numBottomBalls > 0) {
+      addBottomBall();
+      numBottomBalls -= 1;
     }
   }
 
   private void setUpPaddle(int x, int y) {
-    myPaddle = new Paddle(x, y, Level.PADDLE_WIDTH, 10);
+    myPaddle = new Paddle(x, y, Level.PADDLE_WIDTH, PADDLE_HEIGHT);
     myPaddle.setId("myPaddle");
     myRoot.getChildren().add(myPaddle);
   }
@@ -144,7 +189,7 @@ public class Level {
       remove(ball);
     }
     myPaddle.reset();
-    setUpBalls(numOfBalls);
+    setUpBalls(numOfTopBalls, numOfBottomBalls);
   }
 
   public void remove(Shape object) {

@@ -40,7 +40,7 @@ public class GameLogic {
     addKeyInput(KeyCode.LEFT, () -> movePaddle(KeyCode.LEFT));
     addKeyInput(KeyCode.R, this::resetGame);
     addKeyInput(KeyCode.P, this::addPowerup);
-    addKeyInput(KeyCode.S, this::advanceLevel);
+    addKeyInput(KeyCode.TAB, this::advanceLevel);
     addKeyInput(KeyCode.B, this::addBall);
     addKeyInput(KeyCode.L, this::addLife);
     addKeyInput(KeyCode.D, this::destroyFirstBlock);
@@ -76,7 +76,7 @@ public class GameLogic {
 
   private void addBall() {
     if (!gamePaused) {
-      level.addBall();
+      level.addNewBall();
       setBallLaunched();
     }
   }
@@ -163,7 +163,7 @@ public class GameLogic {
     if (level.noBlocks() && !gameWon) {
       System.out.println("Game won");
       Text won = new Text(Game.SIZE / 2 - 50, Game.SIZE / 2,
-          "You won this level!\nPress S to continue");
+          "You won this level!\nPress Tab to continue");
       won.setId("WonText");
       level.add(won);
       gameWon = true;

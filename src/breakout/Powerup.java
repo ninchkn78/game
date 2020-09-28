@@ -13,9 +13,11 @@ public abstract class Powerup extends Circle {
   public static final Paint EXTRA_LIFE_POWER_UP_COLOR = Color.GREENYELLOW;
 
   public static final int POWERUP_SIZE = 10;
+  private int dropSpeed = 200;
 
   public Powerup(double centerX, double centerY){
     super(centerX,centerY,POWERUP_SIZE);
+    setDropDirection();
   }
 
   protected boolean hitPaddle(Paddle paddle){
@@ -32,9 +34,14 @@ public abstract class Powerup extends Circle {
 
   public abstract void doPowerup(Level level);
 
-  public void drop(double elapsedTime){
-    int dropSpeed = 200;
-    this.setCenterY(this.getCenterY() + dropSpeed * elapsedTime);
+  private int setDropDirection(){
+    if(this.getCenterY() > Game.SIZE/2){
+      dropSpeed *= -1;
+    }
+    return dropSpeed;
   }
 
+  public void drop(double elapsedTime){
+    this.setCenterY(this.getCenterY() + dropSpeed * elapsedTime);
+  }
 }

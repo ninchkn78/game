@@ -47,7 +47,7 @@ public class PowerupTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#ball1").query();
+    myBall = lookup("#ball0").query();
   }
   @Test
   public void testPaddleWidenPowerup() {
@@ -82,6 +82,7 @@ public class PowerupTest extends DukeApplicationTest {
     stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 4     Score: 1",stats.getText());
   }
+
 
   private void makePaddleHitPowerup() {
     Powerup powerup = lookup("#powerup0").query();

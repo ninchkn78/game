@@ -11,21 +11,21 @@ public class Paddle extends Rectangle {
 
   public static final Paint PADDLE_COLOR = Color.LIGHTCORAL;
 
-  private static int INITIAL_X;
-  private static int INITIAL_Y;
-  private final int paddleWidth;
+  private static double initialX;
+  private static double initialY;
+  private final double paddleWidth;
 
-  public Paddle(int xPos, int yPos, int width, int height) {
+  public Paddle(double xPos, double yPos, double width, double height) {
     super(xPos, yPos, width, height);
-    INITIAL_X = xPos;
-    INITIAL_Y = yPos;
+    initialX = xPos;
+    initialY = yPos;
     paddleWidth = width;
     this.setFill(PADDLE_COLOR);
   }
 
   public void reset() {
-    this.setX(INITIAL_X);
-    this.setY(INITIAL_Y);
+    this.setX(initialX);
+    this.setY(initialY);
     this.setWidth(paddleWidth);
   }
 
