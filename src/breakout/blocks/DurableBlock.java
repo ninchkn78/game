@@ -24,8 +24,6 @@ public class DurableBlock extends Block {
     }
   }
 
-
-
   @Override
   public boolean isBlockBroken() {
     return blockBroken;
