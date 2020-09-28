@@ -17,6 +17,7 @@ public class Game extends Application {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
+  public static final int TOP_OF_STAGE = 0;
 
   private final Group root = new Group();
   private final GameLogic gameLogic = new GameLogic(0, root);

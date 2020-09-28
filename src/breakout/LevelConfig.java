@@ -68,7 +68,7 @@ public class LevelConfig {
   }
 
   private static Block getBlock(String blockType, int rowNum, int colNum) {
-    BlockChooser blockChooser = new BlockChooser(rowNum,colNum);
+    BlockChooser blockChooser = new BlockChooser(rowNum, colNum);
     return (Block) blockChooser.getType(blockType);
   }
 

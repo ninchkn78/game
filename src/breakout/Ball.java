@@ -12,7 +12,6 @@ public class Ball extends Circle {
   public static final Paint BALL_COLOR = Color.PLUM;
   public static final double X_SPEED_RANGE_START = .55;
   public static final double X_SPEED_RANGE_END = .90;
-  public static final int TOP_OF_STAGE = 0;
   private final Random random = new Random();
   private final int initialX;
   private final int initialY;
@@ -48,10 +47,10 @@ public class Ball extends Circle {
   }
 
   private void checkWallCollision() {
-    if (this.getCenterY() <= TOP_OF_STAGE) {
+    if (this.getCenterY() <= Game.TOP_OF_STAGE) {
       yDirection *= -1;
     }
-    if (this.getCenterX() <= TOP_OF_STAGE || this.getCenterX() >= Game.SIZE) {
+    if (this.getCenterX() <= Game.TOP_OF_STAGE || this.getCenterX() >= Game.SIZE) {
       xDirection *= -1;
     }
   }
@@ -68,7 +67,7 @@ public class Ball extends Circle {
 
   // TODO: 2020-09-26 added in gamelogic too, but generalize for dropping through top
   public boolean checkBallDroppedThroughBottom() {
-    return this.getCenterY() > 355;
+    return this.getCenterY() > Game.SIZE;
   }
 
   public boolean checkBallObjectCollision(Shape object) {

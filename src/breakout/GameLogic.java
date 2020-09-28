@@ -9,6 +9,8 @@ import javafx.scene.text.Text;
 
 public class GameLogic {
 
+  public static final double INCREASE_BALL_SPEED_RATIO = 1.05;
+  public static final double REDUCE_BALL_SPEED_RATIO = .95;
   private final Group myRoot;
   private final Display myDisplay = new Display();
   private final Map<KeyCode, Runnable> myKeyActions = new HashMap<>();
@@ -57,11 +59,11 @@ public class GameLogic {
   }
 
   private void increaseBallSpeed() {
-    level.changeBallSpeed(1.05);
+    level.changeBallSpeed(INCREASE_BALL_SPEED_RATIO);
   }
 
   private void decreaseBallSpeed() {
-    level.changeBallSpeed(.95);
+    level.changeBallSpeed(REDUCE_BALL_SPEED_RATIO);
   }
 
   private void destroyFirstBlock() {

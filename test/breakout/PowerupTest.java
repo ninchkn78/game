@@ -96,9 +96,7 @@ public class PowerupTest extends DukeApplicationTest {
     myPaddle.setWidth(75);
     sleep(1000);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-
   }
 
   private double calculateDistanceTravelled() {

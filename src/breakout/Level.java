@@ -16,6 +16,7 @@ public class Level {
   public static final int PADDLE_HEIGHT = 10;
   public static final int BALL_SIZE = 5;
   private static final double PADDLE_WIDTH = 75;
+  public static final double EQUAL_ODDS = .5;
   private final Group myRoot;
   private final List<Powerup> myPowerups = new ArrayList<>();
   private final int numOfTopBalls;
@@ -154,9 +155,9 @@ public class Level {
     if (myPaddle.getY() < Game.SIZE / 2) {
       return Game.SIZE;
     } else if (myPaddle.getY() > Game.SIZE / 2) {
-      return 0;
+      return Game.TOP_OF_STAGE;
     } else {
-      return Math.random() <= .5 ? Game.SIZE : 0;
+      return Math.random() <= EQUAL_ODDS ? Game.SIZE : Game.TOP_OF_STAGE;
     }
   }
 

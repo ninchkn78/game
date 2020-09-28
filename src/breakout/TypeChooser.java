@@ -10,7 +10,7 @@ public abstract class TypeChooser {
   public static final int RANDOM_TYPE = -1;
 
   //only have to change powerup chooser when adding a new random powerup
-  private Map<Integer, Shape> types = new HashMap<>();
+  private final Map<Integer, Shape> types = new HashMap<>();
   private int numOfTypes = 0;
 
   public TypeChooser() {
