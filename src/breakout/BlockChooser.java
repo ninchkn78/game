@@ -5,7 +5,6 @@ import static breakout.LevelConfig.BLOCK_WIDTH;
 
 import breakout.blocks.BallPowerupBlock;
 import breakout.blocks.BasicBlock;
-import breakout.blocks.Block;
 import breakout.blocks.DurableBlock;
 import breakout.blocks.ExtraLifePowerupBlock;
 import breakout.blocks.PaddlePowerupBlock;
@@ -16,9 +15,9 @@ public class BlockChooser extends TypeChooser {
 
   //only have to change powerup chooser when adding a new random powerup
 
-  private List<String> blockTypes = new ArrayList<>();
-  private int rowNum;
-  private int colNum;
+  private final List<String> blockTypes = new ArrayList<>();
+  private final int rowNum;
+  private final int colNum;
 
   public BlockChooser(int row, int col) {
     rowNum = row;
