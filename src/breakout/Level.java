@@ -13,7 +13,6 @@ public class Level {
 
   //might be worth it to think about putting all the balls in their own class
 
-  public static final int RANDOM_POWERUP = -1;
   public static final int PADDLE_HEIGHT = 10;
   public static final int BALL_SIZE = 5;
   private static final double PADDLE_WIDTH = 75;
@@ -137,7 +136,7 @@ public class Level {
 
   private void addPowerupFrom(double xPos, double yPos, int powerupType) {
     PowerupChooser powerupChooser = new PowerupChooser(xPos, yPos);
-    Powerup powerup = powerupChooser.getPowerup(powerupType);
+    Powerup powerup = (Powerup) powerupChooser.getType(Integer.toString(powerupType));
     myRoot.getChildren().add(powerup);
     myPowerups.add(powerup);
     powerup.setId(String.format("powerup%d", myPowerups.indexOf(powerup)));
@@ -145,11 +144,13 @@ public class Level {
 
   public void addRandomPowerup() {
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
+    System.out.println(xPos);
     int yPos = getRandomPowerupYPosition();
-    addPowerupFrom(xPos, yPos, RANDOM_POWERUP);
+    addPowerupFrom(xPos, yPos, TypeChooser.RANDOM_TYPE);
   }
 
   private int getRandomPowerupYPosition() {
+    System.out.println("chosen");
     if (myPaddle.getY() < Game.SIZE / 2) {
       return Game.SIZE;
     } else if (myPaddle.getY() > Game.SIZE / 2) {

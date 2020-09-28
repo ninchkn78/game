@@ -162,7 +162,7 @@ public class GameLogic {
   private void checkGameWon() {
     if (level.noBlocks() && !gameWon) {
       System.out.println("Game won");
-      Text won = new Text(Game.SIZE / 2 - 50, Game.SIZE / 2,
+      Text won = new Text(Game.SIZE / 2 - LevelConfig.TEXT_DISPLACEMENT, Game.SIZE / 2,
           "You won this level!\nPress Tab to continue");
       won.setId("WonText");
       level.add(won);
@@ -173,7 +173,7 @@ public class GameLogic {
   // TODO: fix bug where can lose game after winning
   private void checkGameLost() {
     if (level.noLives()) {
-      Text lost = new Text(Game.SIZE / 2 - 50, Game.SIZE / 2,
+      Text lost = new Text(Game.SIZE / 2 - LevelConfig.TEXT_DISPLACEMENT, Game.SIZE / 2,
           "You lost this level! :( \nPress R to restart");
       lost.setId("lostText");
       level.add(lost);

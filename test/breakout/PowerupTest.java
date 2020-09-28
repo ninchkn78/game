@@ -90,10 +90,15 @@ public class PowerupTest extends DukeApplicationTest {
     Powerup powerup = lookup("#powerup0").query();
     powerup.setCenterX(200);
     powerup.setCenterY(210);
-    myPaddle.setX(190);
-    myPaddle.setY(200);
+    sleep(1000);
+    myPaddle.setX(150);
+    myPaddle.setY(215);
     myPaddle.setWidth(75);
+    sleep(1000);
     javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+
+    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
+
   }
 
   private double calculateDistanceTravelled() {
