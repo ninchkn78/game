@@ -1,11 +1,6 @@
 package breakout;
 
-import breakout.blocks.BallPowerupBlock;
-import breakout.blocks.BasicBlock;
 import breakout.blocks.Block;
-import breakout.blocks.DurableBlock;
-import breakout.blocks.ExtraLifePowerupBlock;
-import breakout.blocks.PaddlePowerupBlock;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
