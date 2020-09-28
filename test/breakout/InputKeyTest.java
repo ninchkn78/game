@@ -153,8 +153,8 @@ public class InputKeyTest extends DukeApplicationTest {
   @Test
   public void testAdvanceLevel(){
     //advance to level 2
-    javafxRun(() -> press(myScene,KeyCode.S));
-    javafxRun(() -> press(myScene,KeyCode.S));
+    javafxRun(() -> press(myScene,KeyCode.TAB));
+    javafxRun(() -> press(myScene,KeyCode.TAB));
     //check paddle position changed
     myPaddle = lookup("#myPaddle").query();
     assertEquals(25,myPaddle.getY());
@@ -193,7 +193,7 @@ public class InputKeyTest extends DukeApplicationTest {
     assertEquals(25,myPaddle.getY());
     press(myScene, KeyCode.DIGIT3);
     myPaddle = lookup("#myPaddle").query();
-    assertEquals(150,myPaddle.getY());
+    assertEquals(175,myPaddle.getY());
   }
 
 

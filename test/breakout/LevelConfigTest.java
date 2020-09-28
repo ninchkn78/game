@@ -77,7 +77,7 @@ public class LevelConfigTest extends DukeApplicationTest {
   public void testLevelDisplay(){
     Text stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
-    press(myScene,KeyCode.S);
+    press(myScene,KeyCode.TAB);
     stats = lookup("#stats").queryText();
     assertEquals("Level: 1     Lives: 3     Score: 0", stats.getText());
   }
