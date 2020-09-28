@@ -9,16 +9,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
-
-
 public class Level {
 
   //might be worth it to think about putting all the balls in their own class
 
-  private static final double PADDLE_WIDTH = 75;
   public static final int RANDOM_POWERUP = -1;
   public static final int PADDLE_HEIGHT = 10;
   public static final int BALL_SIZE = 5;
+  private static final double PADDLE_WIDTH = 75;
   private final Group myRoot;
   private final List<Powerup> myPowerups = new ArrayList<>();
   private final int numOfTopBalls;
@@ -29,7 +27,8 @@ public class Level {
   private Display myDisplay;
   private boolean immunity;
 
-  public Level(Group gameRoot, int paddleX, int paddleY, int numTopBalls, int numBottomballs, List<Block> blockList) {
+  public Level(Group gameRoot, int paddleX, int paddleY, int numTopBalls, int numBottomballs,
+      List<Block> blockList) {
     myRoot = gameRoot;
     setUpPaddle(paddleX, paddleY);
     setUpBalls(numTopBalls, numBottomballs);
@@ -83,12 +82,13 @@ public class Level {
     }
   }
 
-  public void changeBallSpeed(double modifier){
-    for (Ball ball: myBalls){
+  public void changeBallSpeed(double modifier) {
+    for (Ball ball : myBalls) {
       ball.changeBallSpeed(modifier);
     }
   }
-  public void changePaddleWidth(double modifier){
+
+  public void changePaddleWidth(double modifier) {
     myPaddle.changePaddleWidth(modifier);
   }
 
@@ -100,26 +100,27 @@ public class Level {
     }
   }
 
-  private void addTopBall(){
+  private void addTopBall() {
     int ballY = (int) myPaddle.getY() - PADDLE_HEIGHT;
     addBall(ballY);
   }
-  private void addBottomBall(){
+
+  private void addBottomBall() {
     int ballY = (int) myPaddle.getY() + PADDLE_HEIGHT * 2;
     addBall(ballY);
   }
 
   //probability of adding either top ball or bottom ball is based off of how many of each are in the level
   private void addBall(int ballY) {
-    int ballX = (int) (myPaddle.getX() + PADDLE_WIDTH/2);
+    int ballX = (int) (myPaddle.getX() + PADDLE_WIDTH / 2);
     Ball ball = new Ball(ballX, ballY, BALL_SIZE);
     ball.setId(String.format("ball%d", myBalls.size()));
     myRoot.getChildren().add(ball);
     myBalls.add(ball);
   }
-  public void addNewBall(){
-    double topBalls = numOfTopBalls;
-    double topBallProb = topBalls / (numOfTopBalls + numOfBottomBalls) ;
+
+  public void addNewBall() {
+    double topBallProb = (double) numOfTopBalls / (numOfTopBalls + numOfBottomBalls);
     if (Math.random() <= topBallProb) {
       addTopBall();
     } else {
@@ -127,33 +128,33 @@ public class Level {
     }
 
   }
+
   public void addPowerupFromBlock(Block block, int powerupType) {
     double xPos = block.getX();
     double yPos = block.getY();
-    addPowerupFrom(xPos,yPos, powerupType);
+    addPowerupFrom(xPos, yPos, powerupType);
   }
 
-  private void addPowerupFrom(double xPos, double yPos, int powerupType){
-    PowerupChooser powerupChooser = new PowerupChooser(xPos,yPos);
+  private void addPowerupFrom(double xPos, double yPos, int powerupType) {
+    PowerupChooser powerupChooser = new PowerupChooser(xPos, yPos);
     Powerup powerup = powerupChooser.getPowerup(powerupType);
     myRoot.getChildren().add(powerup);
     myPowerups.add(powerup);
     powerup.setId(String.format("powerup%d", myPowerups.indexOf(powerup)));
   }
 
-  public void addRandomPowerup(){
+  public void addRandomPowerup() {
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
     int yPos = getRandomPowerupYPosition();
-    addPowerupFrom(xPos,yPos, RANDOM_POWERUP);
+    addPowerupFrom(xPos, yPos, RANDOM_POWERUP);
   }
-  private int getRandomPowerupYPosition(){
-    if(myPaddle.getY() < Game.SIZE / 2){
+
+  private int getRandomPowerupYPosition() {
+    if (myPaddle.getY() < Game.SIZE / 2) {
       return Game.SIZE;
-    }
-    else if(myPaddle.getY() > Game.SIZE / 2){
+    } else if (myPaddle.getY() > Game.SIZE / 2) {
       return 0;
-    }
-    else{
+    } else {
       return Math.random() <= .5 ? Game.SIZE : 0;
     }
   }

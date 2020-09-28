@@ -17,7 +17,7 @@ import javafx.util.Pair;
 
 public class LevelConfig {
 
-  public static final int BLOCK_WIDTH = 50;
+  public static final int BLOCK_WIDTH = 42;
   public final static int BLOCK_HEIGHT = 10;
 
   private static Scanner getLevelConfigFileScanner(String dataSource){

@@ -62,13 +62,13 @@ public class LevelConfigTest extends DukeApplicationTest {
     Block rowZeroStartBlock = lookup("#0,0").query();
     assertEquals(0, rowZeroStartBlock.getX());
     assertEquals(50, rowZeroStartBlock.getY());
-    assertEquals(50, rowZeroStartBlock.getWidth());
+    assertEquals(42, rowZeroStartBlock.getWidth());
     assertEquals(10, rowZeroStartBlock.getHeight());
 
     Block rowOneStartBlock = lookup("#0,1").query();
     assertEquals(0, rowOneStartBlock.getX());
     assertEquals(65, rowOneStartBlock.getY());
-    assertEquals(50, rowOneStartBlock.getWidth());
+    assertEquals(42, rowOneStartBlock.getWidth());
     assertEquals(10, rowOneStartBlock.getHeight());
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
 }
