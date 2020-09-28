@@ -10,11 +10,8 @@ public class BallPowerup extends Powerup {
   }
 
   @Override
-  public boolean poweredUp(Level level, Paddle paddle) {
-    if (hitPaddle(paddle)) {
-      level.changeBallSpeed(BALL_SPEED_SLOWDOWN);
-      return true;
-    }
-    return false;
+  public void doPowerup(Level level) {
+    level.changeBallSpeed(BALL_SPEED_SLOWDOWN);
   }
+
 }
