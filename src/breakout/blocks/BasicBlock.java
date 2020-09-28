@@ -9,7 +9,6 @@ public class BasicBlock extends Block {
 
   public BasicBlock(int row, int col, int width, int height) {
     super(row, col, width, height);
-    this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
   }
 
   @Override

@@ -1,6 +1,7 @@
 package breakout.blocks;
 
 import breakout.Level;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 //should a block have access to the level ?
@@ -16,12 +17,16 @@ public abstract class Block extends Rectangle {
         col * (height + Y_DISPLACEMENT) + SPACE_FROM_TOP,
         width,
         height);
+    setRandomColor();
   }
 
   public abstract void handleHit(Level level);
 
   public abstract boolean isBlockBroken();
 
+  protected void setRandomColor() {
+    this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+  }
   //bomb brick gets its neighbors when created
 }
 

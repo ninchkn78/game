@@ -17,12 +17,14 @@ public class DurableBlock extends Block {
 
   @Override
   public void handleHit(Level level) {
-    this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+    setRandomColor();
     this.count -= 1;
     if (this.count == 0) {
       blockBroken = true;
     }
   }
+
+
 
   @Override
   public boolean isBlockBroken() {

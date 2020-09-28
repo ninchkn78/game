@@ -9,6 +9,7 @@ public class BallPowerupBlock extends PowerupBlock {
 
   public BallPowerupBlock(int row, int col, int width, int height) {
     super(row, col, width, height);
+
   }
 
   @Override

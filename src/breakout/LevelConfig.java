@@ -19,6 +19,12 @@ public class LevelConfig {
 
   public static final int BLOCK_WIDTH = 42;
   public final static int BLOCK_HEIGHT = 10;
+  public static final int TEXT_DISPLACEMENT = 50;
+  public static final int PADDLE_X_INDEX = 0;
+  public static final int PADDLE_Y_INDEX = 1;
+  public static final int NUM_TOP_BALLS_INDEX = 2;
+  public static final int NUM_BOTTOM_BALLS_INDEX = 3;
+  public static final String LEVEL_FILE_NAME = "level%d.txt";
 
   private LevelConfig() {
   }
@@ -66,35 +72,23 @@ public class LevelConfig {
     return blockList;
   }
 
-  // TODO: 2020-09-26 make a map
   private static Block getBlock(String blockType, int rowNum, int colNum) {
-    if (blockType.equals("0")) {
-      return new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    } else if (blockType.equals("P")) {
-      return new PaddlePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    } else if (blockType.equals("B")) {
-      return new BallPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    } else if (blockType.equals("D")) {
-      return new DurableBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    } else if (blockType.equals("L")) {
-      return new ExtraLifePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT);
-    }
-    return null;
+    BlockChooser blockChooser = new BlockChooser(rowNum,colNum);
+    return (Block) blockChooser.getType(blockType);
   }
 
 
   public static Level setUpLevel(int level, Group root) {
     root.getChildren().clear();
-    String blockFile = String.format("level%d.txt", level);
+    String blockFile = String.format(LEVEL_FILE_NAME, level);
     String[] setUpInfo = readFile(blockFile).getKey();
-    int paddleX = Integer.parseInt(setUpInfo[0]);
-    int paddleY = Integer.parseInt(setUpInfo[1]);
-    int numTopBalls = Integer.parseInt(setUpInfo[2]);
-    int numBottomBalls = Integer.parseInt(setUpInfo[3]);
+    int paddleX = Integer.parseInt(setUpInfo[PADDLE_X_INDEX]);
+    int paddleY = Integer.parseInt(setUpInfo[PADDLE_Y_INDEX]);
+    int numTopBalls = Integer.parseInt(setUpInfo[NUM_TOP_BALLS_INDEX]);
+    int numBottomBalls = Integer.parseInt(setUpInfo[NUM_BOTTOM_BALLS_INDEX]);
     return new Level(root, paddleX, paddleY, numTopBalls, numBottomBalls,
         makeListOfBlocks(blockFile));
   }
-
 }
 
 

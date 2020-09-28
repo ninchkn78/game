@@ -12,6 +12,7 @@ public class Ball extends Circle {
   public static final Paint BALL_COLOR = Color.PLUM;
   public static final double X_SPEED_RANGE_START = .55;
   public static final double X_SPEED_RANGE_END = .90;
+  public static final int TOP_OF_STAGE = 0;
   private final Random random = new Random();
   private final int initialX;
   private final int initialY;
@@ -40,19 +41,17 @@ public class Ball extends Circle {
     }
   }
 
-
   public void moveBall(double elapsedTime) {
     checkWallCollision();
     this.setCenterY(this.getCenterY() + this.ySpeed * this.yDirection * elapsedTime);
     this.setCenterX(this.getCenterX() - this.xSpeed * this.xDirection * elapsedTime);
-
   }
 
   private void checkWallCollision() {
-    if (this.getCenterY() <= 0) {
+    if (this.getCenterY() <= TOP_OF_STAGE) {
       yDirection *= -1;
     }
-    if (this.getCenterX() <= 0 || this.getCenterX() >= 350) {
+    if (this.getCenterX() <= TOP_OF_STAGE || this.getCenterX() >= Game.SIZE) {
       xDirection *= -1;
     }
   }
@@ -102,7 +101,7 @@ public class Ball extends Circle {
 
 
   public void ignoreBottom() { // ball does not fall through bottom and instead bounces back up
-    if (this.getCenterY() > 355) {
+    if (this.getCenterY() > Game.SIZE) {
       this.yDirection *= -1;
     }
   }
