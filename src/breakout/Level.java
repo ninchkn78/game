@@ -45,6 +45,8 @@ public class Level {
     }
   }
 
+
+  //different way to do this would to do the same thing that's happening in powerup
   private void checkBallBlockCollision(Ball ball) {
     Iterator<Block> itr = myBlocks.iterator();
     while (itr.hasNext()) {
@@ -77,6 +79,9 @@ public class Level {
     for (Ball ball: myBalls){
       ball.changeBallSpeed(modifier);
     }
+  }
+  public void changePaddleWidth(double modifier){
+    myPaddle.changePaddleWidth(modifier);
   }
 
   public void setBallLaunched() {

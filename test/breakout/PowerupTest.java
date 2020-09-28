@@ -1,11 +1,13 @@
 package breakout;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import breakout.blocks.Block;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -69,6 +71,17 @@ public class PowerupTest extends DukeApplicationTest {
     assertTrue(newDistanceTravelled < distanceTravelled);
 
   }
+  @Test
+  public void testExtraLifePowerup() {
+    Text stats = lookup("#stats").queryText();
+    assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
+    press(myScene, KeyCode.SHIFT);
+    Block powerupBlock = lookup("#1,0").query();
+    breakBlock(powerupBlock);
+    makePaddleHitPowerup();
+    stats = lookup("#stats").queryText();
+    assertEquals("Level: 0     Lives: 4     Score: 1",stats.getText());
+  }
 
   private void makePaddleHitPowerup() {
     Powerup powerup = lookup("#powerup0").query();
@@ -82,7 +95,6 @@ public class PowerupTest extends DukeApplicationTest {
   private double calculateDistanceTravelled(){
     myBall.setCenterX(25);
     myBall.setCenterY(275);
-    myBall.printXSpeed();
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
     return Math.abs(myBall.getCenterY() - 275);

@@ -164,7 +164,6 @@ public class InputKeyTest extends DukeApplicationTest {
   private double calculateDistanceTravelled(){
     myBall.setCenterX(25);
     myBall.setCenterY(275);
-    myBall.printXSpeed();
     myGame.step(Game.SECOND_DELAY);
     myGame.step(Game.SECOND_DELAY);
     return Math.abs(myBall.getCenterY() - 275);

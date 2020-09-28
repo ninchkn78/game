@@ -8,11 +8,8 @@ public class PaddlePowerup extends Powerup {
   }
 
   @Override
-  public boolean poweredUp(Level level, Paddle paddle) {
-      if(hitPaddle(paddle)){
-        paddle.changePaddleWidth(1.25);
-        return true;
-      }
-      return false;
+  public void doPowerup(Level level) {
+    level.changePaddleWidth(1.25);
   }
 }
+
