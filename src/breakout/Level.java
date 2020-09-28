@@ -120,10 +120,7 @@ public class Level {
   public void addNewBall(){
     double topBalls = numOfTopBalls;
     double topBallProb = topBalls / (numOfTopBalls + numOfBottomBalls) ;
-    double check = Math.random();
-    System.out.println(topBallProb);
-    System.out.println(check);
-    if (check <= topBallProb) {
+    if (Math.random() <= topBallProb) {
       addTopBall();
     } else {
       addBottomBall();
@@ -146,7 +143,19 @@ public class Level {
 
   public void addRandomPowerup(){
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
-    addPowerupFrom(xPos,0, RANDOM_POWERUP);
+    int yPos = getRandomPowerupYPosition();
+    addPowerupFrom(xPos,yPos, RANDOM_POWERUP);
+  }
+  private int getRandomPowerupYPosition(){
+    if(myPaddle.getY() < Game.SIZE / 2){
+      return Game.SIZE;
+    }
+    else if(myPaddle.getY() > Game.SIZE / 2){
+      return 0;
+    }
+    else{
+      return Math.random() <= .5 ? Game.SIZE : 0;
+    }
   }
 
   private void setUpBalls(int numTopBalls, int numBottomBalls) {

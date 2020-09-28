@@ -1,20 +1,17 @@
 package breakout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import breakout.blocks.Block;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-import javafx.scene.input.KeyCode;
 
 //need to ask about how to adapt these tests for higher levels
 public class LevelConfigTest extends DukeApplicationTest {
-
   // create an instance of our game to be able to call in tests (like step())
   private final Game myGame = new Game();
   // keep created scene to allow mouse and keyboard events
@@ -73,11 +70,7 @@ public class LevelConfigTest extends DukeApplicationTest {
     assertEquals(65, rowOneStartBlock.getY());
     assertEquals(50, rowOneStartBlock.getWidth());
     assertEquals(10, rowOneStartBlock.getHeight());
-
-
-
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
-
 }
 
   @Test

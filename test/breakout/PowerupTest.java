@@ -83,6 +83,7 @@ public class PowerupTest extends DukeApplicationTest {
     assertEquals("Level: 0     Lives: 4     Score: 1",stats.getText());
   }
 
+
   private void makePaddleHitPowerup() {
     Powerup powerup = lookup("#powerup0").query();
     powerup.setCenterX(200);
