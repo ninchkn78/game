@@ -1,7 +1,7 @@
 package breakout.blocks;
 
 import breakout.Level;
-import javafx.scene.paint.Color;
+
 
 public class BasicBlock extends Block {
 
