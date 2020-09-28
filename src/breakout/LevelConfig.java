@@ -87,8 +87,9 @@ public class LevelConfig {
     String[] setUpInfo = readFile(blockFile).getKey();
     int paddleX = Integer.parseInt(setUpInfo[0]);
     int paddleY = Integer.parseInt(setUpInfo[1]);
-    int numBalls = Integer.parseInt(setUpInfo[2]);
-    return new Level(root, paddleX, paddleY, numBalls, makeListOfBlocks(blockFile));
+    int numTopBalls = Integer.parseInt(setUpInfo[2]);
+    int numBottomBalls = Integer.parseInt(setUpInfo[3]);
+    return new Level(root, paddleX, paddleY, numTopBalls, numBottomBalls, makeListOfBlocks(blockFile));
   }
 
 }

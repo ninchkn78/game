@@ -36,7 +36,7 @@ public class LevelConfigTest extends DukeApplicationTest {
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
     myPaddle = lookup("#myPaddle").query();
-    myBall = lookup("#ball1").query();
+    myBall = lookup("#ball0").query();
   }
 
   // Can write regular JUnit tests!
@@ -52,11 +52,11 @@ public class LevelConfigTest extends DukeApplicationTest {
   @Test
   public void testBallInitialPositionVelocity() {
     assertEquals(350/2, myBall.getCenterX());
-    assertEquals(293, myBall.getCenterY());
+    assertEquals(290, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
     myGame.step(Game.SECOND_DELAY);
     assertEquals(350/2, myBall.getCenterX());
-    assertEquals(293, myBall.getCenterY());
+    assertEquals(290, myBall.getCenterY());
     assertEquals(5, myBall.getRadius());
   }
 

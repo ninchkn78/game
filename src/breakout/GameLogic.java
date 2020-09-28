@@ -76,7 +76,7 @@ public class GameLogic {
 
   private void addBall() {
     if (!gamePaused) {
-      level.addBall();
+      level.addNewBall();
       setBallLaunched();
     }
   }
