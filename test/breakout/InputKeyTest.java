@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-//need to ask about how to adapt these tests for higher levels
+
 public class InputKeyTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())

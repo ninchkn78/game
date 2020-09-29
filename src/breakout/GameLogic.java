@@ -20,11 +20,9 @@ public class GameLogic {
   private Level level;
   private int levelNum;
 
-  //take in a level
   public GameLogic(int level, Group root) {
     levelNum = level;
     myRoot = root;
-    //maybe could add a class to package these guys together
     setUpLevel(levelNum, root);
     makeKeyActionsMap();
   }
@@ -103,12 +101,6 @@ public class GameLogic {
     levelNum = level;
     myDisplay.changeLevel(levelNum, myRoot);
   }
-//  public void setUpLevel1(Group root){
-//    level = LevelConfig1.setUpLevel(root);
-//  }
-//  public void setUpLevel2(Group root){
-//    level = LevelConfig1.setUpLevel(root);
-//  }
 
   public void setUpLevel(int levelNum, Group root) {
     root.getChildren().clear();
@@ -122,7 +114,6 @@ public class GameLogic {
     myRoot.getChildren().add(myStats);
   }
 
-  //stays in game logic
   public void handleKeyInput(KeyCode code) {
     myKeyActions.getOrDefault(code, () -> {
     }).run();
@@ -172,7 +163,6 @@ public class GameLogic {
 
   private void checkGameWon() {
     if (level.noBlocks() && !gameWon) {
-      System.out.println("Game won");
       Text won = new Text(Game.SIZE / 2 - LevelConfig.TEXT_DISPLACEMENT, Game.SIZE / 2,
           "You won this level!\nPress Tab to continue");
       won.setId("WonText");

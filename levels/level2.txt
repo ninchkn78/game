@@ -15,4 +15,4 @@ X,X,X,D,X,X,X
 X,X,D,0,D,X,X
 X,D,0,P,0,D,X
 D,B,0,0,0,B,D
-X,D,D,D,D,D,X
+X,D,D,D,L,D,X

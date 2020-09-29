@@ -7,8 +7,9 @@ import javafx.scene.shape.Circle;
 public abstract class Powerup extends Circle {
 
   public static final Paint BALL_POWER_UP_COLOR = Color.BLUEVIOLET;
-  public static final Paint PADDLE_POWER_UP_COLOR = Color.HOTPINK;
+  public static final Paint PADDLE_WIDTH_POWERUP_COLOR = Color.HOTPINK;
   public static final Paint EXTRA_LIFE_POWER_UP_COLOR = Color.GREENYELLOW;
+  public static final Paint PADDLE_SPEED_POWERUP_COLOR = Color.INDIANRED;
   public static final int POWERUP_SIZE = 10;
   private boolean powerUpHappened = false;
   private int dropSpeed = 200;
