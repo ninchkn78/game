@@ -99,7 +99,8 @@ public class GameLogic {
   private void changeLevel(int level) {
     resetGame();
     setUpLevel(level, myRoot);
-    myDisplay.changeLevel(level, myRoot);
+    levelNum = level;
+    myDisplay.changeLevel(levelNum, myRoot);
   }
 //  public void setUpLevel1(Group root){
 //    level = LevelConfig1.setUpLevel(root);
