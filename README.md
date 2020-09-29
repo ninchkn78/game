@@ -49,11 +49,14 @@ DOWN: decrease ball speed
 1-3: change to this level
 
 Known Bugs:
+
 On level 3, the ball is supposed to rebound off the bottom if it started on the lower half of the screen, and cause a life loss and reset if it
 goes through the top. Likewise, if the ball begins in the top half of the screen (above the paddle)
 it is supposed to rebound off the top, and cause a life loss and reset
 when passing through the bottom. However, both balls rebound off the top and disappear through
 the bottom without causing a life loss, only a reset. 
+
+On level 2, ball doesn't bounce off of bottom 
 
 Implementation of High Score Tracking was attempted, but a bug occurs where the myDisplay.getScore method always
 returns 0, and thus does not update the high score. 
