@@ -21,7 +21,7 @@ public abstract class TypeChooser {
       Random rand = new Random();
       typeIndex = rand.nextInt(types.size());
     }
-    return types.getOrDefault(typeIndex, null);
+    return types.get(typeIndex);
   }
 
   public void addTypeToMap(Shape object) {

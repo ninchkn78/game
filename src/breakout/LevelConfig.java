@@ -94,7 +94,7 @@ public class LevelConfig {
     int numTopBalls = Integer.parseInt(setUpInfo[NUM_TOP_BALLS_INDEX]);
     int numBottomBalls = Integer.parseInt(setUpInfo[NUM_BOTTOM_BALLS_INDEX]);
     return new Level(root, paddleX, paddleY, numTopBalls, numBottomBalls,
-        makeListOfBlocks(blockFile));
+        makeListOfBlocks(blockFile), level);
   }
 }
 

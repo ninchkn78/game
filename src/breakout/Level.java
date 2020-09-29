@@ -28,12 +28,12 @@ public class Level {
   private boolean immunity;
 
   public Level(Group gameRoot, int paddleX, int paddleY, int numTopBalls, int numBottomballs,
-      List<Block> blockList) {
+      List<Block> blockList, int levelNum) {
     myRoot = gameRoot;
     setUpPaddle(paddleX, paddleY);
     setUpBalls(numTopBalls, numBottomballs);
     setUpBlocks(blockList);
-    setUpDisplay();
+    setUpDisplay(levelNum);
     numOfTopBalls = numTopBalls;
     numOfBottomBalls = numBottomballs;
   }
@@ -42,6 +42,7 @@ public class Level {
     myBlocks = blockList;
     myRoot.getChildren().addAll(blockList);
   }
+
 
   public void dropPowerups(double elapsedTime) {
     for (Powerup powerup : myPowerups) {
@@ -61,7 +62,7 @@ public class Level {
       if (ball.checkBallObjectCollision(block)) {
         block.handleHit(this);
         if (block.isBlockBroken()) {
-          myDisplay.incrementScore(1, myRoot);
+          myDisplay.changeScore(1, myRoot);
           remove(block);
           itr.remove();
         }
@@ -145,13 +146,11 @@ public class Level {
 
   public void addRandomPowerup() {
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
-    System.out.println(xPos);
     int yPos = getRandomPowerupYPosition();
     addPowerupFrom(xPos, yPos, TypeChooser.RANDOM_TYPE);
   }
 
   private int getRandomPowerupYPosition() {
-    System.out.println("chosen");
     if (myPaddle.getY() < Game.SIZE / 2) {
       return Game.SIZE;
     } else if (myPaddle.getY() > Game.SIZE / 2) {
@@ -179,12 +178,13 @@ public class Level {
     myPaddle.setId("myPaddle");
     add(myPaddle);
   }
-
-  private void setUpDisplay() {
+  private void setUpDisplay(int levelNum) {
     myDisplay = new Display();
-    Text myStats = myDisplay.createDisplay();
+    Text myStats = myDisplay.createDisplay(levelNum);
     add(myStats);
   }
+
+
 
   public void reset() {
     for (Ball ball : myBalls) {
@@ -215,7 +215,7 @@ public class Level {
 
   public void changeLives(int change) {
     // TODO: 2020-09-26 change name from decrement ?
-    myDisplay.decrementLives(change, myRoot);
+    myDisplay.changeLives(change, myRoot);
   }
 
   // TODO: generalize this to check for when ball drops through top too (for later levels), maybe add as a parameter
