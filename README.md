@@ -15,8 +15,10 @@ Hours Spent: 45 hours (Alex)
 
 
 ### Resources Used
+
 removing items from list while iterating
 https://www.java67.com/2018/12/how-to-remove-objects-or-elements-while-iterating-Arraylist-java.html
+
 getting random numbers
 https://stackoverflow.com/questions/27976857/how-do-i-get-a-random-number-with-a-negative-number-in-range
 
@@ -71,11 +73,12 @@ this are the configuration of the types of blocks separated by commas:
 * L - drops an extra life powerup
 * B - drops a slow down ball powerup
 * P - drops a widen paddle powerup
+* S - drops a speed up paddle powerup
 * X - no block is placed at this position 
 
 ### Notes
 
-The initial size of all objects are determined by constants. Blocks, balls, and powerups do not 
+The initial size of all objects is determined by constants. Blocks, balls, and powerups do not 
 change sizes. 
 
 Each block destroyed by the ball adds one point to the score
