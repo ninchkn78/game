@@ -105,6 +105,7 @@ public class Level {
 
   private void addTopBall() {
     int ballY = (int) myPaddle.getY() - PADDLE_HEIGHT;
+
     addBall(ballY);
   }
 
@@ -112,6 +113,8 @@ public class Level {
     int ballY = (int) myPaddle.getY() + PADDLE_HEIGHT * 2;
     addBall(ballY);
   }
+
+
 
   //probability of adding either top ball or bottom ball is based off of how many of each are in the level
   private void addBall(int ballY) {
@@ -221,11 +224,11 @@ public class Level {
   }
 
   // TODO: generalize this to check for when ball drops through top too (for later levels), maybe add as a parameter
-  public boolean checkBallDroppedThroughBottom() {
+  public boolean checkBallDroppedThroughBottom(int levelNum) {
     int numBalls = myBalls.size();
     for (Ball ball : myBalls) {
       if (!immunity) {
-        if (ball.checkBallDroppedThroughBottom()) {
+        if (ball.checkBallDroppedThroughBottom(levelNum)) {
           numBalls -= 1;
         }
       } else {

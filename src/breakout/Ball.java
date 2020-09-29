@@ -19,6 +19,8 @@ public class Ball extends Circle {
   private int ySpeed;
   private int xDirection;
   private int yDirection;
+  private boolean BallType;
+
   private boolean ballLaunched = false;
 
   public Ball(int centerX, int centerY, int size) {
@@ -26,11 +28,15 @@ public class Ball extends Circle {
     initialX = centerX;
     initialY = centerY;
     this.setFill(BALL_COLOR);
+
+
   }
 
   public boolean isBallLaunched() {
     return this.ballLaunched;
   }
+
+
 
   public void moveBallWithPaddle(KeyCode code) {
     if (code.equals(KeyCode.LEFT)) {
@@ -66,7 +72,11 @@ public class Ball extends Circle {
   }
 
   // TODO: 2020-09-26 added in gamelogic too, but generalize for dropping through top
-  public boolean checkBallDroppedThroughBottom() {
+  public boolean checkBallDroppedThroughBottom(int levelNum) {
+    if (levelNum == 2) {
+      return this.getCenterY() < 0;
+    }
+
     return this.getCenterY() > Game.SIZE;
   }
 
@@ -108,5 +118,8 @@ public class Ball extends Circle {
   public void changeBallSpeed(double modifier) {
     this.ySpeed *= modifier;
     this.xSpeed *= modifier;
+  }
+  public int getInitialY(){
+    return this.initialY;
   }
 }

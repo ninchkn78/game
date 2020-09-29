@@ -28,14 +28,7 @@ public class Display {
         stats.setText("Level: " + currentLevel + "     Lives: " + currentLives + "     Score: " + currentScore);
       }
     }
-    /*
-    root.getChildren().remove(stats);
-    this.currentScore += score;
 
-    Text newStats = createDisplay(currentLevel);
-    root.getChildren().add(newStats);
-
-     */
   }
 
   // TODO: 2020-09-26 change this method to generally account for adding or decreasing lives
@@ -49,13 +42,6 @@ public class Display {
       }
     }
 
-    /*
-    root.getChildren().remove(stats);
-    this.currentLives -= lives;
-    Text newStats = createDisplay(currentLevel);
-    root.getChildren().add(newStats);
-
-     */
   }
 
   public void changeLevel(int level, Group root) {
