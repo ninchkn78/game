@@ -50,6 +50,13 @@ DOWN: decrease ball speed
 
 Known Bugs:
 
+Ball sometimes rides along paddle instead of bouncing off, ball sometimes breaks multiple blocks before 
+bouncing
+
+Extra Features: 
+
+extra blocks, powerups, and cheat keys 
+
 Level descriptions: 
 
 Level 1 paddle is at bottom, blocks include durable block, extra life block, and basic block 
