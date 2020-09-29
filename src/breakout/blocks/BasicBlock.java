@@ -2,7 +2,6 @@ package breakout.blocks;
 
 import breakout.Level;
 
-
 public class BasicBlock extends Block {
 
   private boolean blockBroken = false;
