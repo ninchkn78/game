@@ -1,6 +1,7 @@
 package breakout;
 
 import static breakout.TestHelperMethods.breakBlock;
+import static breakout.TestHelperMethods.calculateDistanceTravelled;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -152,6 +153,16 @@ public class GameStepTest extends DukeApplicationTest {
     press(myScene,KeyCode.SHIFT);
     breakBlock(testBlock, myBall, myGame);
     assertTrue(testBlock.isBlockBroken());
+  }
+
+  @Test
+  public void testBallSpeedsUpOnHit() {
+    press(myScene, KeyCode.SHIFT);
+    Block testBlock = lookup("#0,0").query();
+    double distanceTravelled = calculateDistanceTravelled(myBall,myGame);
+    breakBlock(testBlock,myBall,myGame);
+    double newDistanceTravelled = calculateDistanceTravelled(myBall,myGame);
+    assertTrue(newDistanceTravelled > distanceTravelled);
   }
 
   @Test
