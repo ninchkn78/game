@@ -100,7 +100,8 @@ public class GameLogic {
     resetGame();
     levelNum = level;
     setUpLevel(level, myRoot);
-    myDisplay.changeLevel(level, myRoot);
+    levelNum = level;
+    myDisplay.changeLevel(levelNum, myRoot);
   }
 //  public void setUpLevel1(Group root){
 //    level = LevelConfig1.setUpLevel(root);

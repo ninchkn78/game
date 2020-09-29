@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 //need to ask about how to adapt these tests for higher levels
-public class LevelConfigTest extends DukeApplicationTest {
+public class LevelOneTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
   private final Game myGame = new Game();
@@ -30,6 +30,7 @@ public class LevelConfigTest extends DukeApplicationTest {
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
     myScene = myGame.setupScene();
+    press(myScene,KeyCode.DIGIT1);
     stage.setScene(myScene);
     stage.show();
     // find individual items within game by ID (must have been set in your code using setID())
@@ -77,9 +78,6 @@ public class LevelConfigTest extends DukeApplicationTest {
   @Test
   public void testLevelDisplay() {
     Text stats = lookup("#stats").queryText();
-    assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
-    press(myScene, KeyCode.TAB);
-    stats = lookup("#stats").queryText();
     assertEquals("Level: 1     Lives: 3     Score: 0", stats.getText());
   }
 }

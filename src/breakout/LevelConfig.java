@@ -3,6 +3,7 @@ package breakout;
 import breakout.blocks.Block;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -72,8 +73,20 @@ public class LevelConfig {
     return (Block) blockChooser.getType(blockType);
   }
 
+  public static Level setUpLevel(int levelNum, Group root) {
+    Level level;
+    try {
+      level = tryToSetUpLevel(levelNum, root);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      level = tryToSetUpLevel(0,root);
+    }
+    return level;
+  }
 
-  public static Level setUpLevel(int level, Group root) {
+
+
+
+  private static Level tryToSetUpLevel(int level, Group root) {
     root.getChildren().clear();
     String blockFile = String.format(LEVEL_FILE_NAME, level);
     String[] setUpInfo = readFile(blockFile).getKey();

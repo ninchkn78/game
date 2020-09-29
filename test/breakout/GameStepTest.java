@@ -1,5 +1,6 @@
 package breakout;
 
+import static breakout.TestHelperMethods.breakBlock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,16 +46,7 @@ public class GameStepTest extends DukeApplicationTest {
 
   // check dynamic elements by setting up a specific scenario, "running" the game, then checking for specific results
 
-  public void breakBlock(Block block) {
-    block.setX(150);
-    block.setY(205);
-    myBall.setCenterY(225);
-    press(myScene, KeyCode.SHIFT);
-    myBall.setDirection(0, -1);
-    myGame.step(Game.SECOND_DELAY);
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-  }
+
 
   @Test
   public void testPaddleMove() {
@@ -98,7 +90,6 @@ public class GameStepTest extends DukeApplicationTest {
     press(myScene, KeyCode.RIGHT);
     assertEquals(100, myBall.getCenterX());
     assertEquals(100, myBall.getCenterY());
-
   }
 
   @Test
@@ -159,7 +150,8 @@ public class GameStepTest extends DukeApplicationTest {
   public void testBallBreaksBlock() {
     Block testBlock = lookup("#0,0").query();
     assertFalse(testBlock.isBlockBroken());
-    breakBlock(testBlock);
+    press(myScene,KeyCode.SHIFT);
+    breakBlock(testBlock, myBall, myGame);
     assertTrue(testBlock.isBlockBroken());
   }
 
@@ -171,8 +163,9 @@ public class GameStepTest extends DukeApplicationTest {
     allBlocks.add(lookup("#0,1").query());
     allBlocks.add(lookup("#1,0").query());
     allBlocks.add(lookup("#1,1").query());
+    press(myScene,KeyCode.SHIFT);
     for (Block testBlock : allBlocks) {
-      breakBlock(testBlock);
+      breakBlock(testBlock, myBall, myGame);
     }
     lookup("#WonText").query();
   }
@@ -180,20 +173,20 @@ public class GameStepTest extends DukeApplicationTest {
   @Test
   public void testPowerupDropsOnBrokenBlock() {
     Block powerupBlock = lookup("#1,1").query();
-    breakBlock(powerupBlock);
+    press(myScene,KeyCode.SHIFT);
+    breakBlock(powerupBlock, myBall, myGame);
     lookup("#powerup0").query();
   }
 
   @Test
   public void testScoreUpdates() {
     Block basicBlock = lookup("#0,0").query();
-    breakBlock(basicBlock);
-    sleep(1000);
+    press(myScene,KeyCode.SHIFT);
+    breakBlock(basicBlock, myBall, myGame);
     Text stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 3     Score: 1", stats.getText());
 
   }
-
   @Test
   public void testLivesUpdate() {
     Text stats = lookup("#stats").queryText();

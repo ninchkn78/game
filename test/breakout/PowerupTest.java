@@ -21,23 +21,6 @@ public class PowerupTest extends DukeApplicationTest {
   private Paddle myPaddle;
   private Ball myBall;
 
-  /**
-   * Start special test version of application that does not animate on its own before each test.
-   * <p>
-   * Automatically called @BeforeEach by TestFX.
-   */
-
-  public void breakBlock(Block block) {
-    block.setX(150);
-    block.setY(205);
-    myBall.setCenterY(225);
-    myBall.setCenterX(150);
-    myBall.setDirection(0, -1);
-    myGame.step(Game.SECOND_DELAY);
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-  }
-
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show it
@@ -53,9 +36,10 @@ public class PowerupTest extends DukeApplicationTest {
   public void testPaddleWidenPowerup() {
     press(myScene, KeyCode.SHIFT);
     Block powerupBlock = lookup("#1,1").query();
-    breakBlock(powerupBlock);
+    TestHelperMethods.breakBlock(powerupBlock, myBall, myGame);
     assertEquals(myPaddle.getWidth(), 75);
-    makePaddleHitPowerup();
+    Powerup powerup = lookup("#powerup0").query();
+    TestHelperMethods.makePaddleHitPowerup(myGame, myPaddle, powerup);
     assertTrue(myPaddle.getWidth() > 75);
   }
 
@@ -63,9 +47,10 @@ public class PowerupTest extends DukeApplicationTest {
   public void testBallSlowDownPowerup() {
     press(myScene, KeyCode.SHIFT);
     Block powerupBlock = lookup("#0,1").query();
-    breakBlock(powerupBlock);
+    TestHelperMethods.breakBlock(powerupBlock, myBall, myGame);
     double distanceTravelled = calculateDistanceTravelled();
-    makePaddleHitPowerup();
+    Powerup powerup = lookup("#powerup0").query();
+    TestHelperMethods.makePaddleHitPowerup(myGame,myPaddle, powerup);
     double newDistanceTravelled = calculateDistanceTravelled();
     System.out.println(distanceTravelled);
     System.out.println(newDistanceTravelled);
@@ -79,25 +64,13 @@ public class PowerupTest extends DukeApplicationTest {
     assertEquals("Level: 0     Lives: 3     Score: 0", stats.getText());
     press(myScene, KeyCode.SHIFT);
     Block powerupBlock = lookup("#1,0").query();
-    breakBlock(powerupBlock);
-    makePaddleHitPowerup();
+    TestHelperMethods.breakBlock(powerupBlock, myBall, myGame);
+    Powerup powerup = lookup("#powerup0").query();
+    TestHelperMethods.makePaddleHitPowerup(myGame, myPaddle, powerup);
     stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 4     Score: 1", stats.getText());
   }
 
-
-  private void makePaddleHitPowerup() {
-    Powerup powerup = lookup("#powerup0").query();
-    powerup.setCenterX(200);
-    powerup.setCenterY(210);
-    sleep(1000);
-    myPaddle.setX(150);
-    myPaddle.setY(215);
-    myPaddle.setWidth(75);
-    sleep(1000);
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-    javafxRun(() -> myGame.step(Game.SECOND_DELAY));
-  }
 
   private double calculateDistanceTravelled() {
     myBall.setCenterX(25);
