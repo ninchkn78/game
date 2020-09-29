@@ -106,5 +106,6 @@ Durable blocks are shaded dark purple specifically while basic blocks are random
 
 Cheat keys that enhance gameplay should not work when the ball isn't launched or the game is paused 
 
+Ball gets faster every time it hits a paddle to keep the game engaging 
 ### Impressions
 
