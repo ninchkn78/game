@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 
 public class GameLogic {
 
-  public static final double INCREASE_BALL_SPEED_RATIO = 1.05;
   public static final double REDUCE_BALL_SPEED_RATIO = .95;
   private final Group myRoot;
   private Display myDisplay = new Display();
@@ -63,7 +62,7 @@ public class GameLogic {
   }
 
   private void increaseBallSpeed() {
-    level.changeBallSpeed(INCREASE_BALL_SPEED_RATIO);
+    level.changeBallSpeed(Ball.INCREASE_BALL_SPEED_RATIO);
   }
 
   private void decreaseBallSpeed() {

@@ -12,6 +12,7 @@ public class Ball extends Circle {
   public static final Paint BALL_COLOR = Color.PLUM;
   public static final double X_SPEED_RANGE_START = .55;
   public static final double X_SPEED_RANGE_END = .90;
+  public static final double INCREASE_BALL_SPEED_RATIO = 1.02;
   private final Random random = new Random();
   private final int initialX;
   private final int initialY;
@@ -84,6 +85,7 @@ public class Ball extends Circle {
   public boolean checkBallObjectCollision(Shape object) {
     if (this.getBoundsInParent().intersects(object.getBoundsInParent())) {
       this.yDirection *= -1;
+      this.changeBallSpeed(INCREASE_BALL_SPEED_RATIO);
       return true;
     }
     return false;
