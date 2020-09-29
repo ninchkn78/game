@@ -96,4 +96,7 @@ public class PowerupTest extends DukeApplicationTest {
     myGame.step(Game.SECOND_DELAY);
     return Math.abs(myBall.getCenterY() - 275);
   }
+
+
+
 }

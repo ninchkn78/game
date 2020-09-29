@@ -163,7 +163,6 @@ public class GameLogic {
 
   private void checkGameWon() {
     if (level.noBlocks() && !gameWon) {
-      System.out.println("Game won");
       Text won = new Text(Game.SIZE / 2 - LevelConfig.TEXT_DISPLACEMENT, Game.SIZE / 2,
           "You won this level!\nPress Tab to continue");
       won.setId("WonText");
