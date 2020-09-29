@@ -1,8 +1,14 @@
 package breakout;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
+
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
@@ -93,7 +99,7 @@ public class GameLogic {
     }
   }
 
-  // TODO: fix display not clearing sometimes
+
   private void changeLevel(int level) {
     resetGame();
     levelNum = level;
@@ -147,12 +153,12 @@ public class GameLogic {
     }
   }
 
-  // TODO: fix level in display resetting back to 0 on reset
+
   private void resetGame() {
     ballLaunched = false;
     level.reset();
     setUpLevel(levelNum, myRoot);
-    System.out.println(levelNum);
+
   }
 
   public void dropPowerups(double elapsedTime) {
@@ -172,7 +178,7 @@ public class GameLogic {
     }
   }
 
-  // TODO: fix bug where can lose game after winning
+
   private void checkGameLost() {
     if (level.noLives()) {
       Text lost = new Text(Game.SIZE / 2 - LevelConfig.TEXT_DISPLACEMENT, Game.SIZE / 2,
@@ -187,6 +193,37 @@ public class GameLogic {
     level.checkCollisions();
     checkGameWon();
   }
+
+  // high score implementation does not work, but a skeleton is here.
+  public void addHighScoreToFile(int HighScore){
+    try {
+      FileWriter myWriter = new FileWriter("./doc/HighScore.txt");
+      myWriter.write(String.valueOf(HighScore));
+      myWriter.close();
+    }
+    catch (IOException e){
+      e.printStackTrace();
+    }
+  }
+
+  public int readHighScore() throws FileNotFoundException {
+    int CurrentHighScore = 0;
+    String file = "./doc/HighScore.txt";
+    Scanner s = new Scanner(new File(file));
+    while (s.hasNext()){
+      CurrentHighScore = Integer.parseInt(s.next());
+    }
+    return CurrentHighScore;
+  }
+  public void updateHighScore() throws FileNotFoundException {
+    int highScore = readHighScore();
+
+    if (myDisplay.getScore() > highScore){
+      addHighScoreToFile(myDisplay.getScore());
+
+    }
+  }
+
 
 }
 

@@ -10,6 +10,8 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
+
 public class Game extends Application {
 
   public static final String TITLE = "Breakout";
@@ -59,10 +61,15 @@ public class Game extends Application {
   // - movement, how do things change over time
   // - collisions, did things intersect and, if so, what should happen
   // - goals, did the game or level end?
-  void step(double elapsedTime) {
+  void step(double elapsedTime)  {
     gameLogic.moveBall(elapsedTime);
     gameLogic.checkCollision();
     gameLogic.dropPowerups(elapsedTime);
+    try {
+      gameLogic.updateHighScore();
+    } catch (FileNotFoundException e) {
+
+    }
   }
 }
 

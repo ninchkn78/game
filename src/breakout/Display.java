@@ -31,7 +31,7 @@ public class Display {
 
   }
 
-  // TODO: 2020-09-26 change this method to generally account for adding or decreasing lives
+
   public void changeLives(int lives, Group root) {
 
     this.currentLives -= lives;
@@ -71,6 +71,9 @@ public class Display {
    */
   public int getLives() {
     return currentLives;
+  }
+  public int getScore(){
+    return currentScore;
   }
 
 
