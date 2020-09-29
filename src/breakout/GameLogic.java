@@ -150,7 +150,7 @@ public class GameLogic {
     if (ballLaunched && !gamePaused) {
       level.moveBall(elapsedTime);
     }
-    if (level.checkBallDroppedThroughBottom()) {
+    if (level.checkBallDroppedThroughBottom(levelNum)) {
       ballLaunched = false;
       checkGameLost();
     }

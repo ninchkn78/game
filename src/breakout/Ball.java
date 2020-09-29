@@ -66,7 +66,11 @@ public class Ball extends Circle {
   }
 
   // TODO: 2020-09-26 added in gamelogic too, but generalize for dropping through top
-  public boolean checkBallDroppedThroughBottom() {
+  public boolean checkBallDroppedThroughBottom(int levelNum) {
+    if (levelNum == 2) {
+      return this.getCenterY() < 0;
+    }
+
     return this.getCenterY() > Game.SIZE;
   }
 

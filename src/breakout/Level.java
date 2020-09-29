@@ -220,11 +220,11 @@ public class Level {
   }
 
   // TODO: generalize this to check for when ball drops through top too (for later levels), maybe add as a parameter
-  public boolean checkBallDroppedThroughBottom() {
+  public boolean checkBallDroppedThroughBottom(int levelNum) {
     int numBalls = myBalls.size();
     for (Ball ball : myBalls) {
       if (!immunity) {
-        if (ball.checkBallDroppedThroughBottom()) {
+        if (ball.checkBallDroppedThroughBottom(levelNum)) {
           numBalls -= 1;
         }
       } else {
