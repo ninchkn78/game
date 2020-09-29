@@ -93,6 +93,8 @@ public class Level {
     myPaddle.changePaddleWidth(modifier);
   }
 
+  public void changePaddleSpeed(double modifier) {myPaddle.changePaddleSpeed(modifier);}
+
   public void setBallLaunched() {
     for (Ball ball : myBalls) {
       if (!ball.isBallLaunched()) {

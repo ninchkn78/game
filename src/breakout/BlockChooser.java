@@ -7,7 +7,8 @@ import breakout.blocks.BallPowerupBlock;
 import breakout.blocks.BasicBlock;
 import breakout.blocks.DurableBlock;
 import breakout.blocks.ExtraLifePowerupBlock;
-import breakout.blocks.PaddlePowerupBlock;
+import breakout.blocks.PaddleSpeedPowerupBlock;
+import breakout.blocks.PaddleWidthPowerupBlock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class BlockChooser extends TypeChooser {
     blockTypes.add("B");
     blockTypes.add("D");
     blockTypes.add("L");
+    blockTypes.add("S");
   }
 
   @Override
@@ -44,9 +46,10 @@ public class BlockChooser extends TypeChooser {
   public void addAllTypes() {
     addTypeToMap(null);
     addTypeToMap(new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
-    addTypeToMap(new PaddlePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
+    addTypeToMap(new PaddleWidthPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
     addTypeToMap(new BallPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
     addTypeToMap(new DurableBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
     addTypeToMap(new ExtraLifePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
+    addTypeToMap(new PaddleSpeedPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
   }
 }

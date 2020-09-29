@@ -156,7 +156,6 @@ public class GameStepTest extends DukeApplicationTest {
 
   @Test
   public void testGameWon() {
-    // TODO: check this test
     List<Block> allBlocks = new ArrayList<>();
     allBlocks.add(lookup("#0,0").query());
     allBlocks.add(lookup("#0,1").query());

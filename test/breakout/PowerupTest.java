@@ -1,6 +1,7 @@
 package breakout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import breakout.blocks.Block;
@@ -44,6 +45,22 @@ public class PowerupTest extends DukeApplicationTest {
   }
 
   @Test
+  public void testPaddleSpeedsUpPowerup() {
+    press(myScene, KeyCode.SHIFT);
+    Block powerupBlock = lookup("#0,0").query();
+    TestHelperMethods.breakBlock(powerupBlock, myBall, myGame);
+    double initialPosition = myPaddle.getX();
+    press(myScene,KeyCode.LEFT);
+    press(myScene, KeyCode.RIGHT);
+    assertEquals(initialPosition, myPaddle.getX());
+    press(myScene, KeyCode.LEFT);
+    Powerup powerup = lookup("#powerup0").query();
+    TestHelperMethods.makePaddleHitPowerup(myGame, myPaddle, powerup);
+    press(myScene,KeyCode.RIGHT);
+    assertNotEquals(initialPosition, myPaddle.getX());
+  }
+
+  @Test
   public void testBallSlowDownPowerup() {
     press(myScene, KeyCode.SHIFT);
     Block powerupBlock = lookup("#0,1").query();
@@ -79,4 +96,7 @@ public class PowerupTest extends DukeApplicationTest {
     myGame.step(Game.SECOND_DELAY);
     return Math.abs(myBall.getCenterY() - 275);
   }
+
+
+
 }
