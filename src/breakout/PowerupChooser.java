@@ -16,7 +16,6 @@ public class PowerupChooser extends TypeChooser {
     addAllTypes();
   }
 
-
   @Override
   public int getTypeIndex(String type) {
     return Integer.parseInt(type);

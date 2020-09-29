@@ -9,7 +9,6 @@ public abstract class TypeChooser {
 
   public static final int RANDOM_TYPE = -1;
 
-  //only have to change powerup chooser when adding a new random powerup
   private final Map<Integer, Shape> types = new HashMap<>();
   private int numOfTypes = 0;
 
@@ -22,7 +21,7 @@ public abstract class TypeChooser {
       Random rand = new Random();
       typeIndex = rand.nextInt(types.size());
     }
-    return types.get(typeIndex);
+    return types.getOrDefault(typeIndex, null);
   }
 
   public void addTypeToMap(Shape object) {

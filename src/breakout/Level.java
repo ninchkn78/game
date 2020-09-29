@@ -115,7 +115,7 @@ public class Level {
     int ballX = (int) (myPaddle.getX() + PADDLE_WIDTH / 2);
     Ball ball = new Ball(ballX, ballY, BALL_SIZE);
     ball.setId(String.format("ball%d", myBalls.size()));
-    myRoot.getChildren().add(ball);
+    add(ball);
     myBalls.add(ball);
   }
 
@@ -138,7 +138,7 @@ public class Level {
   private void addPowerupFrom(double xPos, double yPos, int powerupType) {
     PowerupChooser powerupChooser = new PowerupChooser(xPos, yPos);
     Powerup powerup = (Powerup) powerupChooser.getType(Integer.toString(powerupType));
-    myRoot.getChildren().add(powerup);
+    add(powerup);
     myPowerups.add(powerup);
     powerup.setId(String.format("powerup%d", myPowerups.indexOf(powerup)));
   }
@@ -162,7 +162,7 @@ public class Level {
   }
 
   private void setUpBalls(int numTopBalls, int numBottomBalls) {
-    // TODO: 2020-09-27 remove duplicated code
+    //is there a way to not have this be duplicated?
     myBalls = new ArrayList<>();
     while (numTopBalls > 0) {
       addTopBall();
@@ -177,13 +177,13 @@ public class Level {
   private void setUpPaddle(int x, int y) {
     myPaddle = new Paddle(x, y, Level.PADDLE_WIDTH, PADDLE_HEIGHT);
     myPaddle.setId("myPaddle");
-    myRoot.getChildren().add(myPaddle);
+    add(myPaddle);
   }
 
   private void setUpDisplay() {
     myDisplay = new Display();
     Text myStats = myDisplay.createDisplay();
-    myRoot.getChildren().add(myStats);
+    add(myStats);
   }
 
   public void reset() {

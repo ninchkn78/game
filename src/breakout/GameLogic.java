@@ -20,11 +20,9 @@ public class GameLogic {
   private Level level;
   private int levelNum;
 
-  //take in a level
   public GameLogic(int level, Group root) {
     levelNum = level;
     myRoot = root;
-    //maybe could add a class to package these guys together
     setUpLevel(levelNum, root);
     makeKeyActionsMap();
   }
@@ -102,12 +100,6 @@ public class GameLogic {
     levelNum = level;
     myDisplay.changeLevel(levelNum, myRoot);
   }
-//  public void setUpLevel1(Group root){
-//    level = LevelConfig1.setUpLevel(root);
-//  }
-//  public void setUpLevel2(Group root){
-//    level = LevelConfig1.setUpLevel(root);
-//  }
 
   public void setUpLevel(int levelNum, Group root) {
     root.getChildren().clear();
@@ -115,7 +107,6 @@ public class GameLogic {
     level = LevelConfig.setUpLevel(levelNum, root);
   }
 
-  //stays in game logic
   public void handleKeyInput(KeyCode code) {
     myKeyActions.getOrDefault(code, () -> {
     }).run();

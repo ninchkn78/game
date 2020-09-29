@@ -35,7 +35,6 @@ public class Game extends Application {
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
-    // some things needed to remember during game
     Scene myScene = setupScene();
     stage.setScene(myScene);
     stage.setTitle(TITLE);

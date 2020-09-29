@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BlockChooser extends TypeChooser {
 
-  //only have to change powerup chooser when adding a new random powerup
+  //only have to change block chooser when adding a new type of block
 
   private final List<String> blockTypes = new ArrayList<>();
   private final int rowNum;
@@ -27,7 +27,6 @@ public class BlockChooser extends TypeChooser {
   }
 
   private void makeBlockTypesList(){
-    blockTypes.add("X");
     blockTypes.add("0");
     blockTypes.add("P");
     blockTypes.add("B");
@@ -42,7 +41,6 @@ public class BlockChooser extends TypeChooser {
 
   @Override
   public void addAllTypes() {
-    addTypeToMap(null);
     addTypeToMap(new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
     addTypeToMap(new PaddlePowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
     addTypeToMap(new BallPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
