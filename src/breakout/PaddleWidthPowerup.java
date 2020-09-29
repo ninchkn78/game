@@ -1,12 +1,12 @@
 package breakout;
 
-public class PaddlePowerup extends Powerup {
+public class PaddleWidthPowerup extends Powerup {
 
   public static final double PADDLE_WIDTH_MODIFIER = 1.25;
 
-  public PaddlePowerup(double centerX, double centerY) {
+  public PaddleWidthPowerup(double centerX, double centerY) {
     super(centerX, centerY);
-    this.setFill(PADDLE_POWER_UP_COLOR);
+    this.setFill(PADDLE_WIDTH_POWERUP_COLOR);
   }
 
   @Override
