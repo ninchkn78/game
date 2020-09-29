@@ -27,4 +27,12 @@ public class TestHelperMethods extends DukeApplicationTest {
     javafxRun(() -> game.step(Game.SECOND_DELAY));
     javafxRun(() -> game.step(Game.SECOND_DELAY));
   }
+
+  public static double calculateDistanceTravelled(Ball ball, Game game) {
+    ball.setCenterX(25);
+    ball.setCenterY(275);
+    game.step(Game.SECOND_DELAY);
+    game.step(Game.SECOND_DELAY);
+    return Math.abs(ball.getCenterY() - 275);
+  }
 }

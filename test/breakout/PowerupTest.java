@@ -72,7 +72,6 @@ public class PowerupTest extends DukeApplicationTest {
     System.out.println(distanceTravelled);
     System.out.println(newDistanceTravelled);
     assertTrue(newDistanceTravelled < distanceTravelled);
-
   }
 
   @Test
