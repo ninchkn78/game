@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BlockChooser extends TypeChooser {
 
-  //only have to change powerup chooser when adding a new random powerup
+  //only have to change block chooser when adding a new type of block
 
   private final List<String> blockTypes = new ArrayList<>();
   private final int rowNum;

@@ -42,11 +42,7 @@ public class Level {
     myBlocks = blockList;
     myRoot.getChildren().addAll(blockList);
   }
-  private void setUpDisplay(int levelNum) {
-    myDisplay = new Display();
-    Text myStats = myDisplay.createDisplay(levelNum);
-    myRoot.getChildren().add(myStats);
-  }
+
 
   public void dropPowerups(double elapsedTime) {
     for (Powerup powerup : myPowerups) {
@@ -66,7 +62,7 @@ public class Level {
       if (ball.checkBallObjectCollision(block)) {
         block.handleHit(this);
         if (block.isBlockBroken()) {
-          myDisplay.changeScore(1, myRoot);;
+          myDisplay.changeScore(1, myRoot);
           remove(block);
           itr.remove();
         }
@@ -120,7 +116,7 @@ public class Level {
     int ballX = (int) (myPaddle.getX() + PADDLE_WIDTH / 2);
     Ball ball = new Ball(ballX, ballY, BALL_SIZE);
     ball.setId(String.format("ball%d", myBalls.size()));
-    myRoot.getChildren().add(ball);
+    add(ball);
     myBalls.add(ball);
   }
 
@@ -143,20 +139,18 @@ public class Level {
   private void addPowerupFrom(double xPos, double yPos, int powerupType) {
     PowerupChooser powerupChooser = new PowerupChooser(xPos, yPos);
     Powerup powerup = (Powerup) powerupChooser.getType(Integer.toString(powerupType));
-    myRoot.getChildren().add(powerup);
+    add(powerup);
     myPowerups.add(powerup);
     powerup.setId(String.format("powerup%d", myPowerups.indexOf(powerup)));
   }
 
   public void addRandomPowerup() {
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
-    System.out.println(xPos);
     int yPos = getRandomPowerupYPosition();
     addPowerupFrom(xPos, yPos, TypeChooser.RANDOM_TYPE);
   }
 
   private int getRandomPowerupYPosition() {
-    System.out.println("chosen");
     if (myPaddle.getY() < Game.SIZE / 2) {
       return Game.SIZE;
     } else if (myPaddle.getY() > Game.SIZE / 2) {
@@ -167,7 +161,7 @@ public class Level {
   }
 
   private void setUpBalls(int numTopBalls, int numBottomBalls) {
-    // TODO: 2020-09-27 remove duplicated code
+    //is there a way to not have this be duplicated?
     myBalls = new ArrayList<>();
     while (numTopBalls > 0) {
       addTopBall();
@@ -182,7 +176,12 @@ public class Level {
   private void setUpPaddle(int x, int y) {
     myPaddle = new Paddle(x, y, Level.PADDLE_WIDTH, PADDLE_HEIGHT);
     myPaddle.setId("myPaddle");
-    myRoot.getChildren().add(myPaddle);
+    add(myPaddle);
+  }
+  private void setUpDisplay(int levelNum) {
+    myDisplay = new Display();
+    Text myStats = myDisplay.createDisplay(levelNum);
+    add(myStats);
   }
 
 

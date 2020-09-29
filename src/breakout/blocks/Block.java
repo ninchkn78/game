@@ -4,8 +4,6 @@ import breakout.Level;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-//should a block have access to the level ?
-
 public abstract class Block extends Rectangle {
 
   public final static int Y_DISPLACEMENT = 5;
@@ -27,6 +25,5 @@ public abstract class Block extends Rectangle {
   protected void setRandomColor() {
     this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
   }
-  //bomb brick gets its neighbors when created
 }
 
