@@ -107,6 +107,7 @@ public class Level {
 
   private void addTopBall() {
     int ballY = (int) myPaddle.getY() - PADDLE_HEIGHT;
+
     addBall(ballY);
   }
 
@@ -114,6 +115,8 @@ public class Level {
     int ballY = (int) myPaddle.getY() + PADDLE_HEIGHT * 2;
     addBall(ballY);
   }
+
+
 
   //probability of adding either top ball or bottom ball is based off of how many of each are in the level
   private void addBall(int ballY) {

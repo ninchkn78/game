@@ -19,6 +19,8 @@ public class Ball extends Circle {
   private int ySpeed;
   private int xDirection;
   private int yDirection;
+  private boolean BallType;
+
   private boolean ballLaunched = false;
 
   public Ball(int centerX, int centerY, int size) {
@@ -26,11 +28,15 @@ public class Ball extends Circle {
     initialX = centerX;
     initialY = centerY;
     this.setFill(BALL_COLOR);
+
+
   }
 
   public boolean isBallLaunched() {
     return this.ballLaunched;
   }
+
+
 
   public void moveBallWithPaddle(KeyCode code) {
     if (code.equals(KeyCode.LEFT)) {
@@ -112,5 +118,8 @@ public class Ball extends Circle {
   public void changeBallSpeed(double modifier) {
     this.ySpeed *= modifier;
     this.xSpeed *= modifier;
+  }
+  public int getInitialY(){
+    return this.initialY;
   }
 }
