@@ -19,4 +19,8 @@ class LevelConfigErrorTest {
     assertThrows(NullPointerException.class, () ->
         LevelConfig.setUpLevel(4, new Group()));
   }
+  @Test
+  void levelFileBadFormat() {
+   LevelConfig.setUpLevel(99, new Group());
+  }
 }
