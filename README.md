@@ -11,7 +11,7 @@ Start Date: 9/12/2020
 
 Finish Date: 
 
-Hours Spent: 45 hours (Alex)
+Hours Spent: 45 hours (Alex) 40 hours (Christian)
 
 
 ### Resources Used
@@ -47,6 +47,14 @@ DOWN: decrease ball speed
 1-3: change to this level
 
 Known Bugs:
+On level 3, the ball is supposed to rebound off the bottom if it started on the lower half of the screen, and cause a life loss and reset if it
+goes through the top. Likewise, if the ball begins in the top half of the screen (above the paddle)
+it is supposed to rebound off the top, and cause a life loss and reset
+when passing through the bottom. However, both balls rebound off the top and disappear through
+the bottom without causing a life loss, only a reset. 
+
+Implementation of High Score Tracking was attempted, but a bug occurs where the myDisplay.getScore method always
+returns 0, and thus does not update the high score. 
 
 Level descriptions: 
 
@@ -56,7 +64,8 @@ blocks are in a grid format
 Level 2 moves the paddle to the top, so powerups "fall" upwards, and losing a life occurs at the top
 extra blocks included are the slow down ball block and the paddle widen block. 
 
-Level 3 Christian add in what features you complete
+Level 3 moves the paddle to the middle, so powerups fall both ways,
+and losing a life occurs at both ends of the screen. Extra blocks included are slown down ball, paddle widen, and paddle speed blocks. 
 
 
 ### Assumptions

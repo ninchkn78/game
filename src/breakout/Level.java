@@ -219,7 +219,7 @@ public class Level {
   }
 
   public void changeLives(int change) {
-    // TODO: 2020-09-26 change name from decrement ?
+
     myDisplay.changeLives(change, myRoot);
   }
 
@@ -270,7 +270,6 @@ public class Level {
   }
 
   //toggles immunity
-  // TODO: immunity could be in ball? not sure about this one
   public void alternateImmunity() {
     immunity = !immunity;
   }

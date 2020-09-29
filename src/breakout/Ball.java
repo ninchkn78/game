@@ -19,7 +19,7 @@ public class Ball extends Circle {
   private int ySpeed;
   private int xDirection;
   private int yDirection;
-  private boolean BallType;
+
 
   private boolean ballLaunched = false;
 
@@ -73,6 +73,7 @@ public class Ball extends Circle {
 
   // TODO: 2020-09-26 added in gamelogic too, but generalize for dropping through top
   public boolean checkBallDroppedThroughBottom(int levelNum) {
+
     if (levelNum == 2) {
       return this.getCenterY() < 0;
     }
@@ -119,7 +120,5 @@ public class Ball extends Circle {
     this.ySpeed *= modifier;
     this.xSpeed *= modifier;
   }
-  public int getInitialY(){
-    return this.initialY;
-  }
+
 }
