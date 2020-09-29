@@ -47,16 +47,6 @@ DOWN: decrease ball speed
 1-3: change to this level
 
 Known Bugs:
-Christian remove whichever of these you have time to fix 
-
-Resetting the level resets the level display to 0 too even though the setup of the level stays at 
-the current level. 
-
-It's possible to lose the game after winning the game if the player is on one life and all the balls
-cross the loss boundary. 
-
-Sometimes the display overlaps over the previous one. 
-
 
 Level descriptions: 
 
@@ -81,14 +71,14 @@ this are the configuration of the types of blocks separated by commas:
 * L - drops an extra life powerup
 * B - drops a slow down ball powerup
 * P - drops a widen paddle powerup
-* any other value results in no block being put at that position 
+* X - no block is placed at this position 
 
 ### Notes
 
 The initial size of all objects are determined by constants. Blocks, balls, and powerups do not 
 change sizes. 
 
-Each block destroyed adds one point to the score 
+Each block destroyed by the ball adds one point to the score
 
 Each powerup is color coded by what its effect is, but powerup blocks are randomly colored so that 
 whether it drops a powerup or not is a surprise to the player.
@@ -96,5 +86,6 @@ whether it drops a powerup or not is a surprise to the player.
 Durable blocks are shaded dark purple specifically while basic blocks are randomly colored. 
 
 Cheat keys that enhance gameplay should not work when the ball isn't launched or the game is paused 
+
 ### Impressions
 
