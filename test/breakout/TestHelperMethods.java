@@ -22,7 +22,7 @@ public class TestHelperMethods extends DukeApplicationTest {
    */
 
   public static void breakBlock(Block block, Ball ball, Game game) {
-    block.setX(150);
+    block.setX(125);
     block.setY(205);
     ball.setCenterY(225);
     ball.setCenterX(150);

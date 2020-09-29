@@ -183,7 +183,6 @@ public class GameStepTest extends DukeApplicationTest {
     Block basicBlock = lookup("#0,0").query();
     press(myScene,KeyCode.SHIFT);
     breakBlock(basicBlock, myBall, myGame);
-    sleep(1000);
     Text stats = lookup("#stats").queryText();
     assertEquals("Level: 0     Lives: 3     Score: 1", stats.getText());
 
