@@ -12,7 +12,7 @@ public class GameLogic {
   public static final double INCREASE_BALL_SPEED_RATIO = 1.05;
   public static final double REDUCE_BALL_SPEED_RATIO = .95;
   private final Group myRoot;
-  private final Display myDisplay = new Display();
+  private Display myDisplay = new Display();
   private final Map<KeyCode, Runnable> myKeyActions = new HashMap<>();
   private boolean ballLaunched = false;
   private boolean gamePaused = false;
@@ -98,6 +98,7 @@ public class GameLogic {
   // TODO: fix display not clearing sometimes
   private void changeLevel(int level) {
     resetGame();
+    levelNum = level;
     setUpLevel(level, myRoot);
     myDisplay.changeLevel(level, myRoot);
   }
@@ -112,6 +113,12 @@ public class GameLogic {
     root.getChildren().clear();
     //List<Block> blocks = LevelConfig.getBlockList(levelNum);
     level = LevelConfig.setUpLevel(levelNum, root);
+
+  }
+  private void setUpDisplay(int levelNum) {
+    myDisplay = new Display();
+    Text myStats = myDisplay.createDisplay(levelNum);
+    myRoot.getChildren().add(myStats);
   }
 
   //stays in game logic
@@ -153,6 +160,7 @@ public class GameLogic {
     ballLaunched = false;
     level.reset();
     setUpLevel(levelNum, myRoot);
+    System.out.println(levelNum);
   }
 
   public void dropPowerups(double elapsedTime) {
@@ -169,6 +177,7 @@ public class GameLogic {
       won.setId("WonText");
       level.add(won);
       gameWon = true;
+      setGamePaused();
     }
   }
 
@@ -179,6 +188,7 @@ public class GameLogic {
           "You lost this level! :( \nPress R to restart");
       lost.setId("lostText");
       level.add(lost);
+      setGamePaused();
     }
   }
 

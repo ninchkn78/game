@@ -28,12 +28,12 @@ public class Level {
   private boolean immunity;
 
   public Level(Group gameRoot, int paddleX, int paddleY, int numTopBalls, int numBottomballs,
-      List<Block> blockList) {
+      List<Block> blockList, int levelNum) {
     myRoot = gameRoot;
     setUpPaddle(paddleX, paddleY);
     setUpBalls(numTopBalls, numBottomballs);
     setUpBlocks(blockList);
-    setUpDisplay();
+    setUpDisplay(levelNum);
     numOfTopBalls = numTopBalls;
     numOfBottomBalls = numBottomballs;
   }
@@ -41,6 +41,11 @@ public class Level {
   void setUpBlocks(List<Block> blockList) {
     myBlocks = blockList;
     myRoot.getChildren().addAll(blockList);
+  }
+  private void setUpDisplay(int levelNum) {
+    myDisplay = new Display();
+    Text myStats = myDisplay.createDisplay(levelNum);
+    myRoot.getChildren().add(myStats);
   }
 
   public void dropPowerups(double elapsedTime) {
@@ -61,7 +66,7 @@ public class Level {
       if (ball.checkBallObjectCollision(block)) {
         block.handleHit(this);
         if (block.isBlockBroken()) {
-          myDisplay.incrementScore(1, myRoot);
+          myDisplay.changeScore(1, myRoot);;
           remove(block);
           itr.remove();
         }
@@ -180,11 +185,7 @@ public class Level {
     myRoot.getChildren().add(myPaddle);
   }
 
-  private void setUpDisplay() {
-    myDisplay = new Display();
-    Text myStats = myDisplay.createDisplay();
-    myRoot.getChildren().add(myStats);
-  }
+
 
   public void reset() {
     for (Ball ball : myBalls) {
@@ -215,7 +216,7 @@ public class Level {
 
   public void changeLives(int change) {
     // TODO: 2020-09-26 change name from decrement ?
-    myDisplay.decrementLives(change, myRoot);
+    myDisplay.changeLives(change, myRoot);
   }
 
   // TODO: generalize this to check for when ball drops through top too (for later levels), maybe add as a parameter

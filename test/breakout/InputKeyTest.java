@@ -110,7 +110,7 @@ public class InputKeyTest extends DukeApplicationTest {
     press(myScene, KeyCode.L);
     press(myScene, KeyCode.L);
     Text stats = lookup("#stats").queryText();
-    assertEquals("Lives: 5     Score: 0", stats.getText());
+    assertEquals("Level: 0     Lives: 5     Score: 0", stats.getText());
   }
 
   @Test
