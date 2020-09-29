@@ -3,7 +3,10 @@ game
 
 This project implements the game of Breakout.
 
-Name: Alex Chao
+Name: 
+
+Alex Chao
+Christian Welch 
 
 ### Timeline
 
