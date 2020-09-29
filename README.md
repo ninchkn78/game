@@ -56,7 +56,6 @@ it is supposed to rebound off the top, and cause a life loss and reset
 when passing through the bottom. However, both balls rebound off the top and disappear through
 the bottom without causing a life loss, only a reset. 
 
-On level 2, ball doesn't bounce off of bottom 
 
 Implementation of High Score Tracking was attempted, but a bug occurs where the myDisplay.getScore method always
 returns 0, and thus does not update the high score. 
