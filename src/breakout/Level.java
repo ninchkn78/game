@@ -43,7 +43,11 @@ public class Level {
     myRoot.getChildren().addAll(blockList);
   }
 
-
+  /**
+   * Moves the powerups and if they hit the paddle, perform their designated powerup and then remove
+   * it
+   * @param elapsedTime
+   */
   public void dropPowerups(double elapsedTime) {
     for (Powerup powerup : myPowerups) {
       powerup.drop(elapsedTime);
@@ -70,6 +74,9 @@ public class Level {
     }
   }
 
+  /**
+   * Handles when each ball hits either the paddle or a block
+   */
   public void checkCollisions() {
     for (Ball ball : myBalls) {
       checkBallBlockCollision(ball);
@@ -77,24 +84,43 @@ public class Level {
     }
   }
 
+  /**
+   * Tells all the balls to move across the screen
+   * @param elapsedTime
+   */
   public void moveBall(double elapsedTime) {
     for (Ball ball : myBalls) {
       ball.moveBall(elapsedTime);
     }
   }
 
+  /**
+   * Tells the ball to change its speed by a factor of the modifier
+   * @param modifier
+   */
   public void changeBallSpeed(double modifier) {
     for (Ball ball : myBalls) {
       ball.changeBallSpeed(modifier);
     }
   }
 
+  /**
+   * Tells the paddle to change its width based on a factor of the modifier
+   * @param modifier
+   */
   public void changePaddleWidth(double modifier) {
     myPaddle.changePaddleWidth(modifier);
   }
 
+  /**
+   * Tells the paddle to change its speed based on a factor of the modifier
+   * @param modifier
+   */
   public void changePaddleSpeed(double modifier) {myPaddle.changePaddleSpeed(modifier);}
 
+  /**
+   * Launch every ball that has not already been launched
+   */
   public void setBallLaunched() {
     for (Ball ball : myBalls) {
       if (!ball.isBallLaunched()) {
@@ -125,6 +151,10 @@ public class Level {
     myBalls.add(ball);
   }
 
+  /**
+   * Adds a new ball to the stage,
+   * the probability of a top ball or a bottom ball is dependent on the ratio of the initial number of balls
+   */
   public void addNewBall() {
     double topBallProb = (double) numOfTopBalls / (numOfTopBalls + numOfBottomBalls);
     if (Math.random() <= topBallProb) {
@@ -132,9 +162,13 @@ public class Level {
     } else {
       addBottomBall();
     }
-
   }
 
+  /**
+   * Given a block and a powerup type, adds a powerup of that type at the position of the block
+   * @param block
+   * @param powerupType
+   */
   public void addPowerupFromBlock(Block block, int powerupType) {
     double xPos = block.getX();
     double yPos = block.getY();
@@ -149,6 +183,13 @@ public class Level {
     powerup.setId(String.format("powerup%d", myPowerups.indexOf(powerup)));
   }
 
+  /**
+   * Adds a random powerup to a random x coordinate, and a y coordinate depending on the position of
+   * the paddle.
+   * If the paddle is at the bottom, adds powerup to the top
+   * If the paddle is at the top, adds powerup to the bottom
+   * If the paddle is in the middle, an equal chance of either.
+   */
   public void addRandomPowerup() {
     int xPos = GameLogic.getRandomNumber(0, Game.SIZE);
     int yPos = getRandomPowerupYPosition();
@@ -190,7 +231,10 @@ public class Level {
   }
 
 
-
+  /**
+   * Resets the game by moving the paddle to its original position, clearing all the bals, then
+   * setting up new balls based off of the original number of balls
+   */
   public void reset() {
     for (Ball ball : myBalls) {
       ball.reset();
@@ -200,18 +244,34 @@ public class Level {
     setUpBalls(numOfTopBalls, numOfBottomBalls);
   }
 
+  /**
+   * Removes the specified object from the root
+   * @param object
+   */
   public void remove(Shape object) {
     myRoot.getChildren().remove(object);
   }
 
+  /**
+   * Adds the object to the root
+   * @param object
+   */
   public void add(Shape object) {
     myRoot.getChildren().add(object);
   }
 
+  /**
+   * Tells the paddle to move either left or right
+   * @param code LEFT or RIGHT
+   */
   public void movePaddle(KeyCode code) {
     myPaddle.movePaddle(code);
   }
 
+  /**
+   * Tells all balls to move either horizontally with the paddle
+   * @param code LEFT or RIGHT
+   */
   public void moveBallsWithPaddle(KeyCode code) {
     for (Ball ball : myBalls) {
       ball.moveBallWithPaddle(code);
@@ -219,7 +279,6 @@ public class Level {
   }
 
   public void changeLives(int change) {
-
     myDisplay.changeLives(change, myRoot);
   }
 
@@ -243,14 +302,21 @@ public class Level {
     return false;
   }
 
+  /**
+   * Checks to see if the number of lives is zero
+   * @return true if number of lives is <= 0, false otherwise
+   */
   public boolean noLives() {
     return myDisplay.getLives() <= 0;
   }
 
+  /**
+   * Checks to see if all blocks have been broken
+   * @return true if there are no blocks remaining, false otherwise
+   */
   public boolean noBlocks() {
     return myBlocks.isEmpty();
   }
-
 
   public void removeBlock(int index) { //index of block in blocklist
     Block block = myBlocks.get(index); //get block from list at index

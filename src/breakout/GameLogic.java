@@ -13,6 +13,12 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 
+/**
+ * Given a level and a root, makes a corresponding Level Object and
+ * manages what happens in the Level based on conditions and inputs
+ *
+ * @authors Alex Chao and Christian Welch
+ */
 public class GameLogic {
 
   public static final double REDUCE_BALL_SPEED_RATIO = .95;
@@ -32,6 +38,12 @@ public class GameLogic {
     makeKeyActionsMap();
   }
 
+  /**
+   * Gets a random number b/w the min and the max, assumes min is less than max and works for negative values
+   * @param min
+   * @param max
+   * @return a random int
+   */
   //found this on stack overflow
   public static int getRandomNumber(int min, int max) {
     Random random = new Random();
@@ -119,6 +131,10 @@ public class GameLogic {
     myRoot.getChildren().add(myStats);
   }
 
+  /**
+   * Performs the action associated with the input passed in
+   * @param code a keyboard input
+   */
   public void handleKeyInput(KeyCode code) {
     myKeyActions.getOrDefault(code, () -> {
     }).run();
@@ -142,6 +158,11 @@ public class GameLogic {
     level.setBallLaunched();
   }
 
+  /**
+   * Tells the Level to move its balls
+   * If all balls pass out of stage, checks to see if the game was lost
+   * @param elapsedTime
+   */
   public void moveBall(double elapsedTime) {
     if (ballLaunched && !gamePaused) {
       level.moveBall(elapsedTime);
@@ -160,6 +181,10 @@ public class GameLogic {
 
   }
 
+  /**
+   * Tells the level to move its powerups
+   * @param elapsedTime
+   */
   public void dropPowerups(double elapsedTime) {
     if (!gamePaused) {
       level.dropPowerups(elapsedTime);

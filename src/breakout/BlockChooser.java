@@ -12,6 +12,18 @@ import breakout.blocks.PaddleWidthPowerupBlock;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Subclass of TypeChooser
+ *
+ * Makes blocks at the given row and col and gives the block of the type passed into the parent method
+ * getType
+ *
+ * Example: BlockChooser.getType("B") would return a BallPowerupBlock
+ *
+ * Depends on the blocks package
+ *
+ * @author Alex Chao
+ */
 public class BlockChooser extends TypeChooser {
 
   //only have to change block chooser when adding a new type of block
@@ -38,12 +50,12 @@ public class BlockChooser extends TypeChooser {
   }
 
   @Override
-  public int getTypeIndex(String type) {
+  protected int getTypeIndex(String type) {
     return blockTypes.indexOf(type);
   }
 
   @Override
-  public void addAllTypes() {
+  protected void addAllTypes() {
     addTypeToMap(null);
     addTypeToMap(new BasicBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));
     addTypeToMap(new PaddleWidthPowerupBlock(rowNum, colNum, BLOCK_WIDTH, BLOCK_HEIGHT));

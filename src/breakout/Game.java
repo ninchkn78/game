@@ -31,9 +31,6 @@ public class Game extends Application {
     launch(args);
   }
 
-  /**
-   * Initialize what will be displayed and how it will be updated.
-   */
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
