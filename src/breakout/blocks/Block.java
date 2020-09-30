@@ -4,6 +4,15 @@ import breakout.Level;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * An abstract class that provides a template for creating Blocks, which can handle being hit
+ * by another Object
+ *
+ * Color is default to a random color
+ *
+ * @author Alex Chao
+ */
+
 public abstract class Block extends Rectangle {
 
   public final static int Y_DISPLACEMENT = 5;
@@ -18,8 +27,20 @@ public abstract class Block extends Rectangle {
     setRandomColor();
   }
 
+  /**
+   * Enact different effects depending on the type of block when it is hit.
+   * @param level
+   */
   public abstract void handleHit(Level level);
 
+  /**
+   * Returns true if the block has been broken and false otherwise
+   *
+   * Note: on reflection, this method actually does not need to be abstract, since the logic for
+   * checking that is in handleHit
+   *
+   * @return true if block broken, false otherwise
+   */
   public abstract boolean isBlockBroken();
 
   protected void setRandomColor() {

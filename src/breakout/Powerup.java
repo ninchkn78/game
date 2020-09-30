@@ -4,6 +4,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
+/**
+ * An abstract class that allows powerups to be in the game
+ *
+ * Powerups are circles and only move along the Y direction
+ *
+ * @author Alex Chao
+ */
 public abstract class Powerup extends Circle {
 
   public static final Paint BALL_POWER_UP_COLOR = Color.BLUEVIOLET;
@@ -23,6 +30,13 @@ public abstract class Powerup extends Circle {
     return this.getBoundsInParent().intersects(paddle.getBoundsInParent());
   }
 
+  /**
+   * If the powerup has not done its effect, do this effect if it hits the paddle then return true
+   * otherwise return false
+   * @param level a Level Object
+   * @param paddle a Paddle Object
+   * @return true if powerup happens, false otherwise
+   */
   public boolean poweredUp(Level level, Paddle paddle) {
     if (hitPaddle(paddle) && !powerUpHappened) {
       doPowerup(level);
@@ -32,7 +46,7 @@ public abstract class Powerup extends Circle {
     return false;
   }
 
-  public abstract void doPowerup(Level level);
+  protected abstract void doPowerup(Level level);
 
   private void setDropDirection() {
     if (this.getCenterY() > Game.SIZE / 2) {
@@ -40,6 +54,10 @@ public abstract class Powerup extends Circle {
     }
   }
 
+  /**
+   * Moves the powerup
+   * @param elapsedTime
+   */
   public void drop(double elapsedTime) {
     this.setCenterY(this.getCenterY() + dropSpeed * elapsedTime);
   }

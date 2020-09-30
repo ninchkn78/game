@@ -10,6 +10,15 @@ import java.util.Scanner;
 import javafx.scene.Group;
 import javafx.util.Pair;
 
+/**
+ * Utility class that configures a level from a given text file
+ *
+ * Assumes that text files are in the format "level" + levelnum + ".txt" and are in the levels resources
+ * root
+ *
+ * Example call: LevelConfig.setUpLevel(1, root) returns a level object with the specified properties
+ * in the corresponding level 1 text file using the passed in Group object.
+ */
 public class LevelConfig {
 
   public static final int BLOCK_WIDTH = 42;
@@ -72,6 +81,15 @@ public class LevelConfig {
     return (Block) blockChooser.getType(blockType);
   }
 
+  /**
+   * Returns a Level object that has all of the properties designated in its corresponding text file
+   * If a level number corresponding to an invalid text file is passed through, returns the Level 0
+   * object which is a testing file
+   *
+   * @param levelNum
+   * @param root the Group object to be used in the level
+   * @return Level object
+   */
   public static Level setUpLevel(int levelNum, Group root) {
     Level level;
     try {

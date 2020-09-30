@@ -1,11 +1,14 @@
 package breakout;
 
+
+
 import java.util.Random;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+
 
 public class Ball extends Circle {
 
@@ -29,16 +32,16 @@ public class Ball extends Circle {
     initialX = centerX;
     initialY = centerY;
     this.setFill(BALL_COLOR);
-
-
   }
 
   public boolean isBallLaunched() {
     return this.ballLaunched;
   }
 
-
-
+  /**
+   * Moves the ball along the x axis at PADDLE_SPEED speed
+   * @param code either LEFT or RIGHT
+   */
   public void moveBallWithPaddle(KeyCode code) {
     if (code.equals(KeyCode.LEFT)) {
       this.setCenterX(this.getCenterX() - Paddle.PADDLE_SPEED);
@@ -47,6 +50,10 @@ public class Ball extends Circle {
     }
   }
 
+  /**
+   * Moves the ball depending on the ball's current direction and speed for elapsedTime
+   * @param elapsedTime
+   */
   public void moveBall(double elapsedTime) {
     checkWallCollision();
     this.setCenterY(this.getCenterY() + this.ySpeed * this.yDirection * elapsedTime);
@@ -62,6 +69,10 @@ public class Ball extends Circle {
     }
   }
 
+  /**
+   * Launches the ball by giving it a random launch angle, but total speed of the ball should be
+   * constant among calls
+   */
   public void setLaunch() {
     ballLaunched = true;
     this.setDirection(random.nextBoolean() ? -1 : 1,
@@ -74,11 +85,9 @@ public class Ball extends Circle {
 
   // TODO: 2020-09-26 added in gamelogic too, but generalize for dropping through top
   public boolean checkBallDroppedThroughBottom(int levelNum) {
-
     if (levelNum == 2) {
       return this.getCenterY() < 0;
     }
-
     return this.getCenterY() > Game.SIZE;
   }
 
@@ -96,7 +105,9 @@ public class Ball extends Circle {
     this.yDirection = yDirection;
   }
 
-
+  /**
+   * resets the ball to its original position from when it was constructed
+   */
   public void reset() {
     this.setCenterX(initialX);
     this.setCenterY(initialY);
@@ -118,6 +129,10 @@ public class Ball extends Circle {
     }
   }
 
+  /**
+   * changes the speed of the ball by a factor of the modifier
+   * @param modifier
+   */
   public void changeBallSpeed(double modifier) {
     this.ySpeed *= modifier;
     this.xSpeed *= modifier;

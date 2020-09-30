@@ -5,6 +5,16 @@ import java.util.Map;
 import java.util.Random;
 import javafx.scene.shape.Shape;
 
+/**
+ * An abstract class that provides a template for functionality that allows the user make a specific
+ * type of object
+ *
+ * Examples include the Powerup and Block choosers, which allow for easy access of a specific kind
+ * of each of these
+ *
+ * @author Alex Chao
+ */
+
 public abstract class TypeChooser {
 
   public static final int RANDOM_TYPE = -1;
@@ -15,6 +25,11 @@ public abstract class TypeChooser {
   public TypeChooser() {
   }
 
+  /**
+   * Given a string that identifies a type of shape, returns a new Shape
+   * @param type String that represents the type of the object wanted
+   * @return the Shape associated with that type
+   */
   public Shape getType(String type) {
     int typeIndex = getTypeIndex(type);
     if (typeIndex == RANDOM_TYPE) {
@@ -24,13 +39,12 @@ public abstract class TypeChooser {
     return types.get(typeIndex);
   }
 
-  public void addTypeToMap(Shape object) {
+  protected void addTypeToMap(Shape object) {
     types.put(numOfTypes, object);
     numOfTypes++;
   }
 
-  public abstract int getTypeIndex(String type);
+  protected abstract int getTypeIndex(String type);
 
-
-  public abstract void addAllTypes();
+  protected abstract void addAllTypes();
 }

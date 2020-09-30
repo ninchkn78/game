@@ -1,5 +1,16 @@
 package breakout;
 
+
+/**
+ * Subclass of TypeChooser
+ *
+ * Makes powerups at the given x and y position and gives the powerup of the type passed into the parent method
+ * getType
+ *
+ * Example: PowerupChooser.getType(0) would return a BallPowerup
+ *
+ * @author Alex Chao
+ */
 public class PowerupChooser extends TypeChooser {
 
   //only have to change powerup chooser when adding a new random powerup
@@ -18,12 +29,12 @@ public class PowerupChooser extends TypeChooser {
   }
 
   @Override
-  public int getTypeIndex(String type) {
+  protected int getTypeIndex(String type) {
     return Integer.parseInt(type);
   }
 
   @Override
-  public void addAllTypes() {
+  protected void addAllTypes() {
     addTypeToMap(new BallPowerup(xPos, yPos));
     addTypeToMap(new PaddleWidthPowerup(xPos, yPos));
     addTypeToMap(new ExtraLifePowerup(xPos, yPos));

@@ -2,6 +2,11 @@ package breakout.blocks;
 
 import breakout.Level;
 
+/**
+ * A Block that breaks on a single hit with no other special characteristics
+ *
+ * @author Alex Chao
+ */
 public class BasicBlock extends Block {
 
   private boolean blockBroken = false;
@@ -15,6 +20,10 @@ public class BasicBlock extends Block {
     return blockBroken;
   }
 
+  /**
+   * Sets the block to be broken on one hit
+   * @param level
+   */
   @Override
   public void handleHit(Level level) {
     blockBroken = true;
