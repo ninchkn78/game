@@ -318,6 +318,10 @@ public class Level {
     return myBlocks.isEmpty();
   }
 
+  /**
+   * Removes the block at the given index of the blocklist containing all the block objects currently in the game.
+   * @param index
+   */
   public void removeBlock(int index) { //index of block in blocklist
     Block block = myBlocks.get(index); //get block from list at index
     myBlocks.remove(index); //remove block from list at index

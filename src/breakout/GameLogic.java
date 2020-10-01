@@ -213,12 +213,20 @@ public class GameLogic {
     }
   }
 
+  /**
+   * checks for collisions between the ball and paddle/blocks and determines if the game has been won.
+   */
   public void checkCollision() {
     level.checkCollisions();
     checkGameWon();
   }
 
   // high score implementation does not work, but a skeleton is here.
+
+  /**
+   * Takes in the current high score and writes to the file HighScore.txt
+   * @param HighScore
+   */
   public void addHighScoreToFile(int HighScore){
     try {
       FileWriter myWriter = new FileWriter("./doc/HighScore.txt");
@@ -230,6 +238,11 @@ public class GameLogic {
     }
   }
 
+  /**
+   * Parses through HighScore.txt and returns the most recent entry, which is the current high score
+   * @return integer that is current high score
+   * @throws FileNotFoundException
+   */
   public int readHighScore() throws FileNotFoundException {
     int CurrentHighScore = 0;
     String file = "./doc/HighScore.txt";
@@ -239,6 +252,12 @@ public class GameLogic {
     }
     return CurrentHighScore;
   }
+
+  /**
+   * Checks to see if the current score is greater than the high score imported from the HighScore.txt file.
+   * If it is, it adds it to the HighScore file.
+   * @throws FileNotFoundException
+   */
   public void updateHighScore() throws FileNotFoundException {
     int highScore = readHighScore();
 
