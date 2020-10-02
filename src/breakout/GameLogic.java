@@ -125,6 +125,11 @@ public class GameLogic {
     level = LevelConfig.setUpLevel(levelNum, root);
 
   }
+  private void setUpDisplay(int levelNum) {
+    myDisplay = new Display();
+    Text myStats = myDisplay.createDisplay(levelNum);
+    myRoot.getChildren().add(myStats);
+  }
 
 
   /**
