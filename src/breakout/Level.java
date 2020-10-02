@@ -282,6 +282,11 @@ public class Level {
     myDisplay.changeLives(change, myRoot);
   }
 
+  /**
+   * returns false if all of the balls present in the level have not dropped through bottom, and true if they have
+   * @param levelNum
+   * @return
+   */
   // TODO: generalize this to check for when ball drops through top too (for later levels), maybe add as a parameter
   public boolean checkBallDroppedThroughBottom(int levelNum) {
     int numBalls = myBalls.size();
@@ -340,6 +345,11 @@ public class Level {
   }
 
   //toggles immunity
+
+  /**
+   * toggles the current status of immunity to dropping through a boundary.
+   *
+   */
   public void alternateImmunity() {
     immunity = !immunity;
   }
