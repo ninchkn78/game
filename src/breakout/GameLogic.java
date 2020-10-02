@@ -121,7 +121,7 @@ public class GameLogic {
 
   public void setUpLevel(int levelNum, Group root) {
     root.getChildren().clear();
-    //List<Block> blocks = LevelConfig.getBlockList(levelNum);
+
     level = LevelConfig.setUpLevel(levelNum, root);
 
   }
@@ -130,6 +130,7 @@ public class GameLogic {
     Text myStats = myDisplay.createDisplay(levelNum);
     myRoot.getChildren().add(myStats);
   }
+
 
   /**
    * Performs the action associated with the input passed in

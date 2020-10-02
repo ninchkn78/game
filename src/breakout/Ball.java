@@ -122,7 +122,9 @@ public class Ball extends Circle {
     return this.yDirection;
   }
 
-
+  /**
+   * the ball this is called on does not drop through bottom of screen, but bounces back up
+   */
   public void ignoreBottom() { // ball does not fall through bottom and instead bounces back up
     if (this.getCenterY() > Game.SIZE) {
       this.yDirection *= -1;
