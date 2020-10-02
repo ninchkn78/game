@@ -48,7 +48,17 @@ Our implementation as it stands can only utilize level files containing the abov
 
 To add a new level, simply make a level file of the format "levelXX.txt" within the level folder. The integer XX is the level number that this file will be assigned to within the game. 
 
-To add a new powerup or block, define a new subclass of Powerup or Block and implement their functions to the specifications of your desired addition.
+Adding a new powerup requires making a new powerup class that extends Powerup, then adding its
+constructor in the PowerupChooser class. After implementing the change that the powerup does in the
+Level class, pressing P should be able to generate this random powerup. 
+
+Adding a new block requires making a new Block class that extends Block, then adding its constructor 
+to BlockChooser. After adding the string associated with the Block in a level text file, it should 
+be fully incorporated into the game 
+
+Adding a new cheat key involves adding a addKeyInput call in the makeKeyActionsMap method in Game, and 
+then writing the method associated with this key input press 
+
 
 #### Easy to Add Features
 
